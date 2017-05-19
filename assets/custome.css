@@ -1,0 +1,25 @@
+.konten {
+  margin-top: 50px;
+}
+
+/* pagging datatable*/
+.mdl-button--raised.mdl-button--colored:active,
+.mdl-button--raised.mdl-button--colored:hover {
+  background-color: #0d47a1 !important;
+}
+
+.mdl-button--raised.mdl-button--colored {
+  background: #2196F3 !important;
+  color: #fff !important;
+}
+
+#example_length {
+  text-decoration: none !important;
+
+}
+
+#example_length select {
+  height: 10%;
+}
+
+/* pagging datatable*/
