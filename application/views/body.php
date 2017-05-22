@@ -22,7 +22,7 @@
     <!-- <li class="divider"></li>
     <li><a href="#!">three</a></li> -->
   </ul>
-  <nav class="blue darken-1">
+  <nav class="blue-grey lighten-1">
     <div class="container nav-wrapper">
       <a href="#!" class="brand-logo"><!--Logo--></a>
       <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
