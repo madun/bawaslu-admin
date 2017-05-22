@@ -14,7 +14,8 @@
             </div>
         </div>
         <div class="modal-footer">
-            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+            <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat">CLOSE</a>
+            <a href="#!" class="modal-action waves-effect waves-green btn-flat">Agree</a>
         </div>
     </div>
     <div class="row">
