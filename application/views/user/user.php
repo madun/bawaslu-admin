@@ -6,12 +6,23 @@
 
   </head>
   <body>
+    <div id="addUser" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <h4>Modal Header</h4>
+            <div class="col l12 m12 s12">
+                here im : <input type="text" name="" value="">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+        </div>
+    </div>
     <div class="row">
       <div class="col l6">
       <h5>USER</h5>
       </div>
       <div class="col l6">
-      <button type="button" class="waves-effect waves-light btn right" name="button"><i class="material-icons">add</i></button>
+      <button type="button" class="waves-effect waves-light btn right" name="button" data-target="addUser"><i class="material-icons">add</i></button>
       </div>
 
       <div class="col l12">
@@ -56,6 +67,7 @@
   <script type="text/javascript">
   $(document).ready(function() {
       $('#example').dataTable();
+      $('.modal').modal();
   } );
   </script>
   </body>
