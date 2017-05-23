@@ -8,13 +8,29 @@
   <body>
     <div id="addUser" class="modal modal-fixed-footer">
         <div class="modal-content">
-            <h4>Modal Header</h4>
-            <div class="col l12 m12 s12">
-                here im : <input type="text" name="" value="">
+          <h4>Add User</h4>
+          <div class="row">
+            <div class="input-field col l12 m12 s12">
+              <input id="email" type="email" class="validate" required>
+              <label for="email">Email <span class="red-text">(*)</span></label>
             </div>
+            <div class="input-field col l6 m6 s6">
+              <input id="nama" type="text" class="validate" required>
+              <label for="nama">Nama <span class="red-text">(*)</span></label>
+            </div>
+            <div id="select" class="input-field col l6 m6 s6">
+              <select id="akses">
+                <option value="" disabled selected>Choose your option</option>
+                <option value="1">Admin</option>
+                <option value="2">Pelamar</option>
+              </select>
+              <label for="akses">Akses</label>
+            </div>
+          </div>
         </div>
         <div class="modal-footer">
-            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+            <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat">CLOSE</a>
+            <a href="#!" class="modal-action waves-effect waves-green btn-flat">SAVE</a>
         </div>
     </div>
     <div class="row">
@@ -67,7 +83,26 @@
   <script type="text/javascript">
   $(document).ready(function() {
       $('#example').dataTable();
-      $('.modal').modal();
+      $('.modal').modal({
+          dismissible: true, // Modal can be dismissed by clicking outside of the modal
+          opacity: .8, // Opacity of modal background
+          inDuration: 300, // Transition in duration
+          outDuration: 200, // Transition out duration
+          startingTop: '4%', // Starting top style attribute
+          endingTop: '10%', // Ending top style attribute
+          ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
+            $('select').material_select();
+            $('.datepicker').pickadate({
+              selectMonths: true, // Creates a dropdown to control month
+              selectYears: 70 // Creates a dropdown of 15 years to control year
+            });
+          },
+          complete: function() {
+            $('select').material_select('destroy');
+          } // Callback for Modal close
+        }
+      );
+
   } );
   </script>
   </body>
