@@ -26,6 +26,10 @@
               </select>
               <label for="akses">Akses</label>
             </div>
+            <div class="input-field">
+              <input type="date" class="datepicker" id="expired" placeholder="Expired">
+              <!-- <label for="birth">Birth <span class="red-text">(*)</span></label> -->
+            </div>
           </div>
         </div>
         <div class="modal-footer">
@@ -102,7 +106,7 @@
           } // Callback for Modal close
         }
       );
-
+      
   } );
   </script>
   </body>
