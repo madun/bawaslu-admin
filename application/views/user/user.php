@@ -11,6 +11,11 @@
         bottom: 80%;
         left:40%;
       }
+
+      .detail:hover{
+        cursor: pointer;
+        color: blue;
+      }
     </style>
   </head>
   <body>
@@ -93,7 +98,6 @@
   <script type="text/javascript" src="<?php echo base_url(); ?>assets/jquery-2.1.1.min.js"></script>
   <script type="text/javascript">
   $(document).ready(function() {
-      $('.tooltipped').tooltip({delay: 50});
       loadData();
       $('.modal').modal({
           dismissible: true, // Modal can be dismissed by clicking outside of the modal
@@ -180,7 +184,7 @@
 
                   newRow.html('\
                       <td>'+val.id_user+'</td>\
-                      <td>'+val.email+'</td>\
+                      <td><a class="detail" href="<?php echo base_url(); ?>detail_pelamar/getData/'+val.id_user+'">'+val.email+'</a></td>\
                       <td>'+val.username+'</td>\
                       <td>'+val.user_type+'</td>\
                       <td>'+val.tgl_update+'</td>\
