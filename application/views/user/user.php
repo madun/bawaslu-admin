@@ -6,7 +6,7 @@
 
   </head>
   <body>
-    <div id="addUser" class="modal modal-fixed-footer">
+    <div id="modalUser" class="modal modal-fixed-footer">
         <div class="modal-content">
           <h4>Add User</h4>
           <div class="row">
@@ -26,6 +26,14 @@
               </select>
               <label for="akses">Akses</label>
             </div>
+            <div class="input-field col l6 m6 s6">
+              <input id="start" type="text" class="validate" required>
+              <label for="start">Start (dd-mm-yyyy) <span class="red-text">(*)</span></label>
+            </div>
+            <div class="input-field col l6 m6 s6">
+              <input id="expired" type="text" class="validate" required>
+              <label for="expired">Expired (dd-mm-yyyy) <span class="red-text">(*)</span></label>
+            </div>
             <!-- <div class="input-field">
               <input type="date" class="datepicker" id="expired" placeholder="Expired">
             </div> -->
@@ -33,7 +41,8 @@
         </div>
         <div class="modal-footer">
             <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat">CLOSE</a>
-            <a href="#!" class="modal-action waves-effect waves-green btn-flat">SAVE</a>
+            <a href="#!" class="simpan modal-action waves-effect waves-green btn-flat">SAVE</a>
+            <a href="#!" class="update modal-action waves-effect waves-green btn-flat" style="display:none;">UPDATE</a>
         </div>
     </div>
     <div class="row">
@@ -41,43 +50,33 @@
       <h5>USER</h5>
       </div>
       <div class="col l6">
-      <button type="button" class="waves-effect waves-light btn right" name="button" data-target="addUser"><i class="material-icons">add</i></button>
+      <button type="button" class="waves-effect waves-light btn right" name="button" data-target="modalUser"><i class="material-icons">add</i></button>
       </div>
 
       <div class="col l12">
-        <table id="example" class="mdl-data-table" width="100%" cellspacing="0">
+        <table id="dt-user" class="mdl-data-table" width="100%" cellspacing="0">
           <thead>
                 <tr>
-                    <th>No</th>
                     <th>ID USER</th>
                     <th>E Mail</th>
                     <th>Nama</th>
                     <th>Akses</th>
+                    <th>Expired</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
             <tfoot>
                 <tr>
-                    <th>Name</th>
-                    <th>Position</th>
-                    <th>Office</th>
-                    <th>Age</th>
-                    <th>Start date</th>
-                    <th>Salary</th>
+                  <th>ID USER</th>
+                  <th>E Mail</th>
+                  <th>Nama</th>
+                  <th>Akses</th>
+                  <th>Expired</th>
+                  <th>Aksi</th>
                 </tr>
             </tfoot>
-            <tbody>
-                <tr>
-                  <td>Who is This</td>
-                  <td>test job</td>
-                  <td>fdasf</td>
-                  <td>22</td>
-                  <td>20-12-2017</td>
-                  <td>
-                      <button class="waves-effect waves-light btn orange" id="btnEdit" type="submit" name="btnEdit"><i class="material-icons left">mode_edit</i></button>
-                      <button class="waves-effect waves-light btn red" id="btnDelete" type="submit" name="btnDelete"><i class="material-icons left">delete</i></button>
-                  </td>
-                </tr>
+            <tbody id="load_data">
+
             </tbody>
         </table>
       </div>
@@ -85,8 +84,16 @@
   <script type="text/javascript" src="<?php echo base_url(); ?>assets/jquery-2.1.1.min.js"></script>
   <script type="text/javascript">
   $(document).ready(function() {
-      $('#example').dataTable();
-      $('.modal').modal({
+      loadData();
+      var oTable1 = $('#dt-user').dataTable({
+        // "processing": true,
+        // "serverSide": true,
+          "aoColumns" : [
+            null,null,null,null,null
+            // { "bSortable": false }
+          ]
+      });
+      $('#modalUser').modal({
           dismissible: true, // Modal can be dismissed by clicking outside of the modal
           opacity: .8, // Opacity of modal background
           inDuration: 300, // Transition in duration
@@ -106,7 +113,64 @@
         }
       );
 
+      // get id untuk edit
+      $(document).on("click",".selectEdit", function(){
+          var id_user = $(this).attr('id');
+
+          $.ajax({
+              type : 'POST',
+              data : "id_user="+id_user,
+              url : "<?php echo base_url(); ?>user/getidUser",
+              success : function(result){
+                  $(".simpan").hide();
+                  $(".update").show();
+                  var resultObj = JSON.parse(result);
+                  // ke dalam object
+                  $.each(resultObj,function(key,val){
+                    $("[name='id_barang']").val(val.id_barang);
+                    $("[name='nama_barang']").val(val.nama_barang);
+                    $("[name='jumlah_barang']").val(val.jumlah_barang);
+                    $("[name='harga']").val(val.harga);
+                    $("[name='status']").val(val.quality);
+                    $("[name='keterangan']").val(val.keterangan);
+                });
+              }
+          });
+      });
+
   } );
+
+  function loadData(){
+        var data_here = $('#load_data');
+        data_here.html("");
+        $.ajax({
+            type : 'GET',
+            data : '',
+            url : '<?php echo base_url(); ?>user/getData',
+            success : function(result){
+              var resultObj = JSON.parse(result);
+
+              //fetch data ke dalam object
+              $.each(resultObj,function(key,val){
+                  var newRow = $("<tr>");
+
+                  newRow.html('\
+                      <td>'+val.id_user+'</td>\
+                      <td>'+val.email+'</td>\
+                      <td>'+val.username+'</td>\
+                      <td>'+val.user_type+'</td>\
+                      <td>'+val.tgl_update+'</td>\
+                      <td>\
+                          <button class="selectEdit waves-effect waves-light btn orange" id="" type="submit" name="btnEdit" data-target="modalUser"><i class="material-icons left">mode_edit</i></button>\
+                          <button class="waves-effect waves-light btn red" id="" type="submit" name="btnDelete" data-target="modalUser"><i class="material-icons left">delete</i></button>\
+                      </td>\
+                  ');
+
+                  data_here.append(newRow);
+              });
+            }
+        });
+    }
   </script>
   </body>
 </html>
