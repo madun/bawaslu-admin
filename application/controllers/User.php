@@ -26,5 +26,31 @@ class User extends CI_Controller {
 		echo json_encode($result);
 	}
 
+	public function insertData(){
+		$this->model_security->getsecurity();
+		$result = $this->model_user->insertData();
+		echo json_encode($result);
+	}
+
+	public function getidUser(){
+		$this->model_security->getsecurity();
+
+		$id = $this->input->post('id_user');
+		$result = $this->model_user->getid_edit($id);
+		echo json_encode($result);
+	}
+
+	public function updateData(){
+		$this->model_security->getsecurity();
+		$result = $this->model_user->updateData();
+		echo json_encode($result);
+	}
+
+	public function deleteData(){
+		$this->model_security->getsecurity();
+		$result = $this->model_user->deleteData();
+		echo json_encode($result);
+	}
+
 
 }

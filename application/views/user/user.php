@@ -3,23 +3,32 @@
   <head>
     <meta charset="utf-8">
     <title>USER</title>
-
+    <style media="screen">
+      /*toast*/
+      #toast-container {
+        top: auto !important;
+        right: auto !important;
+        bottom: 80%;
+        left:40%;
+      }
+    </style>
   </head>
   <body>
     <div id="modalUser" class="modal modal-fixed-footer">
         <div class="modal-content">
-          <h4>Add User</h4>
+          <h4>User</h4>
           <div class="row">
+            <input name="id_user" id="id_user" type="id_user" class="validate" required style="display:none;">
             <div class="input-field col l12 m12 s12">
-              <input id="email" type="email" class="validate" required>
+              <input name="email" id="email" type="email" class="validate" required>
               <label for="email">Email <span class="red-text">(*)</span></label>
             </div>
             <div class="input-field col l6 m6 s6">
-              <input id="nama" type="text" class="validate" required>
+              <input name="username" id="nama" type="text" class="validate" required>
               <label for="nama">Nama <span class="red-text">(*)</span></label>
             </div>
             <div id="select" class="input-field col l6 m6 s6">
-              <select id="akses">
+              <select id="akses" name="akses">
                 <option value="" disabled selected>Choose your option</option>
                 <option value="1">Admin</option>
                 <option value="2">Pelamar</option>
@@ -27,11 +36,11 @@
               <label for="akses">Akses</label>
             </div>
             <div class="input-field col l6 m6 s6">
-              <input id="start" type="text" class="validate" required>
+              <input name="start" id="start" type="text" class="validate" required>
               <label for="start">Start (dd-mm-yyyy) <span class="red-text">(*)</span></label>
             </div>
             <div class="input-field col l6 m6 s6">
-              <input id="expired" type="text" class="validate" required>
+              <input name="expired" id="expired" type="text" class="validate" required>
               <label for="expired">Expired (dd-mm-yyyy) <span class="red-text">(*)</span></label>
             </div>
             <!-- <div class="input-field">
@@ -40,9 +49,9 @@
           </div>
         </div>
         <div class="modal-footer">
-            <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat">CLOSE</a>
-            <a href="#!" class="simpan modal-action waves-effect waves-green btn-flat">SAVE</a>
-            <a href="#!" class="update modal-action waves-effect waves-green btn-flat" style="display:none;">UPDATE</a>
+            <button class="modal-action modal-close waves-effect waves-red btn-flat">CLOSE</button>
+            <button onclick="insertData()" class="simpan modal-action waves-effect waves-green btn-flat">SAVE</button>
+            <button onclick="updateData()" class="update modal-action waves-effect waves-green btn-flat" style="display:none;">UPDATE</button>
         </div>
     </div>
     <div class="row">
@@ -50,7 +59,7 @@
       <h5>USER</h5>
       </div>
       <div class="col l6">
-      <button type="button" class="waves-effect waves-light btn right" name="button" data-target="modalUser"><i class="material-icons">add</i></button>
+      <button onclick="clearForm();$('.simpan').show();$('.update').hide();" type="button" class="waves-effect waves-light btn right" name="button" data-target="modalUser"><i class="material-icons">add</i></button>
       </div>
 
       <div class="col l12">
@@ -84,16 +93,9 @@
   <script type="text/javascript" src="<?php echo base_url(); ?>assets/jquery-2.1.1.min.js"></script>
   <script type="text/javascript">
   $(document).ready(function() {
+      $('.tooltipped').tooltip({delay: 50});
       loadData();
-      var oTable1 = $('#dt-user').dataTable({
-        // "processing": true,
-        // "serverSide": true,
-          "aoColumns" : [
-            null,null,null,null,null
-            // { "bSortable": false }
-          ]
-      });
-      $('#modalUser').modal({
+      $('.modal').modal({
           dismissible: true, // Modal can be dismissed by clicking outside of the modal
           opacity: .8, // Opacity of modal background
           inDuration: 300, // Transition in duration
@@ -126,21 +128,37 @@
                   $(".update").show();
                   var resultObj = JSON.parse(result);
                   // ke dalam object
+                  clearForm();
                   $.each(resultObj,function(key,val){
-                    $("[name='id_barang']").val(val.id_barang);
-                    $("[name='nama_barang']").val(val.nama_barang);
-                    $("[name='jumlah_barang']").val(val.jumlah_barang);
-                    $("[name='harga']").val(val.harga);
-                    $("[name='status']").val(val.quality);
-                    $("[name='keterangan']").val(val.keterangan);
+                    $("[name='id_user']").val(val.id_user);
+                    $("[name='username']").val(val.username).focus();
+                    $("[name='akses']").val(val.id_user_type).focus();
+                    $("[name='start']").val(val.tgl_insert).focus();
+                    $("[name='expired']").val(val.tgl_update).focus();
+                    $("[name='email']").val(val.email).focus();
                 });
               }
           });
       });
 
+      $(document).on("click",".deleteUser", function(){
+        var id_user = $(this).attr('id');
+        $.ajax({
+            type : 'POST',
+            data : "id_user="+id_user,
+            url : "<?php echo base_url(); ?>user/deleteData",
+            success : function(result){
+              Materialize.toast('Has Been Deleted!', 1000,'',function(){
+                  window.location.href="<?php echo base_url(); ?>user";
+              })
+            }
+        });
+      });
+
   } );
 
   function loadData(){
+
         var data_here = $('#load_data');
         data_here.html("");
         $.ajax({
@@ -153,6 +171,12 @@
               //fetch data ke dalam object
               $.each(resultObj,function(key,val){
                   var newRow = $("<tr>");
+                  var btn;
+                  if (val.id_user_type == 1) {
+                    btn = '';
+                  } else {
+                    btn = '<button class="deleteUser waves-effect waves-light btn red" id="'+val.id_user+'" type="submit" name="btnDelete"><i class="material-icons left">delete</i></button>';
+                  }
 
                   newRow.html('\
                       <td>'+val.id_user+'</td>\
@@ -161,16 +185,91 @@
                       <td>'+val.user_type+'</td>\
                       <td>'+val.tgl_update+'</td>\
                       <td>\
-                          <button class="selectEdit waves-effect waves-light btn orange" id="" type="submit" name="btnEdit" data-target="modalUser"><i class="material-icons left">mode_edit</i></button>\
-                          <button class="waves-effect waves-light btn red" id="" type="submit" name="btnDelete" data-target="modalUser"><i class="material-icons left">delete</i></button>\
+                          <button class="selectEdit waves-effect waves-light btn orange" id="'+val.id_user+'" type="submit" name="btnEdit" data-target="modalUser"><i class="material-icons left">mode_edit</i></button>\
+                          '+btn+'\
                       </td>\
                   ');
 
                   data_here.append(newRow);
+
+              });
+              $('#dt-user').dataTable({
+                destroy: true //https://stackoverflow.com/questions/24545792/cannot-reinitialise-datatable-dynamic-data-for-datatable
               });
             }
         });
-    }
+  }
+
+  function clearForm(){
+    $("[name='id_user']").val("");
+    $("[name='username']").val("");
+    $("[name='akses']").val("");
+    $("[name='start']").val("");
+    $("[name='expired']").val("");
+    $("[name='email']").val("");
+  }
+
+  function insertData(){
+    var id_user = $("[name='id_user']").val();
+    var user = $("[name='username']").val();
+    var akses = $("[name='akses']").val();
+    var start = $("[name='start']").val();
+    var expired = $("[name='expired']").val();
+    var email = $("[name='email']").val();
+
+    $.ajax({
+      type : 'POST',
+      data : {
+        id_user : id_user,
+        user : user,
+        akses : akses,
+        start : start,
+        expired : expired,
+        email : email
+      },
+      url : '<?php echo base_url(); ?>user/insertData',
+      success : function(result){
+        $('.modal').modal('close');
+        Materialize.toast('Has Been Added!', 1000,'',function(){
+            window.location.href="<?php echo base_url(); ?>user";
+        })
+        // clear form
+        clearForm();
+      }
+    });
+  }
+
+  function updateData(){
+    var id_user = $("[name='id_user']").val();
+    var user = $("[name='username']").val();
+    var akses = $("[name='akses']").val();
+    var start = $("[name='start']").val();
+    var expired = $("[name='expired']").val();
+    var email = $("[name='email']").val();
+
+    $.ajax({
+      type : 'POST',
+      data : {
+        id_user : id_user,
+        user : user,
+        akses : akses,
+        start : start,
+        expired : expired,
+        email : email
+      },
+      url : '<?php echo base_url(); ?>user/updateData',
+      success : function(result){
+        $('.modal').modal('close');
+        Materialize.toast('Has Been Edited!', 1000,'',function(){
+            window.location.href="<?php echo base_url(); ?>user";
+        })
+        // clear form
+        clearForm();
+      }
+    });
+  }
+
+
   </script>
   </body>
 </html>
