@@ -46,5 +46,11 @@ class Pengumuman extends CI_Controller {
 		echo json_encode($result);
 	}
 
+	public function deleteData(){
+		$this->model_security->getsecurity();
+		$result = $this->model_pengumuman->deleteData();
+		echo json_encode($result);
+	}
+
 
 }

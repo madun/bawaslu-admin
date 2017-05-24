@@ -27,7 +27,7 @@
       <div class="modal-content">
         <h4>Pengumuman</h4>
         <div class="row">
-          <input type="hidden" name="id_pengumuman">
+          <input type="hidden" name="id_pengumuman" value="">
           <div class="input-field col l12 m12 s12">
             <input name="judul" id="judul" type="text" class="validate" required>
             <label for="judul">Judul <span class="red-text">(*)</span></label>
@@ -134,6 +134,20 @@
           });
       });
 
+      $(document).on("click",".deleteUser", function(){
+        var id_pengumuman = $(this).attr('id');
+        $.ajax({
+            type : 'POST',
+            data : "id_pengumuman="+id_pengumuman,
+            url : "<?php echo base_url(); ?>pengumuman/deleteData",
+            success : function(result){
+              Materialize.toast('Has Been Deleted!', 1000,'',function(){
+                  window.location.href="<?php echo base_url(); ?>pengumuman";
+              })
+            }
+        });
+      });
+
   } );
 
   function loadData(){
@@ -225,7 +239,6 @@
         id_pengumuman : id_pengumuman,
         judul : judul,
         start : start,
-        expired : expired,
         expired : expired,
         isi : isi
       },

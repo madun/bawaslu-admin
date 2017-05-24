@@ -68,9 +68,17 @@ class Model_pengumuman extends CI_Model {
                  'isi_pengumuman' => $isi
 
                );
-     $this->db->where('id_pengmumuan', $id);
+     $this->db->where('id_pengumuman', $id);
      $result = $this->db->update('pengumuman', $data);
      return $result;
+  }
+
+  public function deleteData(){
+    $id = $this->input->post('id_pengumuman');
+    $data = array('status_pengumuman' => 'tidak aktif');
+    $this->db->where('id_pengumuman', $id);
+    $result = $this->db->update('pengumuman', $data);
+    return $result;
   }
 
 }
