@@ -197,7 +197,7 @@
     $("[name='judul']").val("");
     $("[name='start']").val("");
     $("[name='expired']").val("");
-    $("#isi").val("");
+    tinyMCE.activeEditor.setContent("");
   }
 
   function insertData(){
