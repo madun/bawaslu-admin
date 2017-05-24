@@ -211,6 +211,35 @@
       }
     });
   }
+
+  function updateData(){
+    var id_pengumuman = $("[name='id_pengumuman']").val();
+    var judul = $("[name='judul']").val();
+    var start = $("[name='start']").val();
+    var expired = $("[name='expired']").val();
+    var isi = tinymce.get('isi').getContent();
+
+    $.ajax({
+      type : 'POST',
+      data : {
+        id_pengumuman : id_pengumuman,
+        judul : judul,
+        start : start,
+        expired : expired,
+        expired : expired,
+        isi : isi
+      },
+      url : '<?php echo base_url(); ?>pengumuman/updateData',
+      success : function(result){
+        $('.modal').modal('close');
+        Materialize.toast('Has Been Edited!', 1000,'',function(){
+            window.location.href="<?php echo base_url(); ?>pengumuman";
+        })
+        // clear form
+        clearForm();
+      }
+    });
+  }
   </script>
   </body>
 </html>

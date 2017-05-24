@@ -50,4 +50,27 @@ class Model_pengumuman extends CI_Model {
     return $result->result();
   }
 
+  public function updateData(){
+    date_default_timezone_set("Asia/Jakarta");
+    $id = $this->input->post('id_pengumuman');
+    $judul = $this->input->post('judul');
+    $start = $this->input->post('start');
+    $expired = $this->input->post('expired');
+    $isi = $this->input->post('isi');
+    $now = date("Y-m-d H:i:s");
+    if ($start == '') {
+      $start = date("Y-m-d H:i:s");
+    }
+    $data = array('judul_pengumuman' => $judul,
+                 'tgl_insert' => $now,
+                 'tgl_tayang' => $start,
+                 'tgl_expired' => $expired,
+                 'isi_pengumuman' => $isi
+
+               );
+     $this->db->where('id_pengmumuan', $id);
+     $result = $this->db->update('pengumuman', $data);
+     return $result;
+  }
+
 }
