@@ -3,6 +3,15 @@
   <head>
     <meta charset="utf-8">
     <title>PENGUMUMAN</title>
+    <style media="screen">
+      /*toast*/
+      #toast-container {
+        top: auto !important;
+        right: auto !important;
+        bottom: 80%;
+        left:40%;
+      }
+    </style>
     <script type="text/javascript" src="<?php echo base_url(); ?>assets/tinymce/js/tinymce.min.js"></script>
     <script>
       tinymce.init({
@@ -18,25 +27,25 @@
       <div class="modal-content">
         <h4>Pengumuman</h4>
         <div class="row">
-          <div class="input-field col l6 m6 s6">
+          <div class="input-field col l12 m12 s12">
             <input name="judul" id="judul" type="text" class="validate" required>
             <label for="judul">Judul <span class="red-text">(*)</span></label>
           </div>
-          <div id="select" class="input-field col l6 m6 s6">
+          <!-- <div id="select" class="input-field col l6 m6 s6">
             <select id="kategori" name="kategori">
               <option value="" disabled selected>Choose your option</option>
               <option value="1">Admin</option>
               <option value="2">Pelamar</option>
             </select>
             <label for="kategori">Kategori</label>
-          </div>
+          </div> -->
           <div class="input-field col l6 m6 s6">
             <input name="start" id="start" type="text" class="validate" required>
-            <label for="start">Start (dd-mm-yyyy) <span class="red-text">(*)</span></label>
+            <label for="start">Start (yyyy-mm-dd) <span class="red-text">(*)</span></label>
           </div>
           <div class="input-field col l6 m6 s6">
             <input name="expired" id="expired" type="text" class="validate" required>
-            <label for="expired">Expired (dd-mm-yyyy) <span class="red-text">(*)</span></label>
+            <label for="expired">Expired (yyyy-mm-dd) <span class="red-text">(*)</span></label>
           </div>
           <div class="col l12 m12 s12">
             <textarea name="isi" placeholder="Isi Pengumuman"></textarea>
@@ -44,7 +53,9 @@
         </div>
       </div>
       <div class="modal-footer">
-        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+        <button class="modal-action modal-close waves-effect waves-red btn-flat">CLOSE</button>
+        <button onclick="insertData()" class="simpan modal-action waves-effect waves-green btn-flat">SAVE</button>
+        <button onclick="updateData()" class="update modal-action waves-effect waves-green btn-flat" style="display:none;">UPDATE</button>
       </div>
     </div>
     <div class="row">
@@ -52,7 +63,7 @@
       <h5>PENGUMUMAN</h5>
       </div>
       <div class="col l6">
-      <button type="button" class="waves-effect waves-light btn right" name="button" data-target="modalPengumuman"><i class="material-icons">add</i></button>
+        <button onclick="clearForm();$('.simpan').show();$('.update').hide();" type="button" class="waves-effect waves-light btn right" name="button" data-target="modalPengumuman"><i class="material-icons">add</i></button>
       </div>
 
       <div class="col l12">
@@ -85,7 +96,7 @@
           startingTop: '4%', // Starting top style attribte
           endingTop: '10%', // Ending top style attribute
           ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
-            $('select').material_select();
+            // $('select').material_select();
             // $('.datepicker').pickadate({
             //   selectMonths: true, // Creates a dropdown to control month
             //   selectYears: 70 // Creates a dropdown of 15 years to control year
@@ -97,6 +108,40 @@
         }
       );
   } );
+
+  function clearForm(){
+    $("[name='judul']").val("");
+    $("[name='start']").val("");
+    $("[name='expired']").val("");
+    $("[name='isi']").val("");
+  }
+
+  function insertData(){
+    var judul = $("[name='judul']").val();
+    var start = $("[name='start']").val();
+    var expired = $("[name='expired']").val();
+    var isi = $("[name='isi']").val();
+    console.log(isi);return;
+
+    $.ajax({
+      type : 'POST',
+      data : {
+        judul : judul,
+        start : start,
+        expired : expired,
+        isi : isi
+      },
+      url : '<?php echo base_url(); ?>pengumuman/insertData',
+      success : function(result){
+        $('.modal').modal('close');
+        Materialize.toast('Has Been Added!', 1000,'',function(){
+            window.location.href="<?php echo base_url(); ?>pengumuman";
+        })
+        // clear form
+        clearForm();
+      }
+    });
+  }
   </script>
   </body>
 </html>

@@ -5,13 +5,33 @@ class Model_pengumuman extends CI_Model {
 
   public function getData(){
     $qry = "SELECT
-    users.id_user,user_type.user_type,users.username,users.email
-    FROM users
-    INNER JOIN user_type ON users.id_user_type = user_type.id_user_type
+    *
+    FROM pengumuman ORDER BY tgl_tayang ASC
     ";
 
-    $result = $this->db->query($query);
+    $result = $this->db->query($qry);
     return $result->result();
+  }
+
+  public function insertData(){
+    date_default_timezone_set("Asia/Jakarta");
+    $judul = $this->input->post('judul');
+    $start = $this->input->post('start');
+    $expired = $this->input->post('expired');
+    $isi = $this->input->post('isi');
+    $now = date("Y-m-d H:i:s");
+    if ($start == '') {
+      $start = date("Y-m-d H:i:s");
+    }
+    $data = array('judul_pengumuman' => $judul,
+                 'tgl_insert' => $now,
+                 'tgl_tayang' => $start,
+                 'tgl_expired' => $expired,
+                 'isi_pengumuman' => $isi
+
+               );
+    $result = $this->db->insert('pengumuman', $data);
+    return $result;
   }
 
 }

@@ -42,11 +42,11 @@
             </div>
             <div class="input-field col l6 m6 s6">
               <input name="start" id="start" type="text" class="validate" required>
-              <label for="start">Start (dd-mm-yyyy) <span class="red-text">(*)</span></label>
+              <label for="start">Start (yyyy-mm-dd) <span class="red-text">(*)</span></label>
             </div>
             <div class="input-field col l6 m6 s6">
               <input name="expired" id="expired" type="text" class="validate" required>
-              <label for="expired">Expired (dd-mm-yyyy) <span class="red-text">(*)</span></label>
+              <label for="expired">Expired (yyyy-mm-dd) <span class="red-text">(*)</span></label>
             </div>
             <!-- <div class="input-field">
               <input type="date" class="datepicker" id="expired" placeholder="Expired">

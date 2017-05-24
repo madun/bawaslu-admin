@@ -26,5 +26,11 @@ class Pengumuman extends CI_Controller {
 		echo json_encode($result);
 	}
 
+	public function insertData(){
+		$this->model_security->getsecurity();
+		$result = $this->model_pengumuman->insertData();
+		echo json_encode($result);
+	}
+
 
 }
