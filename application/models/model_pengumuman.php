@@ -4,13 +4,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Model_pengumuman extends CI_Model {
 
   public function getData(){
-    $qry = "SELECT
-    *
-    FROM pengumuman ORDER BY tgl_tayang ASC
+    $qry = "SELECT * FROM pengumuman
+            WHERE status_pengumuman = 'aktif'
     ";
-
     $result = $this->db->query($qry);
-    return $result->result();
+    $r = json_decode(json_encode($result->result()), True); // $result->result() ke obj kan dulu, lalu kembalikan lagi ke array
+    $i=0;
+    foreach ($r as $key) {
+      $r[$i]['isi_pengumuman'] = substr($key['isi_pengumuman'], 0, 50);
+      $i++;
+    }
+
+    // echo print_r($final);die;
+    return $r;
   }
 
   public function insertData(){
@@ -32,6 +38,16 @@ class Model_pengumuman extends CI_Model {
                );
     $result = $this->db->insert('pengumuman', $data);
     return $result;
+  }
+
+  public function getIdPengumuman($id){
+    $qry = "SELECT * FROM pengumuman
+            WHERE id_pengumuman = $id
+    ";
+
+    $result = $this->db->query($qry);
+    // $r['data'] = $result->result();
+    return $result->result();
   }
 
 }

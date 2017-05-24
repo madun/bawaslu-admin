@@ -27,6 +27,7 @@
       <div class="modal-content">
         <h4>Pengumuman</h4>
         <div class="row">
+          <input type="hidden" name="id_pengumuman">
           <div class="input-field col l12 m12 s12">
             <input name="judul" id="judul" type="text" class="validate" required>
             <label for="judul">Judul <span class="red-text">(*)</span></label>
@@ -48,7 +49,7 @@
             <label for="expired">Expired (yyyy-mm-dd) <span class="red-text">(*)</span></label>
           </div>
           <div class="col l12 m12 s12">
-            <textarea name="isi" placeholder="Isi Pengumuman"></textarea>
+            <textarea id="isi" placeholder="Isi Pengumuman"></textarea>
           </div>
         </div>
       </div>
@@ -73,9 +74,8 @@
                     <th>ID Pengumuman</th>
                     <th>Tgl Tayang</th>
                     <th>Tgl Expired</th>
-                    <th>Kategori</th>
                     <th>Judul</th>
-                    <th>Isi</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody id="load_data">
@@ -87,7 +87,8 @@
   <script type="text/javascript" src="<?php echo base_url(); ?>assets/jquery-2.1.1.min.js"></script>
   <script type="text/javascript">
   $(document).ready(function() {
-      $('#dt-pengumuman').dataTable();
+      loadData();
+      // $('#dt-pengumuman').dataTable();
       $('.modal').modal({
           dismissible: true, // Modal can be dismissed by clicking outside of the modal
           opacity: .8, // Opacity of modal background
@@ -107,21 +108,89 @@
           } // Callback for Modal close
         }
       );
+
+      // get id untuk edit
+      $(document).on("click",".selectEdit", function(){
+          var id_pengumuman = $(this).attr('id');
+
+          $.ajax({
+              type : 'POST',
+              data : "id_pengumuman="+id_pengumuman,
+              url : "<?php echo base_url(); ?>pengumuman/getIdPengumuman",
+              success : function(result){
+                  $(".simpan").hide();
+                  $(".update").show();
+                  var resultObj = JSON.parse(result);
+                  // ke dalam object
+                  clearForm();
+                  $.each(resultObj,function(key,val){
+                    $("[name='id_pengumuman']").val(val.id_pengumuman);
+                    $("[name='judul']").val(val.judul_pengumuman).focus();
+                    $("[name='start']").val(val.tgl_tayang).focus();
+                    $("[name='expired']").val(val.tgl_expired).focus();
+                    tinyMCE.activeEditor.setContent(val.isi_pengumuman);
+                });
+              }
+          });
+      });
+
   } );
+
+  function loadData(){
+
+        var data_here = $('#load_data');
+        data_here.html("");
+        $.ajax({
+            type : 'GET',
+            data : '',
+            url : '<?php echo base_url(); ?>pengumuman/getData',
+            success : function(result){
+              var resultObj = JSON.parse(result);
+
+              //fetch data ke dalam object
+              $.each(resultObj,function(key,val){
+                  var newRow = $("<tr>");
+                  var btn;
+                  if (val.id_user_type == 1) {
+                    btn = '';
+                  } else {
+                    btn = '';
+                  }
+
+                  newRow.html('\
+                      <td>'+val.id_pengumuman+'</td>\
+                      <td>'+val.tgl_tayang+'</td>\
+                      <td>'+val.tgl_expired+'</td>\
+                      <td>'+val.judul_pengumuman+'</td>\
+                      <td>\
+                          <button class="selectEdit waves-effect waves-light btn orange" id="'+val.id_pengumuman+'" type="submit" name="btnEdit" data-target="modalPengumuman"><i class="material-icons left">mode_edit</i></button>\
+                          <button class="deleteUser waves-effect waves-light btn red" id="'+val.id_pengumuman+'" type="submit" name="btnDelete"><i class="material-icons left">delete</i></button>\
+                      </td>\
+                  ');
+
+                  data_here.append(newRow);
+
+              });
+              $('#dt-pengumuman').dataTable({
+                destroy: true //https://stackoverflow.com/questions/24545792/cannot-reinitialise-datatable-dynamic-data-for-datatable
+              });
+            }
+        });
+  }
+
 
   function clearForm(){
     $("[name='judul']").val("");
     $("[name='start']").val("");
     $("[name='expired']").val("");
-    $("[name='isi']").val("");
+    $("#isi").val("");
   }
 
   function insertData(){
     var judul = $("[name='judul']").val();
     var start = $("[name='start']").val();
     var expired = $("[name='expired']").val();
-    var isi = $("[name='isi']").val();
-    console.log(isi);return;
+    var isi = tinymce.get('isi').getContent();
 
     $.ajax({
       type : 'POST',

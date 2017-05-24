@@ -32,5 +32,13 @@ class Pengumuman extends CI_Controller {
 		echo json_encode($result);
 	}
 
+	public function getIdPengumuman(){
+		$this->model_security->getsecurity();
+
+		$id = $this->input->post('id_pengumuman');
+		$result = $this->model_pengumuman->getIdPengumuman($id);
+		echo json_encode($result);
+	}
+
 
 }
