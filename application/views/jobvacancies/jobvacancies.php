@@ -26,7 +26,7 @@
     <div id="modalJob" class="modal">
       <div class="modal-content">
         <h4>JOB VACANCIES</h4>
-        <form enctype="multipart/form-data" id="inputData">
+        <form enctype="multipart/form-data" id="inputData" method="post">
           <div class="row">
             <input type="hidden" name="id_job_vacancy" value="">
             <div class="input-field col l6 m6 s6">
@@ -164,7 +164,7 @@
   $('#inputData').submit(function(e){
     var formData = new FormData( $("#inputData")[0] );
     // var dataObj = JSON.parse(formData);
-    // console.log(dataObj);
+    // console.log(formData);
     // return;
 
     e.preventDefault();
