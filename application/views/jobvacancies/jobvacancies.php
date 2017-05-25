@@ -51,7 +51,7 @@
               </div>
             </div>
             <div class="col l12 m12 s12">
-              <textarea name="requirement" placeholder=""></textarea>
+              <textarea id="requirement" name="requirement" placeholder=""></textarea>
             </div>
           </div>
       </div>
@@ -162,6 +162,7 @@
   }
 
   $('#inputData').submit(function(e){
+    $('#' + 'requirement').html( tinymce.get('requirement').getContent() );
     var formData = new FormData( $("#inputData")[0] );
     // var dataObj = JSON.parse(formData);
     // console.log(formData);
