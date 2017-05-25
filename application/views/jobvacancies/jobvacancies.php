@@ -12,37 +12,55 @@
         left:40%;
       }
     </style>
+    <script type="text/javascript" src="<?php echo base_url(); ?>assets/tinymce/js/tinymce.min.js"></script>
+    <script>
+      tinymce.init({
+          selector:'textarea',
+          branding: false,
+          height : 400
+      });
+    </script>
   </head>
   <body>
     <!-- Modal Structure -->
     <div id="modalJob" class="modal">
       <div class="modal-content">
         <h4>JOB VACANCIES</h4>
-        <div class="row">
-          <input type="hidden" name="id_pengumuman" value="">
-          <div class="input-field col l6 m6 s6">
-            <input name="start" id="start" type="text" class="validate" required>
-            <label for="start">Start (yyyy-mm-dd) <span class="red-text">(*)</span></label>
+        <form enctype="multipart/form-data" id="inputData">
+          <div class="row">
+            <input type="hidden" name="id_job_vacancy" value="">
+            <div class="input-field col l6 m6 s6">
+              <input name="start" id="start" type="text" class="validate" required>
+              <label for="start">Start (yyyy-mm-dd) <span class="red-text">(*)</span></label>
+            </div>
+            <div class="input-field col l6 m6 s6">
+              <input name="expired" id="expired" type="text" class="validate" required>
+              <label for="expired">Expired (yyyy-mm-dd) <span class="red-text">(*)</span></label>
+            </div>
+            <div class="input-field col l12 m12 s12">
+              <input name="judul" id="judul" type="text" class="validate" required>
+              <label for="judul">Judul <span class="red-text">(*)</span></label>
+            </div>
+            <div class="file-field input-field col l12 m12 s12">
+              <div class="btn">
+                <span>Upload Cover</span>
+                <input type="file" name="file">
+              </div>
+              <div class="file-path-wrapper">
+                <input class="file-path validate" type="text">
+              </div>
+            </div>
+            <div class="col l12 m12 s12">
+              <textarea name="requirement" placeholder=""></textarea>
+            </div>
           </div>
-          <div class="input-field col l6 m6 s6">
-            <input name="expired" id="expired" type="text" class="validate" required>
-            <label for="expired">Expired (yyyy-mm-dd) <span class="red-text">(*)</span></label>
-          </div>
-          <div class="input-field col l12 m12 s12">
-            <input name="judul" id="judul" type="text" class="validate" required>
-            <label for="judul">Judul <span class="red-text">(*)</span></label>
-          </div>
-          <div class="input-field col l12 m12 s12">
-            <input name="requirement" id="requirement" type="text" class="validate" required>
-            <label for="requirement">Requirement <span class="red-text">(*)</span></label>
-          </div>
-        </div>
       </div>
       <div class="modal-footer">
         <button class="modal-action modal-close waves-effect waves-red btn-flat">CLOSE</button>
-        <button onclick="insertData()" class="simpan modal-action waves-effect waves-green btn-flat">SAVE</button>
+        <button type="submit" class="simpan modal-action waves-effect waves-green btn-flat">SAVE</button>
         <button onclick="updateData()" class="update modal-action waves-effect waves-green btn-flat" style="display:none;">UPDATE</button>
       </div>
+      </form>
     </div>
     <div class="row">
       <div class="col l6">
@@ -101,6 +119,7 @@
     $("[name='judul']").val("");
     $("[name='start']").val("");
     $("[name='expired']").val("");
+    $("[name='upload']").val("");
     tinyMCE.activeEditor.setContent("");
   }
 
@@ -141,6 +160,31 @@
             }
         });
   }
+
+  $('#inputData').submit(function(e){
+    var formData = new FormData( $("#inputData")[0] );
+    // var dataObj = JSON.parse(formData);
+    // console.log(dataObj);
+    // return;
+
+    e.preventDefault();
+       $.ajax({
+           url:'<?php echo base_url(); ?>jobvacancies/insertData',
+           type:"post",
+           data:formData,
+           processData:false,
+           contentType:false,
+           cache:false,
+           async:false,
+           success: function(result){
+             var resultObj = JSON.parse(result);
+             console.log(resultObj);
+            //  $.each(resultObj,function(key,val){
+            //    alert();
+            //  });
+         }
+       });
+    });
   </script>
   </body>
 </html>

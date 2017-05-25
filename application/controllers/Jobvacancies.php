@@ -26,5 +26,13 @@ class Jobvacancies extends CI_Controller {
 		echo json_encode($result);
 	}
 
+	public function insertData(){
+		// echo var_dump($_FILES);
+		$this->model_security->getsecurity();
+		$result = $this->model_jobVacancies->insertData();
+		echo json_encode($result);
+		// return $result;
+   }
+
 
 }
