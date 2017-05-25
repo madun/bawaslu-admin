@@ -5,12 +5,22 @@ class model_jobVacancies extends CI_Model {
 
   public function getData(){
     $qry = "SELECT
-    users.id_user,user_type.user_type,users.username,users.email
-    FROM users
-    INNER JOIN user_type ON users.id_user_type = user_type.id_user_type
+            kode_daerah.kode_daerah,
+            job_vacancy.id_job_vacancy,
+            job_vacancy.tgl_insert,
+            job_vacancy.tgl_tayang,
+            job_vacancy.tgl_expired,
+            job_vacancy.judul_vacancy,
+            job_vacancy.requirement,
+            job_vacancy.file_upload
+            FROM
+            job_vacancy
+            INNER JOIN kode_daerah ON job_vacancy.id_kode_daerah = kode_daerah.id_kode_daerah
+            WHERE job_vacancy.status_vacancy = 'aktif'
+
     ";
 
-    $result = $this->db->query($query);
+    $result = $this->db->query($qry);
     return $result->result();
   }
 

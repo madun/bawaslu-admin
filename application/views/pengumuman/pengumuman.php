@@ -164,12 +164,6 @@
               //fetch data ke dalam object
               $.each(resultObj,function(key,val){
                   var newRow = $("<tr>");
-                  var btn;
-                  if (val.id_user_type == 1) {
-                    btn = '';
-                  } else {
-                    btn = '';
-                  }
 
                   newRow.html('\
                       <td>'+val.id_pengumuman+'</td>\
