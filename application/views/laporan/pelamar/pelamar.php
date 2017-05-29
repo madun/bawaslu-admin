@@ -12,33 +12,33 @@
         left:40%;
       }
     </style>
-    <script type="text/javascript" src="<?php echo base_url(); ?>assets/tinymce/js/tinymce.min.js"></script>
+    <!-- <script type="text/javascript" src="<?php echo base_url(); ?>assets/tinymce/js/tinymce.min.js"></script>
     <script>
       tinymce.init({
           selector:'textarea',
           branding: false,
           height : 400
       });
-    </script>
+    </script> -->
   </head>
   <body>
     <!-- Modal Structure -->
     <div id="modalPelamar" class="modal">
       <div class="modal-content">
-        <h4>JOB VACANCIES</h4>
+        <h4>PELAMAR</h4>
         <form enctype="multipart/form-data" id="inputData" method="post">
           <div class="row">
-            <input type="hidden" id="id_job_vacancy" name="id_job_vacancy" value="">
+            <input type="hidden" id="id_pelamar" name="id_pelamar" value="">
             <div class="input-field col l6 m6 s6">
-              <input name="start" id="start" type="text" class="validate" required>
+              <input name="start" id="start" type="text" class="validate" >
               <label for="start">Start (yyyy-mm-dd) <span class="red-text">(*)</span></label>
             </div>
             <div class="input-field col l6 m6 s6">
-              <input name="expired" id="expired" type="text" class="validate" required>
+              <input name="expired" id="expired" type="text" class="validate" >
               <label for="expired">Expired (yyyy-mm-dd) <span class="red-text">(*)</span></label>
             </div>
             <div class="input-field col l12 m12 s12">
-              <input name="judul" id="judul" type="text" class="validate" required>
+              <input name="judul" id="judul" type="text" class="validate" >
               <label for="judul">Judul <span class="red-text">(*)</span></label>
             </div>
             <div class="file-field input-field col l12 m12 s12">
@@ -50,9 +50,9 @@
                 <input class="file-path validate" type="text" name="image">
               </div>
             </div>
-            <div class="col l12 m12 s12">
+            <!-- <div class="col l12 m12 s12">
               <textarea id="requirement" name="requirement" placeholder=""></textarea>
-            </div>
+            </div> -->
           </div>
       </div>
       <div class="modal-footer">
@@ -71,7 +71,7 @@
       </div>
 
       <div class="col l12">
-        <table id="dt-job" class="mdl-data-table" width="100%" cellspacing="0">
+        <table id="dt-pelamar" class="mdl-data-table" width="100%" cellspacing="0">
           <thead>
                 <tr>
                     <th>ID Pelamar</th>
@@ -90,6 +90,77 @@
       </div>
     </div>
   <script type="text/javascript" src="<?php echo base_url(); ?>assets/jquery-2.1.1.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      loadData();
+      // $('#dt-pengumuman').dataTable();
+      $('.modal').modal({
+          dismissible: true, // Modal can be dismissed by clicking outside of the modal
+          opacity: .8, // Opacity of modal background
+          inDuration: 300, // Transition in duration
+          outDuration: 200, // Transition out duration
+          startingTop: '4%', // Starting top style attribte
+          endingTop: '10%', // Ending top style attribute
+          ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
+            // $('select').material_select();
+            // $('.datepicker').pickadate({
+            //   selectMonths: true, // Creates a dropdown to control month
+            //   selectYears: 70 // Creates a dropdown of 15 years to control year
+            // });
+          },
+          complete: function() {
+            // $('select').material_select('destroy');
+          } // Callback for Modal close
+        }
+      );
+    });
 
+    function clearForm(){
+      $("[name='id_job_vacancy']").val("");
+      $("[name='judul']").val("");
+      $("[name='start']").val("");
+      $("[name='expired']").val("");
+      $("[name='upload']").val("");
+      // tinyMCE.activeEditor.setContent("");
+    }
+
+    function loadData(){
+
+          var data_here = $('#load_data');
+          data_here.html("");
+          $.ajax({
+              type : 'GET',
+              data : '',
+              url : '<?php echo base_url(); ?>pelamar/getData',
+              success : function(result){
+                var resultObj = JSON.parse(result);
+
+                //fetch data ke dalam object
+                $.each(resultObj,function(key,val){
+                    var newRow = $("<tr>");
+
+                    newRow.html('\
+                        <td>'+val.id_pelamar+'</td>\
+                        <td>'+val.username+'</td>\
+                        <td>'+val.syarat_administrasi_1+'</td>\
+                        <td>'+val.syarat_administrasi_2+'</td>\
+                        <td>'+val.syarat_dok_pendukung+'</td>\
+                        <td>'+val.status_akir+'</td>\
+                        <td>\
+                            <button class="selectEdit waves-effect waves-light btn orange" id="'+val.id_pelamar+'" type="submit" name="btnEdit" data-target="modalJob"><i class="material-icons left">mode_edit</i></button>\
+                            <button class="deleteUser waves-effect waves-light btn red" id="'+val.id_pelamar+'" type="submit" name="btnDelete"><i class="material-icons left">delete</i></button>\
+                        </td>\
+                    ');
+
+                    data_here.append(newRow);
+
+                });
+                $('#dt-pelamar').dataTable({
+                  destroy: true //https://stackoverflow.com/questions/24545792/cannot-reinitialise-datatable-dynamic-data-for-datatable
+                });
+              }
+          });
+    }
+  </script>
   </body>
 </html>
