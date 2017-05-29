@@ -34,5 +34,19 @@ class Jobvacancies extends CI_Controller {
 		// return $result;
    }
 
+	 public function getIdJobvacancies(){
+ 		$this->model_security->getsecurity();
+
+ 		$id = $this->input->post('id_job_vacancy');
+ 		$result = $this->model_jobVacancies->getIdJobvacancies($id);
+ 		echo json_encode($result);
+ 	}
+
+	// public function updateData(){
+	// 	$this->model_security->getsecurity();
+	// 	$result = $this->model_jobVacancies->updateData();
+	// 	echo json_encode($result);
+	// }
+
 
 }

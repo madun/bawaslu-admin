@@ -28,7 +28,7 @@
         <h4>JOB VACANCIES</h4>
         <form enctype="multipart/form-data" id="inputData" method="post">
           <div class="row">
-            <input type="hidden" name="id_job_vacancy" value="">
+            <input type="hidden" id="id_job_vacancy" name="id_job_vacancy" value="">
             <div class="input-field col l6 m6 s6">
               <input name="start" id="start" type="text" class="validate" required>
               <label for="start">Start (yyyy-mm-dd) <span class="red-text">(*)</span></label>
@@ -47,7 +47,7 @@
                 <input type="file" name="file">
               </div>
               <div class="file-path-wrapper">
-                <input class="file-path validate" type="text">
+                <input class="file-path validate" type="text" name="image">
               </div>
             </div>
             <div class="col l12 m12 s12">
@@ -78,8 +78,7 @@
                     <th>Tgl Tayang</th>
                     <th>Tgl Expired</th>
                     <th>Judul VACANCIES</th>
-                    <th>Requirement</th>
-                    <th>File Upload</th>
+                    <!-- <th>Requirement</th> -->
                     <th>Action</th>
                 </tr>
             </thead>
@@ -113,9 +112,37 @@
           } // Callback for Modal close
         }
       );
+
+      // get id untuk edit
+      $(document).on("click",".selectEdit", function(){
+          var id_job_vacancy = $(this).attr('id');
+
+          $.ajax({
+              type : 'POST',
+              data : "id_job_vacancy="+id_job_vacancy,
+              url : "<?php echo base_url(); ?>jobvacancies/getIdJobvacancies",
+              success : function(result){
+                  $(".simpan").hide();
+                  $(".update").show();
+                  var resultObj = JSON.parse(result);
+                  // ke dalam object
+                  clearForm();
+                  $.each(resultObj,function(key,val){
+                    $("[name='id_job_vacancy']").val(val.id_job_vacancy);
+                    $("[name='judul']").val(val.judul_vacancy).focus();
+                    $("[name='start']").val(val.tgl_tayang).focus();
+                    $("[name='expired']").val(val.tgl_expired).focus();
+                    $("[name='image']").val(val.file_upload);
+                    tinyMCE.activeEditor.setContent(val.requirement);
+                });
+              }
+          });
+      });
+
   } );
 
   function clearForm(){
+    $("[name='id_job_vacancy']").val("");
     $("[name='judul']").val("");
     $("[name='start']").val("");
     $("[name='expired']").val("");
@@ -143,8 +170,6 @@
                       <td>'+val.tgl_tayang+'</td>\
                       <td>'+val.tgl_expired+'</td>\
                       <td>'+val.judul_vacancy+'</td>\
-                      <td>'+val.requirement+'</td>\
-                      <td>'+val.file_upload+'</td>\
                       <td>\
                           <button class="selectEdit waves-effect waves-light btn orange" id="'+val.id_job_vacancy+'" type="submit" name="btnEdit" data-target="modalJob"><i class="material-icons left">mode_edit</i></button>\
                           <button class="deleteUser waves-effect waves-light btn red" id="'+val.id_job_vacancy+'" type="submit" name="btnDelete"><i class="material-icons left">delete</i></button>\
@@ -164,9 +189,6 @@
   $('#inputData').submit(function(e){
     $('#' + 'requirement').html( tinymce.get('requirement').getContent() );
     var formData = new FormData( $("#inputData")[0] );
-    // var dataObj = JSON.parse(formData);
-    // console.log(formData);
-    // return;
 
     e.preventDefault();
        $.ajax({
@@ -178,14 +200,30 @@
            cache:false,
            async:false,
            success: function(result){
-             var resultObj = JSON.parse(result);
-             console.log(resultObj);
-            //  $.each(resultObj,function(key,val){
-            //    alert();
-            //  });
+             window.location.href="<?php echo base_url(); ?>jobvacancies";
          }
        });
     });
+
+    // function updateData(){
+    //   $('#' + 'requirement').html( tinymce.get('requirement').getContent() );
+    //   var formData = new FormData( $("#inputData")[0] );
+    //
+    //   e.preventDefault();
+    //      $.ajax({
+    //          url:'<?php echo base_url(); ?>jobvacancies/updateData',
+    //          type:"post",
+    //          data:formData,
+    //          processData:false,
+    //          contentType:false,
+    //          cache:false,
+    //          async:false,
+    //          success: function(result){
+    //           //  window.location.href="<?php echo base_url(); ?>jobvacancies";
+    //           console.log(result);
+    //        }
+    //      });
+    // }
   </script>
   </body>
 </html>
