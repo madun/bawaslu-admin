@@ -139,6 +139,20 @@
           });
       });
 
+      $(document).on("click",".deleteUser", function(){
+        var id_job_vacancy = $(this).attr('id');
+        $.ajax({
+            type : 'POST',
+            data : "id_job_vacancy="+id_job_vacancy,
+            url : "<?php echo base_url(); ?>jobvacancies/deleteData",
+            success : function(result){
+              Materialize.toast('Has Been Deleted!', 1000,'',function(){
+                  window.location.href="<?php echo base_url(); ?>jobvacancies";
+              })
+            }
+        });
+      });
+
   } );
 
   function clearForm(){

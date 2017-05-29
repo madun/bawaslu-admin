@@ -112,4 +112,12 @@ class model_jobVacancies extends CI_Model {
   //   }
   // }
 
+  public function deleteData(){
+    $id = $this->input->post('id_job_vacancy');
+    $data = array('status_vacancy' => 'tidak aktif');
+    $this->db->where('id_job_vacancy', $id);
+    $result = $this->db->update('job_vacancy', $data);
+    return $result;
+  }
+
 }
