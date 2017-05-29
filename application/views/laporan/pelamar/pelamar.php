@@ -23,7 +23,7 @@
   </head>
   <body>
     <!-- Modal Structure -->
-    <div id="modalJob" class="modal">
+    <div id="modalPelamar" class="modal">
       <div class="modal-content">
         <h4>JOB VACANCIES</h4>
         <form enctype="multipart/form-data" id="inputData" method="post">
@@ -64,10 +64,10 @@
     </div>
     <div class="row">
       <div class="col l6">
-      <h5>JOB VACANCIES</h5>
+      <h5>Laporan Pelamar</h5>
       </div>
       <div class="col l6">
-        <button onclick="clearForm();$('.simpan').show();$('.update').hide();" type="button" class="waves-effect waves-light btn right" name="button" data-target="modalJob"><i class="material-icons">add</i></button>
+        <button onclick="clearForm();$('.simpan').show();$('.update').hide();" type="button" class="waves-effect waves-light btn right" name="button" data-target="modalPelamar"><i class="material-icons">add</i></button>
       </div>
 
       <div class="col l12">
@@ -90,141 +90,6 @@
       </div>
     </div>
   <script type="text/javascript" src="<?php echo base_url(); ?>assets/jquery-2.1.1.min.js"></script>
-  <!-- <script type="text/javascript">
-    $(document).ready(function() {
-        loadData();
-        // $('#dt-pengumuman').dataTable();
-        $('.modal').modal({
-            dismissible: true, // Modal can be dismissed by clicking outside of the modal
-            opacity: .8, // Opacity of modal background
-            inDuration: 300, // Transition in duration
-            outDuration: 200, // Transition out duration
-            startingTop: '4%', // Starting top style attribte
-            endingTop: '10%', // Ending top style attribute
-            ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
-              // $('select').material_select();
-              // $('.datepicker').pickadate({
-              //   selectMonths: true, // Creates a dropdown to control month
-              //   selectYears: 70 // Creates a dropdown of 15 years to control year
-              // });
-            },
-            complete: function() {
-              // $('select').material_select('destroy');
-            } // Callback for Modal close
-          }
-        );
 
-        // get id untuk edit
-        $(document).on("click",".selectEdit", function(){
-            var id_job_vacancy = $(this).attr('id');
-
-            $.ajax({
-                type : 'POST',
-                data : "id_job_vacancy="+id_job_vacancy,
-                url : "<?php echo base_url(); ?>jobvacancies/getIdJobvacancies",
-                success : function(result){
-                    $(".simpan").hide();
-                    $(".update").show();
-                    var resultObj = JSON.parse(result);
-                    // ke dalam object
-                    clearForm();
-                    $.each(resultObj,function(key,val){
-                      $("[name='id_job_vacancy']").val(val.id_job_vacancy);
-                      $("[name='judul']").val(val.judul_vacancy).focus();
-                      $("[name='start']").val(val.tgl_tayang).focus();
-                      $("[name='expired']").val(val.tgl_expired).focus();
-                      $("[name='image']").val(val.file_upload);
-                      tinyMCE.activeEditor.setContent(val.requirement);
-                  });
-                }
-            });
-        });
-
-    } );
-
-    function clearForm(){
-      $("[name='id_job_vacancy']").val("");
-      $("[name='judul']").val("");
-      $("[name='start']").val("");
-      $("[name='expired']").val("");
-      $("[name='upload']").val("");
-      tinyMCE.activeEditor.setContent("");
-    }
-
-    function loadData(){
-
-          var data_here = $('#load_data');
-          data_here.html("");
-          $.ajax({
-              type : 'GET',
-              data : '',
-              url : '<?php echo base_url(); ?>jobvacancies/getData',
-              success : function(result){
-                var resultObj = JSON.parse(result);
-
-                //fetch data ke dalam object
-                $.each(resultObj,function(key,val){
-                    var newRow = $("<tr>");
-
-                    newRow.html('\
-                        <td>'+val.id_job_vacancy+'</td>\
-                        <td>'+val.tgl_tayang+'</td>\
-                        <td>'+val.tgl_expired+'</td>\
-                        <td>'+val.judul_vacancy+'</td>\
-                        <td>\
-                            <button class="selectEdit waves-effect waves-light btn orange" id="'+val.id_job_vacancy+'" type="submit" name="btnEdit" data-target="modalJob"><i class="material-icons left">mode_edit</i></button>\
-                            <button class="deleteUser waves-effect waves-light btn red" id="'+val.id_job_vacancy+'" type="submit" name="btnDelete"><i class="material-icons left">delete</i></button>\
-                        </td>\
-                    ');
-
-                    data_here.append(newRow);
-
-                });
-                $('#dt-job').dataTable({
-                  destroy: true //https://stackoverflow.com/questions/24545792/cannot-reinitialise-datatable-dynamic-data-for-datatable
-                });
-              }
-          });
-    }
-
-    $('#inputData').submit(function(e){
-      $('#' + 'requirement').html( tinymce.get('requirement').getContent() );
-      var formData = new FormData( $("#inputData")[0] );
-
-      e.preventDefault();
-         $.ajax({
-             url:'<?php echo base_url(); ?>jobvacancies/insertData',
-             type:"post",
-             data:formData,
-             processData:false,
-             contentType:false,
-             cache:false,
-             async:false,
-             success: function(result){
-               window.location.href="<?php echo base_url(); ?>jobvacancies";
-           }
-         });
-      });
-
-      // function updateData(){
-      //   $('#' + 'requirement').html( tinymce.get('requirement').getContent() );
-      //   var formData = new FormData( $("#inputData")[0] );
-      //
-      //   e.preventDefault();
-      //      $.ajax({
-      //          url:'<?php echo base_url(); ?>jobvacancies/updateData',
-      //          type:"post",
-      //          data:formData,
-      //          processData:false,
-      //          contentType:false,
-      //          cache:false,
-      //          async:false,
-      //          success: function(result){
-      //           //  window.location.href="<?php echo base_url(); ?>jobvacancies";
-      //           console.log(result);
-      //        }
-      //      });
-      // }
-  </script> -->
   </body>
 </html>
