@@ -27,10 +27,10 @@ class Pelamar extends CI_Controller {
 	}
 
 	public function insertData(){
-		echo var_dump($_FILES);
-		// $this->model_security->getsecurity();
+		// echo var_dump($_FILES);
+		$this->model_security->getsecurity();
 		// $result = $this->model_pelamar->insertData();
-		// echo json_encode($result);
+		echo json_encode($result);
 		// return $result;
    }
 

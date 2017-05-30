@@ -30,16 +30,8 @@
           <div class="row">
             <input type="hidden" id="id_pelamar" name="id_pelamar" value="">
             <div class="input-field col l6 m6 s6">
-              <input name="start" id="start" type="text" class="validate" >
-              <label for="start">Start (yyyy-mm-dd) <span class="red-text">(*)</span></label>
-            </div>
-            <div class="input-field col l6 m6 s6">
-              <input name="expired" id="expired" type="text" class="validate" >
-              <label for="expired">Expired (yyyy-mm-dd) <span class="red-text">(*)</span></label>
-            </div>
-            <div class="input-field col l12 m12 s12">
-              <input name="judul" id="judul" type="text" class="validate" >
-              <label for="judul">Judul <span class="red-text">(*)</span></label>
+              <input name="username" id="username" type="text" class="validate" >
+              <label for="username">Username <span class="red-text">(*)</span></label>
             </div>
             <div class="file-field input-field col l12 m12 s12">
               <div class="btn">
