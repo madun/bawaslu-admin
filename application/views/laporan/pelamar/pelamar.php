@@ -43,8 +43,26 @@
             </div>
             <div class="file-field input-field col l12 m12 s12">
               <div class="btn">
-                <span>Upload Cover</span>
-                <input type="file" name="file">
+                <span>Syarat 1</span>
+                <input type="file" name="syarat1">
+              </div>
+              <div class="file-path-wrapper">
+                <input class="file-path validate" type="text" name="image">
+              </div>
+            </div>
+            <div class="file-field input-field col l12 m12 s12">
+              <div class="btn">
+                <span>Syarat 2</span>
+                <input type="file" name="syarat2">
+              </div>
+              <div class="file-path-wrapper">
+                <input class="file-path validate" type="text" name="image">
+              </div>
+            </div>
+            <div class="file-field input-field col l12 m12 s12">
+              <div class="btn">
+                <span>Doc Pendukung</span>
+                <input type="file" name="docpendukung">
               </div>
               <div class="file-path-wrapper">
                 <input class="file-path validate" type="text" name="image">
@@ -56,7 +74,7 @@
           </div>
       </div>
       <div class="modal-footer">
-        <button class="modal-action modal-close waves-effect waves-red btn-flat">CLOSE</button>
+        <!-- <button class="modal-action modal-close waves-effect waves-red btn-flat">CLOSE</button> -->
         <button type="submit" class="simpan modal-action waves-effect waves-green btn-flat">SAVE</button>
         <button onclick="updateData()" class="update modal-action waves-effect waves-green btn-flat" style="display:none;">UPDATE</button>
       </div>
@@ -161,6 +179,26 @@
               }
           });
     }
+
+    $('#inputData').submit(function(e){
+      // $('#' + 'requirement').html( tinymce.get('requirement').getContent() );
+      var formData = new FormData( $("#inputData")[0] );
+
+      e.preventDefault();
+         $.ajax({
+             url:'<?php echo base_url(); ?>pelamar/insertData',
+             type:"post",
+             data:formData,
+             processData:false,
+             contentType:false,
+             cache:false,
+             async:false,
+             success: function(result){
+              //  console.log(formData);
+              //  window.location.href="<?php echo base_url(); ?>jobvacancies";
+           }
+         });
+      });
   </script>
   </body>
 </html>
