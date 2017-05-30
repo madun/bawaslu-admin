@@ -67,15 +67,15 @@ class model_pelamar extends CI_Model {
   //   $result = $this->db->insert('daftar_pelamar', $data1);
   // }
 
-  private function set_upload_options(){
-      //upload an image options
-      $config = array();
-      $config['upload_path'] = './uploads/data_pelamar';
-      $config['allowed_types'] = 'pdf';
-      $config['max_size']      = '0';
-      $config['overwrite']     = FALSE;
-
-      return $config;
-  }
+  // private function set_upload_options(){
+  //     //upload an image options
+  //     $config = array();
+  //     $config['upload_path'] = './uploads/data_pelamar';
+  //     $config['allowed_types'] = 'pdf';
+  //     $config['max_size']      = '0';
+  //     $config['overwrite']     = FALSE;
+  //
+  //     return $config;
+  // }
 
 }

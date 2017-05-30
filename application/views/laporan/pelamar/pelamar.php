@@ -12,14 +12,6 @@
         left:40%;
       }
     </style>
-    <!-- <script type="text/javascript" src="<?php echo base_url(); ?>assets/tinymce/js/tinymce.min.js"></script>
-    <script>
-      tinymce.init({
-          selector:'textarea',
-          branding: false,
-          height : 400
-      });
-    </script> -->
   </head>
   <body>
     <!-- Modal Structure -->
