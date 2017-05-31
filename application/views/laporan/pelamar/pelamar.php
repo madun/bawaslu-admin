@@ -52,9 +52,6 @@
                 <input class="file-path validate" type="text" name="image">
               </div>
             </div>
-            <!-- <div class="col l12 m12 s12">
-              <textarea id="requirement" name="requirement" placeholder=""></textarea>
-            </div> -->
           </div>
       </div>
       <div class="modal-footer">
@@ -68,10 +65,9 @@
       <div class="col l6">
       <h5>Laporan Pelamar</h5>
       </div>
-      <div class="col l6">
+      <!-- <div class="col l6">
         <button onclick="clearForm();$('.simpan').show();$('.update').hide();" type="button" class="waves-effect waves-light btn right" name="button" data-target="modalPelamar"><i class="material-icons">add</i></button>
-      </div>
-
+      </div> -->
       <div class="col l12">
         <table id="dt-pelamar" class="mdl-data-table" width="100%" cellspacing="0">
           <thead>
@@ -107,10 +103,37 @@
 
           },
           complete: function() {
-            
+
           } // Callback for Modal close
         }
       );
+
+      // get id untuk edit
+      $(document).on("click",".selectEdit", function(){
+          var id_pelamar = $(this).attr('id');
+
+          // $.ajax({
+          //     type : 'POST',
+          //     data : "id_pelamar="+id_pelamar,
+          //     url : "<?php echo base_url(); ?>pelamar/getIdPelamar",
+          //     success : function(result){
+          //         $(".simpan").hide();
+          //         $(".update").show();
+          //         var resultObj = JSON.parse(result);
+          //         // ke dalam object
+          //         clearForm();
+          //         $.each(resultObj,function(key,val){
+          //           // $("[name='id_job_vacancy']").val(val.id_job_vacancy);
+          //           // $("[name='judul']").val(val.judul_vacancy).focus();
+          //           // $("[name='start']").val(val.tgl_tayang).focus();
+          //           // $("[name='expired']").val(val.tgl_expired).focus();
+          //           // $("[name='image']").val(val.file_upload);
+          //           // tinyMCE.activeEditor.setContent(val.requirement);
+          //       });
+          //     }
+          // });
+      });
+
     });
 
     function clearForm(){
@@ -136,12 +159,15 @@
                 //fetch data ke dalam object
                 $.each(resultObj,function(key,val){
                     var newRow = $("<tr>");
-
+                    var syarat1;
+                    var syarat2;
+                    if(!val.syarat_administrasi_1 == ''){syarat1 = 'TERPENUHI'}
+                    if(!val.syarat_administrasi_2 == ''){syarat2 = 'TERPENUHI'}
                     newRow.html('\
                         <td>'+val.id_pelamar+'</td>\
                         <td>'+val.username+'</td>\
-                        <td>'+val.syarat_administrasi_1+'</td>\
-                        <td>'+val.syarat_administrasi_2+'</td>\
+                        <td>'+syarat1+'</td>\
+                        <td>'+syarat2+'</td>\
                         <td>'+val.syarat_dok_pendukung+'</td>\
                         <td>'+val.status_akir+'</td>\
                         <td>\

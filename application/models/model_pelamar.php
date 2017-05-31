@@ -5,24 +5,29 @@ class model_pelamar extends CI_Model {
 
   public function getData(){
     $qry = "
-                  SELECT
-                  daftar_pelamar.id_pelamar,
-                  daftar_pelamar.id_job_vacancy,
-                  daftar_pelamar.id_user,
-                  daftar_pelamar.tgl_update,
-                  daftar_pelamar.no_registrasi,
-                  daftar_pelamar.syarat_administrasi_1,
-                  daftar_pelamar.syarat_administrasi_2,
-                  daftar_pelamar.syarat_dok_pendukung,
-                  daftar_pelamar.status_akhir,
-                  users.username,
-                  users.email,
-                  users.no_ktp,
-                  users.`status`
-                  FROM
-                  daftar_pelamar
-                  INNER JOIN users ON daftar_pelamar.id_user = users.id_user
-                  WHERE users.`status` = 'aktif'
+            SELECT
+            users.username,
+            users.email,
+            users.id_user,
+            daftar_pelamar.syarat_administrasi_1,
+            daftar_pelamar.syarat_administrasi_2,
+            daftar_pelamar.syarat_dok_pendukung,
+            data_pendukung.dok_pendukung_1,
+            data_pendukung.dok_pendukung_2,
+            data_pendukung.dok_pendukung_3,
+            data_pendukung.dok_pendukung_4,
+            data_pendukung.dok_pendukung_5,
+            data_pendukung.dok_pendukung_6,
+            data_pendukung.dok_pendukung_7,
+            data_pendukung.penghargaan_kepemiluan,
+            data_pendukung.karyatulis_kepemiluan
+
+            FROM
+            data_pendukung
+            INNER JOIN daftar_pelamar ON data_pendukung.id_user = daftar_pelamar.id_user
+            INNER JOIN users ON users.id_user = daftar_pelamar.id_user AND users.id_user = data_pendukung.id_user
+            INNER JOIN profil_pelamar ON users.id_user = profil_pelamar.id_user
+            WHERE users.`status` = 'aktif'
     ";
 
     $result = $this->db->query($qry);
