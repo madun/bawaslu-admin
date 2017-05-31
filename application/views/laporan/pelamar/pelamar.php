@@ -17,49 +17,96 @@
     <!-- Modal Structure -->
     <div id="modalPelamar" class="modal">
       <div class="modal-content">
-        <h4>PELAMAR</h4>
-        <form enctype="multipart/form-data" id="inputData" method="post">
+        <center><h6>PELAMAR</h6></center>
+          <br>
           <div class="row">
-            <input type="hidden" id="id_pelamar" name="id_pelamar" value="">
-            <div class="input-field col l6 m6 s6">
-              <input name="username" id="username" type="text" class="validate" >
-              <label for="username">Username <span class="red-text">(*)</span></label>
-            </div>
-            <div class="file-field input-field col l12 m12 s12">
-              <div class="btn">
-                <span>Syarat 1</span>
-                <input type="file" name="syarat1">
-              </div>
-              <div class="file-path-wrapper">
-                <input class="file-path validate" type="text" name="image">
-              </div>
-            </div>
-            <div class="file-field input-field col l12 m12 s12">
-              <div class="btn">
-                <span>Syarat 2</span>
-                <input type="file" name="syarat2">
-              </div>
-              <div class="file-path-wrapper">
-                <input class="file-path validate" type="text" name="image">
-              </div>
-            </div>
-            <div class="file-field input-field col l12 m12 s12">
-              <div class="btn">
-                <span>Doc Pendukung</span>
-                <input type="file" name="docpendukung">
-              </div>
-              <div class="file-path-wrapper">
-                <input class="file-path validate" type="text" name="image">
-              </div>
-            </div>
+            <!-- <input type="text" id="id_pelamar" name="id_pelamar" value=""> -->
+            <table class="responsive-table striped">
+              <tr>
+                <td>Nama  <b><span id="nama"></span></b></td>
+                <td>No. Registrasi <b><span id="noregis"></span></b></td>
+              </tr>
+              <tr>
+                <td>Syarat Adm 1</td>
+                <td><b><span id="syarat1"></span></b></td>
+              </tr>
+              <tr>
+                <td>Syarat Adm 2</td>
+                <td><b><span id="syarat2"></span></b></td>
+              </tr>
+              <tr>
+                <td>Syarat Doc. Pendukung</td>
+                <td><b><span id="syaratdoc"></span></b></td>
+              </tr>
+              <tr>
+                <td colspan="2"><center><b><span id="status_akhir"></span></b></center></td>
+                <!-- <td><b><span id="syaratdoc"></span></b></td> -->
+              </tr>
+            </table>
+          </div>
+          <center><h6>DATA PENDUKUNG</h6></center>
+          <br>
+          <div class="row">
+            <!-- <input type="text" id="id_pelamar" name="id_pelamar" value=""> -->
+            <table class="responsive-table striped">
+              <tr>
+                <td>Penghargaan Kepemiluan</td>
+                <td><b><span id="penghargaan"></span></b></td>
+              </tr>
+              <tr>
+                <td>Karya Tulis</td>
+                <td><b><span id="karyatulis_kepemiluan"></span></b></td>
+              </tr>
+              <tr>
+                <td>Doc. Pendukung 1</td>
+                <td><b><span id="dok_pendukung_1"></span></b></td>
+              </tr>
+              <tr>
+                <td>Doc. Pendukung 2</td>
+                <td><b><span id="dok_pendukung_2"></span></b></td>
+              </tr>
+              <tr>
+                <td>Doc. Pendukung 3</td>
+                <td><b><span id="dok_pendukung_3"></span></b></td>
+              </tr>
+              <tr>
+                <td>Doc. Pendukung 4</td>
+                <td><b><span id="dok_pendukung_4"></span></b></td>
+              </tr>
+              <tr>
+                <td>Doc. Pendukung 5</td>
+                <td><b><span id="dok_pendukung_5"></span></b></td>
+              </tr>
+              <tr>
+                <td>Doc. Pendukung 6</td>
+                <td><b><span id="dok_pendukung_6"></span></b></td>
+              </tr>
+              <tr>
+                <td>Doc. Pendukung 7</td>
+                <td><b><span id="dok_pendukung_7"></span></b></td>
+              </tr>
+              <tr>
+                <td>Doc. Pendukung 8</td>
+                <td><b><span id="dok_pendukung_8"></span></b></td>
+              </tr>
+              <tr>
+                <td>Doc. Pendukung 9</td>
+                <td><b><span id="dok_pendukung_9"></span></b></td>
+              </tr>
+              <tr>
+                <td>Doc. Pendukung 10</td>
+                <td><b><span id="dok_pendukung_10"></span></b></td>
+              </tr>
+
+            </table>
           </div>
       </div>
       <div class="modal-footer">
         <!-- <button class="modal-action modal-close waves-effect waves-red btn-flat">CLOSE</button> -->
-        <button type="submit" class="simpan modal-action waves-effect waves-green btn-flat">SAVE</button>
-        <button onclick="updateData()" class="update modal-action waves-effect waves-green btn-flat" style="display:none;">UPDATE</button>
+        <!-- <button type="submit" class="simpan modal-action waves-effect waves-green btn-flat">SAVE</button>
+        <button onclick="updateData()" class="update modal-action waves-effect waves-green btn-flat" style="display:none;">UPDATE</button> -->
       </div>
-      </form>
+
     </div>
     <div class="row">
       <div class="col l6">
@@ -73,6 +120,7 @@
           <thead>
                 <tr>
                     <th>ID Pelamar</th>
+                    <th>No Registrasi</th>
                     <th>Nama Pelamar</th>
                     <th>Syarat 1</th>
                     <th>Syarat 2</th>
@@ -112,37 +160,83 @@
       $(document).on("click",".selectEdit", function(){
           var id_pelamar = $(this).attr('id');
 
-          // $.ajax({
-          //     type : 'POST',
-          //     data : "id_pelamar="+id_pelamar,
-          //     url : "<?php echo base_url(); ?>pelamar/getIdPelamar",
-          //     success : function(result){
-          //         $(".simpan").hide();
-          //         $(".update").show();
-          //         var resultObj = JSON.parse(result);
-          //         // ke dalam object
-          //         clearForm();
-          //         $.each(resultObj,function(key,val){
-          //           // $("[name='id_job_vacancy']").val(val.id_job_vacancy);
-          //           // $("[name='judul']").val(val.judul_vacancy).focus();
-          //           // $("[name='start']").val(val.tgl_tayang).focus();
-          //           // $("[name='expired']").val(val.tgl_expired).focus();
-          //           // $("[name='image']").val(val.file_upload);
-          //           // tinyMCE.activeEditor.setContent(val.requirement);
-          //       });
-          //     }
-          // });
+          $.ajax({
+              type : 'POST',
+              data : "id_pelamar="+id_pelamar,
+              url : "<?php echo base_url(); ?>pelamar/getIdPelamar",
+              success : function(result){
+                  $(".simpan").hide();
+                  $(".update").show();
+                  var resultObj = JSON.parse(result);
+                  // ke dalam object
+
+
+                  clearForm();
+                  $.each(resultObj,function(key,val){
+                    var syarat1,syarat2,syaratdoc,status_akhir,penghargaan,karyatulis,dok_pendukung_1,dok_pendukung_2,dok_pendukung_3,dok_pendukung_4,dok_pendukung_5,dok_pendukung_6,dok_pendukung_7,dok_pendukung_8,dok_pendukung_9,dok_pendukung_10;
+                    if(val.syarat_administrasi_1 == '' || val.syarat_administrasi_1 == null){syarat1 = 'TDK TERPENUHI'} else {syarat1 = 'TERPENUHI'}
+                    if(val.syarat_administrasi_2 == '' || val.syarat_administrasi_2 == null){syarat2 = 'TDK TERPENUHI'} else {syarat2 = 'TERPENUHI'}
+                    if (val.syarat_dok_pendukung == '' || val.syarat_dok_pendukung == null) {syaratdoc = 'BLM LENGKAP'} else {syaratdoc = 'LENGKAP' }
+                    if (val.status_akhir == '' || val.status_akhir == null) {status_akhir = 'TDK LULUS'} else {status_akhir = 'LULUS' }
+                    if (val.penghargaan_kepemiluan == '' || val.penghargaan_kepemiluan == null) {penghargaan == 'TIDAK ADA'} else {penghargaan == 'ADA'}
+                    if (val.karyatulis_kepemiluan == '' || val.karyatulis_kepemiluan == null) {karyatulis == 'TIDAK ADA'} else {karyatulis == 'ADA'}
+                    if (val.dok_pendukung_1 == '' || val.dok_pendukung_1 == null) {dok_pendukung_1 == 'TIDAK ADA'} else {dok_pendukung_1 == 'ADA'}
+                    if (val.dok_pendukung_2 == '' || val.dok_pendukung_2 == null) {dok_pendukung_2 == 'TIDAK ADA'} else {dok_pendukung_2 == 'ADA'}
+                    if (val.dok_pendukung_3 == '' || val.dok_pendukung_3 == null) {dok_pendukung_3 == 'TIDAK ADA'} else {dok_pendukung_3 == 'ADA'}
+                    if (val.dok_pendukung_4 == '' || val.dok_pendukung_4 == null) {dok_pendukung_4 == 'TIDAK ADA'} else {dok_pendukung_4 == 'ADA'}
+                    if (val.dok_pendukung_5 == '' || val.dok_pendukung_5 == null) {dok_pendukung_5 == 'TIDAK ADA'} else {dok_pendukung_5 == 'ADA'}
+                    if (val.dok_pendukung_6 == '' || val.dok_pendukung_6 == null) {dok_pendukung_6 == 'TIDAK ADA'} else {dok_pendukung_6 == 'ADA'}
+                    if (val.dok_pendukung_7 == '' || val.dok_pendukung_7 == null) {dok_pendukung_7 == 'TIDAK ADA'} else {dok_pendukung_7 == 'ADA'}
+                    if (val.dok_pendukung_8 == '' || val.dok_pendukung_8 == null) {dok_pendukung_8 == 'TIDAK ADA'} else {dok_pendukung_8 == 'ADA'}
+                    if (val.dok_pendukung_9 == '' || val.dok_pendukung_9 == null) {dok_pendukung_9 == 'TIDAK ADA'} else {dok_pendukung_9 == 'ADA'}
+                    if (val.dok_pendukung_10 == '' || val.dok_pendukung_10 == null) {dok_pendukung_10 == 'TIDAK ADA'} else {dok_pendukung_10 == 'ADA'}
+
+                    $("[name='id_pelamar']").val(val.id_pelamar);
+                    $("b #nama").html(val.nama);
+                    $("b #noregis").html(val.no_registrasi);
+                    $("b #syarat1").html(syarat1);
+                    $("b #syarat2").html(syarat2);
+                    $("b #syaratdoc").html(syaratdoc);
+                    $("b #status_akhir").html(status_akhir);
+                    $("b #penghargaan").html(penghargaan);
+                    $("b #karyatulis_kepemiluan").html(karyatulis);
+                    $("b #dok_pendukung_1").html(dok_pendukung_1);
+                    $("b #dok_pendukung_2").html(dok_pendukung_2);
+                    $("b #dok_pendukung_3").html(dok_pendukung_3);
+                    $("b #dok_pendukung_4").html(dok_pendukung_4);
+                    $("b #dok_pendukung_5").html(dok_pendukung_5);
+                    $("b #dok_pendukung_6").html(dok_pendukung_6);
+                    $("b #dok_pendukung_7").html(dok_pendukung_7);
+                    $("b #dok_pendukung_8").html(dok_pendukung_8);
+                    $("b #dok_pendukung_9").html(dok_pendukung_9);
+                    $("b #dok_pendukung_10").html(dok_pendukung_10);
+                });
+              }
+          });
       });
 
     });
 
     function clearForm(){
-      $("[name='id_job_vacancy']").val("");
-      $("[name='judul']").val("");
-      $("[name='start']").val("");
-      $("[name='expired']").val("");
-      $("[name='upload']").val("");
-      // tinyMCE.activeEditor.setContent("");
+      $("[name='id_pelamar']").val("");
+      $("b #nama").html("");
+      $("b #noregis").html("");
+      $("b #syarat1").html("");
+      $("b #syarat2").html("");
+      $("b #syaratdoc").html("");
+      $("b #status_akhir").html("");
+      $("b #penghargaan").html("");
+      $("b #karyatulis_kepemiluan").html("");
+      $("b #dok_pendukung_1").html("");
+      $("b #dok_pendukung_2").html("");
+      $("b #dok_pendukung_3").html("");
+      $("b #dok_pendukung_4").html("");
+      $("b #dok_pendukung_5").html("");
+      $("b #dok_pendukung_6").html("");
+      $("b #dok_pendukung_7").html("");
+      $("b #dok_pendukung_8").html("");
+      $("b #dok_pendukung_9").html("");
+      $("b #dok_pendukung_10").html("");
     }
 
     function loadData(){
@@ -161,18 +255,18 @@
                     var newRow = $("<tr>");
                     var syarat1;
                     var syarat2;
-                    if(!val.syarat_administrasi_1 == ''){syarat1 = 'TERPENUHI'}
-                    if(!val.syarat_administrasi_2 == ''){syarat2 = 'TERPENUHI'}
+                    if(val.syarat_administrasi_1 == ''){syarat1 = 'TERPENUHI'} else {syarat1 = 'TDK TERPENUHI'}
+                    if(val.syarat_administrasi_2 == ''){syarat2 = 'TERPENUHI'} else {syarat2 = 'TDK TERPENUHI'}
                     newRow.html('\
                         <td>'+val.id_pelamar+'</td>\
-                        <td>'+val.username+'</td>\
+                        <td>'+val.no_registrasi+'</td>\
+                        <td>'+val.nama+'</td>\
                         <td>'+syarat1+'</td>\
                         <td>'+syarat2+'</td>\
                         <td>'+val.syarat_dok_pendukung+'</td>\
-                        <td>'+val.status_akir+'</td>\
+                        <td>'+val.status_akhir+'</td>\
                         <td>\
-                            <button class="selectEdit waves-effect waves-light btn orange" id="'+val.id_pelamar+'" type="submit" name="btnEdit" data-target="modalJob"><i class="material-icons left">mode_edit</i></button>\
-                            <button class="deleteUser waves-effect waves-light btn red" id="'+val.id_pelamar+'" type="submit" name="btnDelete"><i class="material-icons left">delete</i></button>\
+                            <button class="selectEdit waves-effect waves-light btn orange" id="'+val.id_pelamar+'" type="submit" name="btnEdit" data-target="modalPelamar"><i class="material-icons">subtitles</i></button>\
                         </td>\
                     ');
 

@@ -5,7 +5,7 @@ class Model_user extends CI_Model {
 
   public function getData(){
     $qry = "SELECT
-    users.id_user,user_type.user_type,user_type.id_user_type,users.username,users.email,users.tgl_update
+    users.id_user,user_type.user_type,user_type.id_user_type,users.nama,users.email,users.tgl_update
     FROM users
     INNER JOIN user_type ON users.id_user_type = user_type.id_user_type
     WHERE users.status = 'aktif'
@@ -27,7 +27,7 @@ class Model_user extends CI_Model {
     }
     $expired = $this->input->post('expired');
     $data = array('email' => $email,
-                 'username' => $user,
+                 'nama' => $user,
                  'id_user_type' => $akses,
                  'tgl_insert' => $start,
                  'tgl_update' => $expired
@@ -39,7 +39,7 @@ class Model_user extends CI_Model {
 
   public function getid_edit($id){
     $qry = "SELECT
-    users.id_user,user_type.user_type,user_type.id_user_type,users.username,users.email,users.tgl_update,users.tgl_insert
+    users.id_user,user_type.user_type,user_type.id_user_type,users.nama,users.email,users.tgl_update,users.tgl_insert
     FROM users
     INNER JOIN user_type ON users.id_user_type = user_type.id_user_type
     WHERE users.id_user = $id
@@ -60,7 +60,7 @@ class Model_user extends CI_Model {
      $expired = $this->input->post('expired');
 
      $data = array('email' => $email,
-									'username' => $user,
+									'nama' => $user,
 									'id_user_type' => $akses,
                   'tgl_insert' => $start,
                   'tgl_update' => $expired

@@ -62,7 +62,7 @@
             <div class="card-content">
               <div class="row">
                 <div class="col l8 m8 s8">
-                    <h5><?php echo $x->username; ?></h4>
+                    <h5><?php echo $x->nama; ?></h4>
                     <small>001/TIMSEL/3207/IV/20017</small>
                 </div>
                 <div class="col l4 m4 s4">

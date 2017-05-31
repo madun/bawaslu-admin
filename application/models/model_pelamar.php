@@ -6,12 +6,14 @@ class model_pelamar extends CI_Model {
   public function getData(){
     $qry = "
             SELECT
-            users.username,
+            users.no_ktp,
             users.email,
-            users.id_user,
-            daftar_pelamar.syarat_administrasi_1,
-            daftar_pelamar.syarat_administrasi_2,
-            daftar_pelamar.syarat_dok_pendukung,
+            users.nama,
+            users.`status`,
+            data_pendukung.tgl_insert,
+            data_pendukung.tgl_update,
+            data_pendukung.penghargaan_kepemiluan,
+            data_pendukung.karyatulis_kepemiluan,
             data_pendukung.dok_pendukung_1,
             data_pendukung.dok_pendukung_2,
             data_pendukung.dok_pendukung_3,
@@ -19,9 +21,44 @@ class model_pelamar extends CI_Model {
             data_pendukung.dok_pendukung_5,
             data_pendukung.dok_pendukung_6,
             data_pendukung.dok_pendukung_7,
-            data_pendukung.penghargaan_kepemiluan,
-            data_pendukung.karyatulis_kepemiluan
-
+            data_pendukung.dok_pendukung_8,
+            data_pendukung.dok_pendukung_9,
+            data_pendukung.dok_pendukung_10,
+            daftar_pelamar.id_pelamar,
+            daftar_pelamar.id_job_vacancy,
+            daftar_pelamar.tgl_update,
+            daftar_pelamar.no_registrasi,
+            daftar_pelamar.syarat_administrasi_1,
+            daftar_pelamar.syarat_administrasi_2,
+            daftar_pelamar.syarat_dok_pendukung,
+            daftar_pelamar.status_akhir,
+            profil_pelamar.id_kode_daerah,
+            profil_pelamar.email,
+            profil_pelamar.no_ktp,
+            profil_pelamar.nama,
+            profil_pelamar.nama_panggil,
+            profil_pelamar.tgl_lahir,
+            profil_pelamar.tempat_lahir,
+            profil_pelamar.jenis_kelamin,
+            profil_pelamar.no_hp,
+            profil_pelamar.agama,
+            profil_pelamar.status_pernikahan,
+            profil_pelamar.alamat_ktp,
+            profil_pelamar.propid,
+            profil_pelamar.kabid,
+            profil_pelamar.camatid,
+            profil_pelamar.kode_pos,
+            profil_pelamar.alamat_domisili,
+            profil_pelamar.bidang_pendidikan,
+            profil_pelamar.jenjang_pendidikan,
+            profil_pelamar.universitas_sekolah,
+            profil_pelamar.program_studi_jurusan,
+            profil_pelamar.ipk,
+            profil_pelamar.nama_perusahaan,
+            profil_pelamar.jabatan,
+            profil_pelamar.tahun_masuk,
+            profil_pelamar.tahun_keluar,
+            profil_pelamar.foto_profil
             FROM
             data_pendukung
             INNER JOIN daftar_pelamar ON data_pendukung.id_user = daftar_pelamar.id_user
@@ -81,6 +118,74 @@ class model_pelamar extends CI_Model {
       $config['overwrite']     = FALSE;
 
       return $config;
+  }
+
+  public function getIdPelamar($id){
+    $qry = "SELECT
+            users.no_ktp,
+            users.email,
+            users.nama,
+            users.`status`,
+            data_pendukung.tgl_insert,
+            data_pendukung.tgl_update,
+            data_pendukung.penghargaan_kepemiluan,
+            data_pendukung.karyatulis_kepemiluan,
+            data_pendukung.dok_pendukung_1,
+            data_pendukung.dok_pendukung_2,
+            data_pendukung.dok_pendukung_3,
+            data_pendukung.dok_pendukung_4,
+            data_pendukung.dok_pendukung_5,
+            data_pendukung.dok_pendukung_6,
+            data_pendukung.dok_pendukung_7,
+            data_pendukung.dok_pendukung_8,
+            data_pendukung.dok_pendukung_9,
+            data_pendukung.dok_pendukung_10,
+            daftar_pelamar.id_pelamar,
+            daftar_pelamar.id_job_vacancy,
+            daftar_pelamar.tgl_update,
+            daftar_pelamar.no_registrasi,
+            daftar_pelamar.syarat_administrasi_1,
+            daftar_pelamar.syarat_administrasi_2,
+            daftar_pelamar.syarat_dok_pendukung,
+            daftar_pelamar.status_akhir,
+            profil_pelamar.id_kode_daerah,
+            profil_pelamar.email,
+            profil_pelamar.no_ktp,
+            profil_pelamar.nama,
+            profil_pelamar.nama_panggil,
+            profil_pelamar.tgl_lahir,
+            profil_pelamar.tempat_lahir,
+            profil_pelamar.jenis_kelamin,
+            profil_pelamar.no_hp,
+            profil_pelamar.agama,
+            profil_pelamar.status_pernikahan,
+            profil_pelamar.alamat_ktp,
+            profil_pelamar.propid,
+            profil_pelamar.kabid,
+            profil_pelamar.camatid,
+            profil_pelamar.kode_pos,
+            profil_pelamar.alamat_domisili,
+            profil_pelamar.bidang_pendidikan,
+            profil_pelamar.jenjang_pendidikan,
+            profil_pelamar.universitas_sekolah,
+            profil_pelamar.program_studi_jurusan,
+            profil_pelamar.ipk,
+            profil_pelamar.nama_perusahaan,
+            profil_pelamar.jabatan,
+            profil_pelamar.tahun_masuk,
+            profil_pelamar.tahun_keluar,
+            profil_pelamar.foto_profil
+            FROM
+            data_pendukung
+            INNER JOIN daftar_pelamar ON data_pendukung.id_user = daftar_pelamar.id_user
+            INNER JOIN users ON users.id_user = daftar_pelamar.id_user AND users.id_user = data_pendukung.id_user
+            INNER JOIN profil_pelamar ON users.id_user = profil_pelamar.id_user
+            WHERE users.`status` = 'aktif' AND daftar_pelamar.id_pelamar = $id
+    ";
+
+    $result = $this->db->query($qry);
+    // $r['data'] = $result->result();
+    return $result->result();
   }
 
 }

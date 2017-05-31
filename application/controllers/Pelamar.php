@@ -26,6 +26,14 @@ class Pelamar extends CI_Controller {
 		echo json_encode($result);
 	}
 
+	public function getIdPelamar(){
+	 $this->model_security->getsecurity();
+
+	 $id = $this->input->post('id_pelamar');
+	 $result = $this->model_pelamar->getIdPelamar($id);
+	 echo json_encode($result);
+ }
+
 	// public function insertData(){
 	// 	// echo var_dump($_FILES);
 	// 	$this->model_security->getsecurity();

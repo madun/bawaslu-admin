@@ -7,7 +7,7 @@ class model_detailPelamar extends CI_Model {
 
     $id = $this->uri->segment(3);
     $qry = "SELECT
-    users.id_user,user_type.user_type,users.username,users.email,users.no_ktp,users.tgl_insert,users.tgl_update
+    users.id_user,user_type.user_type,users.nama,users.email,users.no_ktp,users.tgl_insert,users.tgl_update
     FROM users
     INNER JOIN user_type ON users.id_user_type = user_type.id_user_type
     WHERE users.id_user = $id
