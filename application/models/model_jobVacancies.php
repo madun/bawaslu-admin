@@ -46,7 +46,6 @@ class model_jobVacancies extends CI_Model {
     if($this->upload->do_upload("file")){
         $data = array('upload_data' => $this->upload->data());
         $data1 = array(
-        // 'id_job_vacancy' => $this->input->post('selectmenuid'),
         'tgl_insert' => $now,
         'tgl_tayang' => $this->input->post('start'),
         'tgl_expired' => $this->input->post('expired'),

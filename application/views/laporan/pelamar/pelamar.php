@@ -104,14 +104,10 @@
           startingTop: '4%', // Starting top style attribte
           endingTop: '10%', // Ending top style attribute
           ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
-            // $('select').material_select();
-            // $('.datepicker').pickadate({
-            //   selectMonths: true, // Creates a dropdown to control month
-            //   selectYears: 70 // Creates a dropdown of 15 years to control year
-            // });
+
           },
           complete: function() {
-            // $('select').material_select('destroy');
+            
           } // Callback for Modal close
         }
       );
