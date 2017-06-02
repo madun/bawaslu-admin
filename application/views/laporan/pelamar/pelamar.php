@@ -17,7 +17,34 @@
     <!-- Modal Structure -->
     <div id="modalPelamar" class="modal">
       <div class="modal-content">
-        <center><h6>PELAMAR</h6></center>
+          <center><h6>DATA PRIBADI</h6></center>
+          <br>
+          <div class="row">
+            <!-- <input type="text" id="id_pelamar" name="id_pelamar" value=""> -->
+            <table class="responsive-table striped">
+              <tr>
+                <td>Nama <b><span id="nama" class="right"></span></b></td>
+                <td>No. KTP <b><span id="no_ktp" class="right"></span></b></td>
+              </tr>
+              <tr>
+                <td>Email</td>
+                <td><b><span id="email"></span></b></td>
+              </tr>
+              <tr>
+                <td>No. HP</td>
+                <td><b><span id="no_hp"></span></b></td>
+              </tr>
+              <tr>
+                <td>Tempat, Tanggal lahir </td>
+                <td><b><span id="tempat_lahir"></span>, <span id="tgl_lahir"></span></b></td>
+              </tr>
+              <tr>
+                <td>Status Pernikahan</td>
+                <td><b><span id="status_pernikahan"></span></b></td>
+              </tr>
+            </table>
+          </div>
+          <center><h6>DATA PELAMAR</h6></center>
           <br>
           <div class="row">
             <!-- <input type="text" id="id_pelamar" name="id_pelamar" value=""> -->
@@ -39,8 +66,8 @@
                 <td><b><span id="syaratdoc"></span></b></td>
               </tr>
               <tr>
-                <td colspan="2"><center><b><span id="status_akhir"></span></b></center></td>
-                <!-- <td><b><span id="syaratdoc"></span></b></td> -->
+                <td>Status Akhir</td>
+                <td><b><span id="status_akhir" class="right"></span></b></td>
               </tr>
             </table>
           </div>
@@ -173,43 +200,64 @@
 
                   clearForm();
                   $.each(resultObj,function(key,val){
-                    var syarat1,syarat2,syaratdoc,status_akhir,penghargaan,karyatulis,dok_pendukung_1,dok_pendukung_2,dok_pendukung_3,dok_pendukung_4,dok_pendukung_5,dok_pendukung_6,dok_pendukung_7,dok_pendukung_8,dok_pendukung_9,dok_pendukung_10;
+                    var syarat1;
+                    var syarat2;
+                    var syaratdoc;
+                    var status_akhir;
+                    var penghargaan_kepemiluan;
+                    var karyatulis;
+                    var dok_pendukung_1;
+                    var dok_pendukung_2;
+                    var dok_pendukung_3;
+                    var dok_pendukung_4;
+                    var dok_pendukung_5;
+                    var dok_pendukung_6;
+                    var dok_pendukung_7;
+                    var dok_pendukung_8;
+                    var dok_pendukung_9;
+                    var dok_pendukung_10;
                     if(val.syarat_administrasi_1 == '' || val.syarat_administrasi_1 == null){syarat1 = 'TDK TERPENUHI'} else {syarat1 = 'TERPENUHI'}
                     if(val.syarat_administrasi_2 == '' || val.syarat_administrasi_2 == null){syarat2 = 'TDK TERPENUHI'} else {syarat2 = 'TERPENUHI'}
                     if (val.syarat_dok_pendukung == '' || val.syarat_dok_pendukung == null) {syaratdoc = 'BLM LENGKAP'} else {syaratdoc = 'LENGKAP' }
                     if (val.status_akhir == '' || val.status_akhir == null) {status_akhir = 'TDK LULUS'} else {status_akhir = 'LULUS' }
-                    if (val.penghargaan_kepemiluan == '' || val.penghargaan_kepemiluan == null) {penghargaan == 'TIDAK ADA'} else {penghargaan == 'ADA'}
-                    if (val.karyatulis_kepemiluan == '' || val.karyatulis_kepemiluan == null) {karyatulis == 'TIDAK ADA'} else {karyatulis == 'ADA'}
-                    if (val.dok_pendukung_1 == '' || val.dok_pendukung_1 == null) {dok_pendukung_1 == 'TIDAK ADA'} else {dok_pendukung_1 == 'ADA'}
-                    if (val.dok_pendukung_2 == '' || val.dok_pendukung_2 == null) {dok_pendukung_2 == 'TIDAK ADA'} else {dok_pendukung_2 == 'ADA'}
-                    if (val.dok_pendukung_3 == '' || val.dok_pendukung_3 == null) {dok_pendukung_3 == 'TIDAK ADA'} else {dok_pendukung_3 == 'ADA'}
-                    if (val.dok_pendukung_4 == '' || val.dok_pendukung_4 == null) {dok_pendukung_4 == 'TIDAK ADA'} else {dok_pendukung_4 == 'ADA'}
-                    if (val.dok_pendukung_5 == '' || val.dok_pendukung_5 == null) {dok_pendukung_5 == 'TIDAK ADA'} else {dok_pendukung_5 == 'ADA'}
-                    if (val.dok_pendukung_6 == '' || val.dok_pendukung_6 == null) {dok_pendukung_6 == 'TIDAK ADA'} else {dok_pendukung_6 == 'ADA'}
-                    if (val.dok_pendukung_7 == '' || val.dok_pendukung_7 == null) {dok_pendukung_7 == 'TIDAK ADA'} else {dok_pendukung_7 == 'ADA'}
-                    if (val.dok_pendukung_8 == '' || val.dok_pendukung_8 == null) {dok_pendukung_8 == 'TIDAK ADA'} else {dok_pendukung_8 == 'ADA'}
-                    if (val.dok_pendukung_9 == '' || val.dok_pendukung_9 == null) {dok_pendukung_9 == 'TIDAK ADA'} else {dok_pendukung_9 == 'ADA'}
-                    if (val.dok_pendukung_10 == '' || val.dok_pendukung_10 == null) {dok_pendukung_10 == 'TIDAK ADA'} else {dok_pendukung_10 == 'ADA'}
+                    // if (val.penghargaan_kepemiluan == '' || val.penghargaan_kepemiluan == null) {penghargaan_kepemiluan == 'TIDAK ADA'} else {penghargaan_kepemiluan == 'ADA'}
+                    // if (val.karyatulis_kepemiluan == '' || val.karyatulis_kepemiluan == null) {karyatulis == 'TIDAK ADA'} else {karyatulis == 'ADA'}
+                    // if (val.dok_pendukung_1 == '' || val.dok_pendukung_1 == null) {dok_pendukung_1 == 'TIDAK ADA'} else {dok_pendukung_1 == 'ADA'}
+                    // if (val.dok_pendukung_2 == '' || val.dok_pendukung_2 == null) {dok_pendukung_2 == 'TIDAK ADA'} else {dok_pendukung_2 == 'ADA'}
+                    // if (val.dok_pendukung_3 == '' || val.dok_pendukung_3 == null) {dok_pendukung_3 == 'TIDAK ADA'} else {dok_pendukung_3 == 'ADA'}
+                    // if (val.dok_pendukung_4 == '' || val.dok_pendukung_4 == null) {dok_pendukung_4 == 'TIDAK ADA'} else {dok_pendukung_4 == 'ADA'}
+                    // if (val.dok_pendukung_5 == '' || val.dok_pendukung_5 == null) {dok_pendukung_5 == 'TIDAK ADA'} else {dok_pendukung_5 == 'ADA'}
+                    // if (val.dok_pendukung_6 == '' || val.dok_pendukung_6 == null) {dok_pendukung_6 == 'TIDAK ADA'} else {dok_pendukung_6 == 'ADA'}
+                    // if (val.dok_pendukung_7 == '' || val.dok_pendukung_7 == null) {dok_pendukung_7 == 'TIDAK ADA'} else {dok_pendukung_7 == 'ADA'}
+                    // if (val.dok_pendukung_8 == '' || val.dok_pendukung_8 == null) {dok_pendukung_8 == 'TIDAK ADA'} else {dok_pendukung_8 == 'ADA'}
+                    // if (val.dok_pendukung_9 == '' || val.dok_pendukung_9 == null) {dok_pendukung_9 == 'TIDAK ADA'} else {dok_pendukung_9 == 'ADA'}
+                    // if (val.dok_pendukung_10 == '' || val.dok_pendukung_10 == null) {dok_pendukung_10 == 'TIDAK ADA'} else {dok_pendukung_10 == 'ADA'}
 
                     $("[name='id_pelamar']").val(val.id_pelamar);
                     $("b #nama").html(val.nama);
+                    $("b #no_ktp").html(val.no_ktp);
+                    $("b #email").html(val.email);
+                    $("b #no_hp").html(val.no_hp);
+                    $("b #tempat_lahir").html(val.tempat_lahir);
+                    $("b #tgl_lahir").html(val.tgl_lahir);
+                    $("b #status_pernikahan").html(val.status_pernikahan);
                     $("b #noregis").html(val.no_registrasi);
                     $("b #syarat1").html(syarat1);
                     $("b #syarat2").html(syarat2);
                     $("b #syaratdoc").html(syaratdoc);
                     $("b #status_akhir").html(status_akhir);
-                    $("b #penghargaan").html(penghargaan);
-                    $("b #karyatulis_kepemiluan").html(karyatulis);
-                    $("b #dok_pendukung_1").html(dok_pendukung_1);
-                    $("b #dok_pendukung_2").html(dok_pendukung_2);
-                    $("b #dok_pendukung_3").html(dok_pendukung_3);
-                    $("b #dok_pendukung_4").html(dok_pendukung_4);
-                    $("b #dok_pendukung_5").html(dok_pendukung_5);
-                    $("b #dok_pendukung_6").html(dok_pendukung_6);
-                    $("b #dok_pendukung_7").html(dok_pendukung_7);
-                    $("b #dok_pendukung_8").html(dok_pendukung_8);
-                    $("b #dok_pendukung_9").html(dok_pendukung_9);
-                    $("b #dok_pendukung_10").html(dok_pendukung_10);
+                    $("b #penghargaan").html(val.penghargaan_kepemiluan);
+                    $("b #karyatulis_kepemiluan").html(val.karyatulis_kepemiluan);
+                    $("b #dok_pendukung_1").html(val.dok_pendukung_1);
+                    $("b #dok_pendukung_2").html(val.dok_pendukung_2);
+                    $("b #dok_pendukung_3").html(val.dok_pendukung_3);
+                    $("b #dok_pendukung_4").html(val.dok_pendukung_4);
+                    $("b #dok_pendukung_5").html(val.dok_pendukung_5);
+                    $("b #dok_pendukung_6").html(val.dok_pendukung_6);
+                    $("b #dok_pendukung_7").html(val.dok_pendukung_7);
+                    $("b #dok_pendukung_8").html(val.dok_pendukung_8);
+                    $("b #dok_pendukung_9").html(val.dok_pendukung_9);
+                    $("b #dok_pendukung_10").html(val.dok_pendukung_10);
                 });
               }
           });
