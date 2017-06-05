@@ -6,12 +6,12 @@ class model_dashboard extends CI_Model {
   public function getDataKotaKab(){
 
 		$sqlkab = "SELECT kabupaten.ibukota as name, count(*) data
-                  FROM
-                  profil_pelamar
-                  LEFT JOIN kabupaten ON kabupaten.kabid = profil_pelamar.id_kode_daerah
-                  WHERE kabupaten.kabid = profil_pelamar.id_kode_daerah and kabupaten.propid = '3200'
-                  GROUP BY profil_pelamar.id_kode_daerah
-                  ";
+              FROM
+              profil_pelamar
+              LEFT JOIN kabupaten ON kabupaten.kabid = profil_pelamar.id_kode_daerah
+              WHERE kabupaten.kabid = profil_pelamar.id_kode_daerah and kabupaten.propid = '3200'
+              GROUP BY profil_pelamar.id_kode_daerah
+              ";
 		$r_sqlkab = $this->db->query($sqlkab);
     $hasil = json_decode(json_encode($r_sqlkab->result()), True);
 
@@ -22,51 +22,64 @@ class model_dashboard extends CI_Model {
 
   public function getDataPendidikan(){
 
-		$sqlkab = "SELECT
-              (SELECT count(*) from profil_pelamar p where p.jenjang_pendidikan = 'S1') as s1,
-              (SELECT count(*) from profil_pelamar p where p.jenjang_pendidikan = 'S2') as s2,
-              (SELECT count(*) from profil_pelamar p where p.jenjang_pendidikan = 'D3') as d3,
-              (SELECT count(*) from profil_pelamar p where p.jenjang_pendidikan = 'SMA') as sma
-              from profil_pelamar
-              GROUP BY s1
-                  ";
+		// $sqlkab = "SELECT
+    //           (SELECT count(*) from profil_pelamar p where p.jenjang_pendidikan = 'S1') as s1,
+    //           (SELECT count(*) from profil_pelamar p where p.jenjang_pendidikan = 'S2') as s2,
+    //           (SELECT count(*) from profil_pelamar p where p.jenjang_pendidikan = 'D3') as d3,
+    //           (SELECT count(*) from profil_pelamar p where p.jenjang_pendidikan = 'SMA') as sma
+    //           from profil_pelamar
+    //           GROUP BY s1
+    //               ";
 
     $result = array();
 		$sqls1 = "SELECT (SELECT count(*) from profil_pelamar p where p.jenjang_pendidikan = 'S1') as s1
 							 from profil_pelamar p GROUP BY s1";
-		$row = array();
-		$row['name'] = 's1';
+		$row1 = array();
+		$row1['name'] = 'S1';
 		$r_sql_s1 = $this->db->query($sqls1);
     $hasil1 = json_decode(json_encode($r_sql_s1->result()), True);
-		foreach($hasil1 as $r) {
-				$row['data'] = $r['s1'];
-		}
-
-    var_dump($row);die;
-
-    $sqls2 = "SELECT (SELECT count(*) from profil_pelamar p where p.jenjang_pendidikan = 'S2') as s2
-							 from profil_pelamar p GROUP BY s2";
-		$row1 = array();
-		$row1['name'] = 's1';
-		$r_sql_s2 = $this->db->query($sqls2);
-    $hasil2 = json_decode(json_encode($r_sql_s2->result()), True);
 		foreach($hasil1 as $r) {
 				$row1['data'] = $r['s1'];
 		}
 
-		$sqlu = "SELECT (SELECT count(*) from ".$this->conn->databaseName."_hcm.presence p where p.id_state <> '1' and id_state <> '2' and p.date_insert='".$now."') as other
-							from ".$this->conn->databaseName."_hcm.presence p GROUP BY other";
+    // var_dump($row);die;
+
+    $sqls2 = "SELECT (SELECT count(*) from profil_pelamar p where p.jenjang_pendidikan = 'S2') as s2
+							 from profil_pelamar p GROUP BY s2";
 		$row2 = array();
-		$row2['name'] = 'Other';
-		$ru_sql = $this->conn->execute($sqlu) or die (mysql_error());
-		foreach ($ru_sql as $r) {
-			$row2['data'] = $r['other'];
+		$row2['name'] = 'S2';
+		$r_sql_s2 = $this->db->query($sqls2);
+    $hasil2 = json_decode(json_encode($r_sql_s2->result()), True);
+		foreach($hasil2 as $r) {
+				$row2['data'] = $r['s2'];
 		}
 
+    // var_dump($row1);die;
 
-		array_push($result,$row);
+		$sqlu3 = "SELECT (SELECT count(*) from profil_pelamar p where p.jenjang_pendidikan = 'D3') as d3
+							 from profil_pelamar p GROUP BY d3";
+		$row3 = array();
+		$row3['name'] = 'D3';
+    $r_sql_s3 = $this->db->query($sqlu3);
+		$hasil3 = json_decode(json_encode($r_sql_s3->result()), True);
+		foreach ($hasil3 as $r) {
+			$row3['data'] = $r['d3'];
+		}
+
+    $sqlu4 = "SELECT (SELECT count(*) from profil_pelamar p where p.jenjang_pendidikan = 'SMA') as sma
+							 from profil_pelamar p GROUP BY sma";
+		$row4 = array();
+		$row4['name'] = 'D3';
+    $r_sql_s4 = $this->db->query($sqlu4);
+		$hasil4 = json_decode(json_encode($r_sql_s4->result()), True);
+		foreach ($hasil4 as $r) {
+			$row4['data'] = $r['sma'];
+		}
+
 		array_push($result,$row1);
 		array_push($result,$row2);
+    array_push($result,$row3);
+    array_push($result,$row4);
 
 
 		$numeric = json_encode($result,JSON_NUMERIC_CHECK);
