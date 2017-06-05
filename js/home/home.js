@@ -1,4 +1,23 @@
 $(function () {
+$('select').material_select();
+
+$('#filter').on('change', function (e) {
+    var optionSelected = $("option:selected", this);
+    var valueSelected = this.value;
+
+    if (valueSelected == 'kotakab') {
+      window.location.href="filterDashboard/KotaKab";
+    } else if(valueSelected == 'pendidikan'){
+      window.location.href="dashboard/";
+    } else if(valueSelected == 'usia'){
+      window.location.href="dashboard/";
+    } else if(valueSelected == 'jeniskelamin'){
+      window.location.href="dashboard/";
+    } else {
+      window.location.href="success_login";
+    }
+
+});
 function getRandomColor() {
         var letters = '0123456789ABCDEF';
         var color = '#';
