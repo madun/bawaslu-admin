@@ -20,5 +20,17 @@ class Dashboard extends CI_Controller {
 		return $result;
 	}
 
+  public function getDataUsia(){
+		$this->model_security->getsecurity();
+		$result = $this->model_dashboard->getDataUsia();
+		return $result;
+	}
+
+  public function getDataJenkel(){
+		$this->model_security->getsecurity();
+		$result = $this->model_dashboard->getDataJenkel();
+		return $result;
+	}
+
 
 }

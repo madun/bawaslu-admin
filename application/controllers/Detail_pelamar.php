@@ -8,12 +8,6 @@ class Detail_pelamar extends CI_Controller {
 		$this->load->model('model_detailPelamar');
 	}
 
-	// public function index()
-	// {
-	// 	$this->model_security->getsecurity();
-	//
-	// }
-
 	public function getData(){
 		$this->model_security->getsecurity();
 		$isikonten['content'] = 'laporan/pelamar/detail_pelamar'; // content harus sama dengan yang ada di tampilan_home $content (agar dinamis)
