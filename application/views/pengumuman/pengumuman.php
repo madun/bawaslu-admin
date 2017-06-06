@@ -136,16 +136,22 @@
 
       $(document).on("click",".deleteUser", function(){
         var id_pengumuman = $(this).attr('id');
-        $.ajax({
-            type : 'POST',
-            data : "id_pengumuman="+id_pengumuman,
-            url : "<?php echo base_url(); ?>pengumuman/deleteData",
-            success : function(result){
-              Materialize.toast('Has Been Deleted!', 1000,'',function(){
-                  window.location.href="<?php echo base_url(); ?>pengumuman";
-              })
-            }
-        });
+        var r = confirm("Apakah Anda Yakin?");
+        if (r == true) {
+          $.ajax({
+              type : 'POST',
+              data : "id_pengumuman="+id_pengumuman,
+              url : "<?php echo base_url(); ?>pengumuman/deleteData",
+              success : function(result){
+                Materialize.toast('Has Been Deleted!', 1000,'',function(){
+                    window.location.href="<?php echo base_url(); ?>pengumuman";
+                })
+              }
+          });
+        } else {
+            console.log('hehe');
+        }
+
       });
 
   } );
