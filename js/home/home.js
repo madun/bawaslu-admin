@@ -6,13 +6,29 @@ $('#filter').on('change', function (e) {
     var valueSelected = this.value;
 
     if (valueSelected == 'kotakab') {
-      window.location.href="filterDashboard/KotaKab";
+      $('#pendidikan').hide();
+      $('#usia').hide();
+      $('#jenkel').hide();
+
+      $('#kotakab').show();
     } else if(valueSelected == 'pendidikan'){
-      window.location.href="dashboard/";
+      $('#usia').hide();
+      $('#jenkel').hide();
+      $('#kotakab').hide();
+
+      $('#pendidikan').show();
     } else if(valueSelected == 'usia'){
-      window.location.href="dashboard/";
+      $('#jenkel').hide();
+      $('#kotakab').hide();
+      $('#pendidikan').hide();
+
+      $('#usia').show();
     } else if(valueSelected == 'jeniskelamin'){
-      window.location.href="dashboard/";
+      $('#usia').hide();
+      $('#kotakab').hide();
+      $('#pendidikan').hide();
+
+      $('#jenkel').show();
     } else {
       window.location.href="success_login";
     }

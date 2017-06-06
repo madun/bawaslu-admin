@@ -63,7 +63,7 @@
               <div class="row">
                 <div class="col l8 m8 s8">
                     <h5><?php echo $x->nama; ?></h4>
-                    <small>001/TIMSEL/3207/IV/20017</small>
+                    <small><?php echo $x->no_registrasi; ?></small>
                 </div>
                 <div class="col l4 m4 s4">
                     <button class="waves-effect waves-light btn orange darken-1 right" type="button" name="button"><i class="material-icons left">description</i>Unduh CV</button>
@@ -76,25 +76,25 @@
                   <th class="right" scope="row">No. KTP</th>
                   <td><?php echo $x->no_ktp ?></td>
                   <th class="right" scope="row">Sex</th>
-                  <td>Laki - Laki</td>
+                  <td><?php echo $x->jenis_kelamin; ?></td>
                   <th class="right" scope="row">Status</th>
-                  <td>-</td>
+                  <td><?php echo $x->status_pernikahan; ?></td>
                 </tr>
                 <tr>
                   <th class="right" scope="row">Date Birth</th>
-                  <td>01 Jan 1970</td>
+                  <td><?php echo date("d, M Y", strtotime($x->email)); ?></td>
                   <th class="right" scope="row">Email</th>
                   <td><?php echo $x->email ?></td>
                   <th class="right" scope="row">Pernikahan</th>
-                  <td>-</td>
+                  <td><?php echo $x->status_pernikahan; ?></td>
                 </tr>
                 <tr>
                   <th class="right" scope="row">City</th>
-                  <td>Bandung</td>
+                  <td><?php echo $x->tempat_lahir; ?></td>
                   <th class="right" scope="row">Contact</th>
-                  <td>089543216</td>
+                  <td><?php echo $x->no_hp; ?></td>
                   <th class="right" scope="row">Religion</th>
-                  <td>Islam</td>
+                  <td><?php echo $x->agama; ?></td>
                 </tr>
               </table>
             </div>
@@ -115,38 +115,38 @@
                 <div class="col l5 m12 s12">
                     <div class="row">
                       <div class="input-field">
-                        <input id="ktp" type="text" class="validate" required>
+                        <input id="ktp" type="text" class="validate" required value="<?php echo $x->no_ktp; ?>">
                         <label for="ktp">KTP <span class="red-text">(*)</span></label>
                       </div>
                       <div class="input-field">
-                        <input id="nama_lengkap" type="text" class="validate" required>
+                        <input id="nama_lengkap" type="text" class="validate" required value="<?php echo $x->nama; ?>">
                         <label for="nama_lengkap">Nama Lengkap <span class="red-text">(*)</span></label>
                       </div>
                       <div class="input-field">
-                        <input id="nama_panggilan" type="text" class="validate" required>
+                        <input id="nama_panggilan" type="text" class="validate" required value="<?php echo $x->nama_panggil; ?>">
                         <label for="nama_panggilan">Nama Panggilan <span class="red-text">(*)</span></label>
                       </div>
                       <div class="input-field">
-                        <input id="email" type="text" class="validate" required>
+                        <input id="email" type="text" class="validate" required value="<?php echo $x->email; ?>">
                         <label for="email">Email <span class="red-text">(*)</span></label>
                       </div>
                       <div class="input-field">
-                        <input id="notlp" type="text" class="validate" required>
+                        <input id="notlp" type="text" class="validate" required value="<?php echo $x->no_hp; ?>">
                         <label for="notlp">No. Tlp <span class="red-text">(*)</span></label>
                       </div>
-                      <div class="input-field">
+                      <!-- <div class="input-field">
                         <input class="with-gap" name="sex" type="radio" id="laki" checked value="l" required/>
                         <label for="laki">Laki Laki</label>
                         <input class="with-gap" name="sex" type="radio" id="perempuan" value="p" required/>
                         <label for="perempuan">Perempuan</label>
-                      </div>
+                      </div> -->
                       <br>
                       <div class="input-field">
-                        <textarea id="alamat" class="materialize-textarea" required></textarea>
+                        <textarea id="alamat" class="materialize-textarea" required><?php echo $x->alamat_ktp; ?></textarea>
                         <label for="alamat">Alamat <span class="red-text">(*)</span></label>
                       </div>
                       <div class="input-field">
-                        <input id="kodepos" type="text" class="validate" required>
+                        <input id="kodepos" type="text" class="validate" required value="<?php echo $x->kode_pos; ?>">
                         <label for="kodepos">Kode POS <span class="red-text">(*)</span></label>
                       </div>
                     </div>
@@ -159,14 +159,14 @@
                 <div class="col l5 m12 s12">
                     <div class="row">
                       <div class="input-field">
-                        <input id="City" type="text" class="validate" required>
+                        <input id="City" type="text" class="validate" required value="<?php echo $x->tempat_lahir; ?>">
                         <label for="City">City <span class="red-text">(*)</span></label>
                       </div>
                       <div class="input-field">
-                        <input type="date" class="datepicker" id="birth" placeholder="Date Birth">
+                        <input type="date" class="datepicker" id="birth" placeholder="Date Birth" value="<?php echo $x->tgl_lahir; ?>">
                         <!-- <label for="birth">Birth <span class="red-text">(*)</span></label> -->
                       </div>
-                      <div class="input-field">
+                      <!-- <div class="input-field">
                         <select id="agama">
                           <option value="" disabled selected>Choose your option</option>
                           <option value="1">Option 1</option>
@@ -183,13 +183,13 @@
                           <option value="3">Option 3</option>
                         </select>
                         <label for="status">Status Pernikahan</label>
-                      </div>
+                      </div> -->
                       <div class="input-field">
-                        <input id="jabatan" type="text" class="validate" required>
+                        <input id="jabatan" type="text" class="validate" required value="<?php echo $x->jabatan; ?>">
                         <label for="jabatan">Pekerjaan / Jabatan <span class="red-text">(*)</span></label>
                       </div>
                       <div class="input-field col l8">
-                        <textarea id="alamat" class="materialize-textarea" required></textarea>
+                        <textarea id="alamat" class="materialize-textarea" required><?php echo $x->alamat_domisili; ?></textarea>
                         <label for="alamat">Alamat <span class="red-text">(*)</span></label>
                       </div>
                       <div class="input-field col l4">
@@ -209,42 +209,42 @@
                 <br>
                 <div class="input-field">
                   <select id="bidpend">
-                    <option value="" disabled selected>Choose your option</option>
-                    <option value="1">Option 1</option>
+                    <option value="" disabled selected><?php echo $x->bidang_pendidikan; ?></option>
+                    <!-- <option value="1">Option 1</option>
                     <option value="2">Option 2</option>
-                    <option value="3">Option 3</option>
+                    <option value="3">Option 3</option> -->
                   </select>
                   <label for="bidpend">Bidang Pendidikan</label>
                 </div>
                 <div class="input-field">
                   <select>
-                    <option value="" disabled selected>Choose your option</option>
-                    <option value="1">Option 1</option>
+                    <option value="" disabled selected><?php echo $x->bidang_pendidikan; ?></option>
+                    <!-- <option value="1">Option 1</option>
                     <option value="2">Option 2</option>
-                    <option value="3">Option 3</option>
+                    <option value="3">Option 3</option> -->
                   </select>
                   <label>Jenjang Pendidikan</label>
                 </div>
                 <div class="input-field">
                   <select>
-                    <option value="" disabled selected>Choose your option</option>
-                    <option value="1">Option 1</option>
+                    <option value="" disabled selected><?php echo $x->universitas_sekolah; ?></option>
+                    <!-- <option value="1">Option 1</option>
                     <option value="2">Option 2</option>
-                    <option value="3">Option 3</option>
+                    <option value="3">Option 3</option> -->
                   </select>
                   <label>Universitas / Sekolah</label>
                 </div>
                 <div class="input-field">
                   <select>
-                    <option value="" disabled selected>Choose your option</option>
-                    <option value="1">Option 1</option>
+                    <option value="" disabled selected><?php echo $x->program_studi_jurusan; ?></option>
+                    <!-- <option value="1">Option 1</option>
                     <option value="2">Option 2</option>
-                    <option value="3">Option 3</option>
+                    <option value="3">Option 3</option> -->
                   </select>
                   <label>Program Studi / Jurusan</label>
                 </div>
                 <div class="input-field">
-                  <input id="nilaiipk" type="text" class="validate" required width="20%">
+                  <input id="nilaiipk" type="text" class="validate" required width="20%" value="<?php echo $x->ipk; ?>">
                   <label for="nilaiipk">Nilai IPK <span class="red-text">(*)</span></label>
                 </div>
               </div>
@@ -255,26 +255,26 @@
               <!-- kanan -->
               <div class="col l5 m12 s12">
                 <div class="input-field">
-                  <input id="pengalaman" type="text" class="validate" required>
+                  <input id="pengalaman" type="text" class="validate" required value="<?php echo $x->nama_perusahaan; ?>">
                   <label for="pengalaman">Pengalaman Kerja Perusahaan <span class="red-text">(*)</span></label>
                 </div>
                 <div class="input-field">
-                  <input id="jabatanpeng" type="text" class="validate" required>
+                  <input id="jabatanpeng" type="text" class="validate" required value="<?php echo $x->jabatan; ?>">
                   <label for="jabatanpeng">Jabatan <span class="red-text">(*)</span></label>
                 </div>
                 <div class="input-field">
-                  <input type="date" class="datepicker" id="thnin" placeholder="Tahun Masuk" value="<?php echo $x->tgl_insert; ?>">
+                  <input type="date" class="datepicker" id="thnin" placeholder="Tahun Masuk" value="<?php echo $x->tahun_masuk; ?>">
                   <!-- <label for="birth">Birth <span class="red-text">(*)</span></label> -->
                 </div>
                 <div class="input-field">
-                  <input type="date" class="datepicker" id="thnin" placeholder="Tahun Keluar" value="<?php echo $x->tgl_update; ?>">
+                  <input type="date" class="datepicker" id="thnin" placeholder="Tahun Keluar" value="<?php echo $x->tahun_keluar; ?>">
                   <!-- <label for="birth">Birth <span class="red-text">(*)</span></label> -->
                 </div>
               </div>
               <!-- /kanan -->
             </div>
 
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col l12 m12 s12">
                   <span class="col l4 m12 s12">Penghargaan yang pernah diperoleh terkait kepemiluan</span>
                   <div class="file-field input-field col l8 m12 s12">
@@ -299,7 +299,7 @@
                     </div>
                   </div>
                 </div>
-            </div>
+            </div> -->
         </div>
       </div>
 
