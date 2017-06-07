@@ -20,6 +20,12 @@ class Jobvacancies extends CI_Controller {
 		$this->load->view('body', $isikonten);
 	}
 
+	public function getDataKab(){
+		$this->model_security->getsecurity();
+		$result = $this->model_jobVacancies->getDataKab();
+		echo json_encode($result);
+	}
+
 	public function getData(){
 		$this->model_security->getsecurity();
 		$result = $this->model_jobVacancies->getData();

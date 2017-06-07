@@ -4,9 +4,28 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class model_jobVacancies extends CI_Model {
 
+  public function getDataKab(){
+    $query=$this->uri->segment(3);
+    if (isset($_REQUEST['query'])) {
+    $query = $_REQUEST['query'];
+    $sql = "SELECT kabid, kabupaten FROM kabupaten WHERE kabupaten LIKE '%{$query}%' OR kabid LIKE '%{$query}%'";
+      $result = $this->db->query($sql);
+      $r = json_decode(json_encode($result->result()), True);
+      $array = array();
+        foreach ($r as $key) {
+            $array[] = array (
+                'label' => $key['kabupaten'].', '.$key['kabid'],
+                'value' => $key['kabid'],
+            );
+        }
+        //RETURN JSON ARRAY
+        return $array;
+    }
+  }
+
   public function getData(){
     $qry = "SELECT
-            kode_daerah.kode_daerah,
+            kabupaten.kabupaten,
             job_vacancy.id_job_vacancy,
             job_vacancy.tgl_insert,
             job_vacancy.tgl_tayang,
@@ -16,7 +35,7 @@ class model_jobVacancies extends CI_Model {
             job_vacancy.file_upload
             FROM
             job_vacancy
-            LEFT JOIN kode_daerah ON job_vacancy.id_kode_daerah = kode_daerah.id_kode_daerah
+            LEFT JOIN kabupaten ON job_vacancy.id_kode_daerah = kabupaten.kabid
             WHERE job_vacancy.status_vacancy = 'aktif'
 
     ";

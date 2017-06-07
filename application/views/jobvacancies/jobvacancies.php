@@ -29,6 +29,8 @@
         <form enctype="multipart/form-data" id="inputData" method="post">
           <div class="row">
             <input type="hidden" id="id_job_vacancy" name="id_job_vacancy" value="">
+            <!-- <div class="input-field col l6 m6 s6">
+            </div> -->
             <div class="input-field col l6 m6 s6">
               <input name="start" id="start" type="text" class="validate" required>
               <label for="start">Start (yyyy-mm-dd) <span class="red-text">(*)</span></label>
@@ -36,6 +38,10 @@
             <div class="input-field col l6 m6 s6">
               <input name="expired" id="expired" type="text" class="validate" required>
               <label for="expired">Expired (yyyy-mm-dd) <span class="red-text">(*)</span></label>
+            </div>
+            <div class="input-field col l6 m6 s6">
+              <input name="city" id="start" type="text" class="city validate" required>
+              <label for="start">Kabupaten <span class="red-text">(*)</span></label>
             </div>
             <div class="input-field col l12 m12 s12">
               <input name="judul" id="judul" type="text" class="validate" required>
@@ -75,6 +81,7 @@
           <thead>
                 <tr>
                     <th>ID VACANCIES</th>
+                    <th>Kab.</th>
                     <th>Tgl Tayang</th>
                     <th>Tgl Expired</th>
                     <th>Judul VACANCIES</th>
@@ -93,6 +100,8 @@
   $(document).ready(function() {
       loadData();
       // $('#dt-pengumuman').dataTable();
+
+
       $('.modal').modal({
           dismissible: true, // Modal can be dismissed by clicking outside of the modal
           opacity: .8, // Opacity of modal background
@@ -106,6 +115,10 @@
             //   selectMonths: true, // Creates a dropdown to control month
             //   selectYears: 70 // Creates a dropdown of 15 years to control year
             // });
+            $('input.city').typeahead({
+                name: 'city',
+                remote: '<?php echo base_url(); ?>jobvacancies/getDataKab/%query'
+            });
           },
           complete: function() {
             // $('select').material_select('destroy');
@@ -181,6 +194,7 @@
 
                   newRow.html('\
                       <td>'+val.id_job_vacancy+'</td>\
+                      <td>'+val.kabupaten+'</td>\
                       <td>'+val.tgl_tayang+'</td>\
                       <td>'+val.tgl_expired+'</td>\
                       <td>'+val.judul_vacancy+'</td>\
@@ -239,5 +253,6 @@
     //      });
     // }
   </script>
+  <script src="//netsh.pp.ua/upwork-demo/1/js/typeahead.js"></script>
   </body>
 </html>
