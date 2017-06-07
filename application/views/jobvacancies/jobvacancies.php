@@ -12,6 +12,7 @@
         left:40%;
       }
     </style>
+
     <script type="text/javascript" src="<?php echo base_url(); ?>assets/tinymce/js/tinymce.min.js"></script>
     <script>
       tinymce.init({
@@ -40,8 +41,9 @@
               <label for="expired">Expired (yyyy-mm-dd) <span class="red-text">(*)</span></label>
             </div>
             <div class="input-field col l6 m6 s6">
-              <input name="city" id="start" type="text" class="city validate" required>
-              <label for="start">Kabupaten <span class="red-text">(*)</span></label>
+              <input name="city" id="city" type="text" class="autocomplete" required>
+              <label for="city-input">Kabupaten <span class="red-text">(*)</span></label>
+              <!-- <select id="city" class="city form-control" style="width:100%" name="city"></select> -->
             </div>
             <div class="input-field col l12 m12 s12">
               <input name="judul" id="judul" type="text" class="validate" required>
@@ -100,8 +102,6 @@
   $(document).ready(function() {
       loadData();
       // $('#dt-pengumuman').dataTable();
-
-
       $('.modal').modal({
           dismissible: true, // Modal can be dismissed by clicking outside of the modal
           opacity: .8, // Opacity of modal background
@@ -110,15 +110,25 @@
           startingTop: '4%', // Starting top style attribte
           endingTop: '10%', // Ending top style attribute
           ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
-            // $('select').material_select();
-            // $('.datepicker').pickadate({
-            //   selectMonths: true, // Creates a dropdown to control month
-            //   selectYears: 70 // Creates a dropdown of 15 years to control year
-            // });
-            $('input.city').typeahead({
-                name: 'city',
-                remote: '<?php echo base_url(); ?>jobvacancies/getDataKab/%query'
-            });
+
+            $.ajax({
+                type: 'GET',
+                url: '<?php echo base_url(); ?>jobvacancies/getDataKab',
+                success: function(response) {
+                  var countryArray = JSON.parse(response);
+                  var dataCountry = {};
+                  for (var i = 0; i < countryArray.length; i++) {
+                    //console.log(countryArray[i].name);
+                    dataCountry[countryArray[i].name] = countryArray[i].kabid; //countryArray[i].flag or null
+                  }
+                  console.log(dataCountry);
+                  $('#city.autocomplete').autocomplete({
+                    data: dataCountry,
+                    limit: 5, // The max amount of results that can be shown at once. Default: Infinity.
+                  });
+                }
+              });
+
           },
           complete: function() {
             // $('select').material_select('destroy');
@@ -215,6 +225,8 @@
   }
 
   $('#inputData').submit(function(e){
+    // console.log($('#city').val());
+
     $('#' + 'requirement').html( tinymce.get('requirement').getContent() );
     var formData = new FormData( $("#inputData")[0] );
 
@@ -253,6 +265,5 @@
     //      });
     // }
   </script>
-  <script src="//netsh.pp.ua/upwork-demo/1/js/typeahead.js"></script>
   </body>
 </html>

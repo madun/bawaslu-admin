@@ -22,8 +22,8 @@ class Jobvacancies extends CI_Controller {
 
 	public function getDataKab(){
 		$this->model_security->getsecurity();
-		$result = $this->model_jobVacancies->getDataKab();
-		echo json_encode($result);
+    $result = $this->model_jobVacancies->getDataKab();
+    echo json_encode($result);
 	}
 
 	public function getData(){

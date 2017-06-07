@@ -70,6 +70,7 @@
     <script type="text/javascript" src="<?php echo base_url(); ?>assets/datatable/js/datatables.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>assets/datatable/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>assets/datatable/js/dataTables.bootstrap4.min.js"></script>
+    <script type="text/javascript" src="<?php echo base_url(); ?>assets/autocomplete/jquery.autocomplete.js"></script>
 
     <!-- side menu mobile -->
     <script type="text/javascript">

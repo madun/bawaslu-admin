@@ -5,22 +5,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class model_jobVacancies extends CI_Model {
 
   public function getDataKab(){
-    $query=$this->uri->segment(3);
-    if (isset($_REQUEST['query'])) {
-    $query = $_REQUEST['query'];
-    $sql = "SELECT kabid, kabupaten FROM kabupaten WHERE kabupaten LIKE '%{$query}%' OR kabid LIKE '%{$query}%'";
-      $result = $this->db->query($sql);
-      $r = json_decode(json_encode($result->result()), True);
-      $array = array();
-        foreach ($r as $key) {
-            $array[] = array (
-                'label' => $key['kabupaten'].', '.$key['kabid'],
-                'value' => $key['kabid'],
-            );
-        }
-        //RETURN JSON ARRAY
-        return $array;
-    }
+    $qry = "SELECT kabupaten as name, kabid FROM kabupaten";
+    $result = $this->db->query($qry);
+    $r = json_decode(json_encode($result->result()), True);
+    return $r;
   }
 
   public function getData(){
@@ -57,6 +45,19 @@ class model_jobVacancies extends CI_Model {
   }
 
   public function insertData(){
+    // karena auto complete ga bisa get id nya
+    $kab = $this->input->post('city');
+    $getId = "SELECT kabupaten, kabid FROM kabupaten WHERE kabupaten.kabupaten = '".$kab."' ";
+    $hasilId = $this->db->query($getId);
+    // return $result->result();
+    $r = json_decode(json_encode($hasilId->result()), True);
+    $idKab;
+    foreach ($r as $key) {
+      $idkab = $key['kabid'];
+    }
+
+    $idKab = $idkab;
+
     $id = $this->input->post('id_job_vacancy');
     $config['upload_path']="./uploads";
     $config['allowed_types']='gif|jpg|png|jpeg';
@@ -65,6 +66,7 @@ class model_jobVacancies extends CI_Model {
     if($this->upload->do_upload("file")){
         $data = array('upload_data' => $this->upload->data());
         $data1 = array(
+        'id_kode_daerah' => $idKab,
         'tgl_insert' => $now,
         'tgl_tayang' => $this->input->post('start'),
         'tgl_expired' => $this->input->post('expired'),
