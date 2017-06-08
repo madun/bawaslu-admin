@@ -72,7 +72,7 @@ class model_jobVacancies extends CI_Model {
         'tgl_expired' => $this->input->post('expired'),
         'judul_vacancy' => $this->input->post('judul'),
         'requirement' => $this->input->post('requirement'),
-        'file_upload' => $data['upload_data']['file_name'],
+        'file_upload' => base_url()."uploads/".$data['upload_data']['file_name'],
         'status_vacancy' => 'aktif'
         );
     if ($id == '') { //insert

@@ -4,6 +4,7 @@
     <title>BAWASLU</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/materialize/css/materialize.min.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/custome.css">
     <!--Import Google Icon Font-->
     <!-- <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
@@ -31,6 +32,7 @@
         <li><a href="<?php echo base_url(); ?>user">USER</a></li>
         <li><a href="<?php echo base_url(); ?>pengumuman">PENGUMUMAN</a></li>
         <li><a href="<?php echo base_url(); ?>jobvacancies">JOB VACANCIES</a></li>
+        <li><a href="<?php echo base_url(); ?>proses">PROSES</a></li>
         <li><a href="<?php echo base_url(); ?>pelamar">LAPORAN</a></li>
         <!-- Dropdown Trigger -->
         <!-- <li><a class="dropdown-button" href="#!" data-activates="ddlaporan">LAPORAN<i class="material-icons right">arrow_drop_down</i></a></li> -->
@@ -41,6 +43,7 @@
         <li><a href="<?php echo base_url(); ?>user">USER</a></li>
         <li><a href="<?php echo base_url(); ?>pengumuman">PENGUMUMAN</a></li>
         <li><a href="<?php echo base_url(); ?>jobvacancies">JOB VACANCIES</a></li>
+        <li><a href="<?php echo base_url(); ?>proses">PROSES</a></li>
         <li><a href="<?php echo base_url(); ?>pelamar">LAPORAN</a></li>
         <!-- Dropdown Trigger -->
         <!-- <li><a class="dropdown-button" href="#!" data-activates="ddlaporan">LAPORAN<i class="material-icons right">arrow_drop_down</i></a></li> -->

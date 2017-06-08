@@ -54,7 +54,7 @@
   </style>
   <div class="row">
       <div class="col l2 m2 s12">
-          <img style="border:5px solid;border-color:#fff;" class="materialboxed responsive-img z-depth-3" data-caption="A picture of a way with a group of trees in a park" src="<?php echo base_url(); ?>assets/apple-wallpaper-19.jpg">
+          <img style="border:5px solid;border-color:#fff;" class="materialboxed responsive-img z-depth-3" data-caption="A picture of a way with a group of trees in a park" src="<?php echo $x->foto_profil; ?>">
       </div>
       <div class="col l10 m10 s12">
 
@@ -75,14 +75,14 @@
                 <tr>
                   <th class="right" scope="row">No. KTP</th>
                   <td><?php echo $x->no_ktp ?></td>
-                  <th class="right" scope="row">Sex</th>
+                  <th class="right" scope="row">Jenis Kelamin</th>
                   <td><?php echo $x->jenis_kelamin; ?></td>
                   <th class="right" scope="row">Status</th>
                   <td><?php echo $x->status_pernikahan; ?></td>
                 </tr>
                 <tr>
                   <th class="right" scope="row">Date Birth</th>
-                  <td><?php echo date("d, M Y", strtotime($x->email)); ?></td>
+                  <td><?php echo date("d, M Y", strtotime($x->tgl_lahir)); ?></td>
                   <th class="right" scope="row">Email</th>
                   <td><?php echo $x->email ?></td>
                   <th class="right" scope="row">Pernikahan</th>

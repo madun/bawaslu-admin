@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class model_pelamar extends CI_Model {
+class model_proses extends CI_Model {
 
   public function getData(){
     $qry = "

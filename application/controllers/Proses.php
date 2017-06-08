@@ -1,20 +1,20 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Pelamar extends CI_Controller {
+class Proses extends CI_Controller {
 
 	public function __construct(){
 		parent::__construct();
-		$this->load->model('model_pelamar');
+		$this->load->model('model_proses');
 	}
 
 	public function index()
 	{
 		$this->model_security->getsecurity();
-		$isikonten['content'] = 'laporan/pelamar/pelamar'; // content harus sama dengan yang ada di tampilan_home $content (agar dinamis)
+		$isikonten['content'] = 'laporan/pelamar/proses'; // content harus sama dengan yang ada di tampilan_home $content (agar dinamis)
     // breadcrumb
     $isikonten['judul'] = 'Bawaslu'; //untuk $judul dan $sub_judul yg ada di tampilan_home.php (breadcrumb)
-		$isikonten['menu'] = 'Laporan Pelamar';
+		$isikonten['menu'] = 'Laporan Proses';
 		$isikonten['sub_judul'] = ''; //untuk $judul dan $sub_judul yg ada di tampilan_home.php (breadcrumb)
     // breadcrumb
 		$this->load->view('body', $isikonten);
@@ -23,7 +23,7 @@ class Pelamar extends CI_Controller {
 	public function getData(){
 		
 		$this->model_security->getsecurity();
-		$result = $this->model_pelamar->getData();
+		$result = $this->model_proses->getData();
 		 
  		echo json_encode($result);
 	}
@@ -32,7 +32,7 @@ class Pelamar extends CI_Controller {
 	 $this->model_security->getsecurity();
 
 	 $id = $this->input->post('id_pelamar');
-	 $result = $this->model_pelamar->getIdPelamar($id);
+	 $result = $this->model_proses->getIdPelamar($id);
 	 echo json_encode($result);
  }
 

@@ -15,7 +15,7 @@
   </head>
   <body>
     <!-- Modal Structure -->
-    <div id="modalPelamar" class="modal">
+    <div id="modalProses" class="modal">
       <div class="modal-content">
           <center><h6>DATA PRIBADI</h6></center>
           <br>
@@ -165,16 +165,16 @@
     </div>
     <div class="row">
       <div class="col l6">
-      <h5>Laporan Pelamar</h5>
+      <h5>Laporan Proses</h5>
       </div>
       <!-- <div class="col l6">
-        <button onclick="clearForm();$('.simpan').show();$('.update').hide();" type="button" class="waves-effect waves-light btn right" name="button" data-target="modalPelamar"><i class="material-icons">add</i></button>
+        <button onclick="clearForm();$('.simpan').show();$('.update').hide();" type="button" class="waves-effect waves-light btn right" name="button" data-target="modalProses"><i class="material-icons">add</i></button>
       </div> -->
       <div class="col l12">
-        <table id="dt-pelamar" class="mdl-data-table" width="100%" cellspacing="0">
+        <table id="dt-proses" class="mdl-data-table" width="100%" cellspacing="0">
           <thead>
                 <tr>
-                    <!-- <th>ID Pelamar</th> -->
+                    <!-- <th>ID Proses</th> -->
                     <th>No Registrasi</th>
                     <th>Nama Pelamar</th>
                     <th>Kota/Kab</th>
@@ -182,11 +182,11 @@
                     <th>Syarat 1</th>
                     <th>Syarat 2</th>
                     <th>KTP</th>
-                    <th>Ijazah</th>
+                    <!-- <th>Ijazah</th>
                     <th>SKCK</th>
-                    <th>KK</th>
+                    <th>KK</th> -->
                     <th>1</th>
-                    <th>2</th>
+                    <!-- <th>2</th>
                     <th>3</th>
                     <th>4</th>
                     <th>5</th>
@@ -196,7 +196,7 @@
                     <th>9</th>
                     <th>10</th>
                     <th>11</th>
-                    <th>12</th>
+                    <th>12</th> -->
                     <th>Status Akhir</th>
                     <th>Action</th>
                 </tr>
@@ -236,7 +236,7 @@
           $.ajax({
               type : 'POST',
               data : "id_pelamar="+id_pelamar,
-              url : "<?php echo base_url(); ?>pelamar/getIdPelamar",
+              url : "<?php echo base_url(); ?>proses/getIdPelamar",
               success : function(result){
                   $(".simpan").hide();
                   $(".update").show();
@@ -358,7 +358,7 @@
           $.ajax({
               type : 'GET',
               data : '',
-              url : '<?php echo base_url(); ?>pelamar/getData',
+              url : '<?php echo base_url(); ?>proses/getData',
               success : function(result){
                 var resultObj = JSON.parse(result);
 
@@ -375,17 +375,17 @@
                     if (val.skck == 'Lengkap') {skck = '<i class="fa fa-check">'} else {skck = ''}
                     if (val.kk == 'Lengkap') {kk = '<i class="fa fa-check">'} else {kk = ''}
                     if (val.dok_1 == 'Lengkap') {dok_1 = '<i class="fa fa-check">'} else {dok_1 = ''}
-                    if (val.dok_2 == 'Lengkap') {dok_2 = '<i class="fa fa-check">'} else {dok_2 = ''}
-                    if (val.dok_3 == 'Lengkap') {dok_3 = '<i class="fa fa-check">'} else {dok_3 = ''}
-                    if (val.dok_4 == 'Lengkap') {dok_4 = '<i class="fa fa-check">'} else {dok_4 = ''}
-                    if (val.dok_5 == 'Lengkap') {dok_5 = '<i class="fa fa-check">'} else {dok_5 = ''}
-                    if (val.dok_6 == 'Lengkap') {dok_6 = '<i class="fa fa-check">'} else {dok_6 = ''}
-                    if (val.dok_7 == 'Lengkap') {dok_7 = '<i class="fa fa-check">'} else {dok_7 = ''}
-                    if (val.dok_8 == 'Lengkap') {dok_8 = '<i class="fa fa-check">'} else {dok_8 = ''}
-                    if (val.dok_9 == 'Lengkap') {dok_9 = '<i class="fa fa-check">'} else {dok_9 = ''}
-                    if (val.dok_10 == 'Lengkap') {dok_10 = '<i class="fa fa-check">'} else {dok_10 = ''}
-                    if (val.dok_11 == 'Lengkap') {dok_11 = '<i class="fa fa-check">'} else {dok_11 = ''}
-                    if (val.dok_12 == 'Lengkap') {dok_12 = '<i class="fa fa-check">'} else {dok_12 = ''}
+                    // if (val.dok_2 == 'Lengkap') {dok_2 = '<i class="fa fa-check">'} else {dok_2 = ''}
+                    // if (val.dok_3 == 'Lengkap') {dok_3 = '<i class="fa fa-check">'} else {dok_3 = ''}
+                    // if (val.dok_4 == 'Lengkap') {dok_4 = '<i class="fa fa-check">'} else {dok_4 = ''}
+                    // if (val.dok_5 == 'Lengkap') {dok_5 = '<i class="fa fa-check">'} else {dok_5 = ''}
+                    // if (val.dok_6 == 'Lengkap') {dok_6 = '<i class="fa fa-check">'} else {dok_6 = ''}
+                    // if (val.dok_7 == 'Lengkap') {dok_7 = '<i class="fa fa-check">'} else {dok_7 = ''}
+                    // if (val.dok_8 == 'Lengkap') {dok_8 = '<i class="fa fa-check">'} else {dok_8 = ''}
+                    // if (val.dok_9 == 'Lengkap') {dok_9 = '<i class="fa fa-check">'} else {dok_9 = ''}
+                    // if (val.dok_10 == 'Lengkap') {dok_10 = '<i class="fa fa-check">'} else {dok_10 = ''}
+                    // if (val.dok_11 == 'Lengkap') {dok_11 = '<i class="fa fa-check">'} else {dok_11 = ''}
+                    // if (val.dok_12 == 'Lengkap') {dok_12 = '<i class="fa fa-check">'} else {dok_12 = ''}
                     if (val.status_akhir == 'Lulus' ) {statusakhir = 'Lulus'} else {statusakhir = ''}
                     
                     // <td>'+val.id_pelamar+'</td>\
@@ -397,31 +397,17 @@
                         <td>'+syarat1+'</td>\
                         <td>'+syarat2+'</td>\
                         <td>'+ktp+'</td>\
-                        <td>'+ijazah+'</td>\
-                        <td>'+skck+'</td>\
-                        <td>'+kk+'</td>\
                         <td>'+dok_1+'</td>\
-                        <td>'+dok_2+'</td>\
-                        <td>'+dok_3+'</td>\
-                        <td>'+dok_4+'</td>\
-                        <td>'+dok_5+'</td>\
-                        <td>'+dok_6+'</td>\
-                        <td>'+dok_7+'</td>\
-                        <td>'+dok_8+'</td>\
-                        <td>'+dok_9+'</td>\
-                        <td>'+dok_10+'</td>\
-                        <td>'+dok_11+'</td>\
-                        <td>'+dok_12+'</td>\
                         <td>'+statusakhir+'</td>\
                         <td>\
-                            <button class="selectEdit waves-effect waves-light btn orange" id="'+val.id_pelamar+'" type="submit" name="btnEdit" data-target="modalPelamar"><i class="material-icons">subtitles</i></button>\
+                            <button class="selectEdit waves-effect waves-light btn orange" id="'+val.id_pelamar+'" type="submit" name="btnEdit" data-target="modalProses"><i class="material-icons">subtitles</i></button>\
                         </td>\
                     ');
 
                     data_here.append(newRow);
 
                 });
-                $('#dt-pelamar').dataTable({
+                $('#dt-proses').dataTable({
                   destroy: true //https://stackoverflow.com/questions/24545792/cannot-reinitialise-datatable-dynamic-data-for-datatable
                 });
               }
@@ -434,7 +420,7 @@
 
       e.preventDefault();
          $.ajax({
-             url:'<?php echo base_url(); ?>pelamar/insertData',
+             url:'<?php echo base_url(); ?>proses/insertData',
              type:"post",
              data:formData,
              processData:false,
