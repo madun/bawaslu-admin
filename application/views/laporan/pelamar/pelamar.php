@@ -167,9 +167,10 @@
       <div class="col l6">
       <h5>Laporan Pelamar</h5>
       </div>
-      <!-- <div class="col l6">
-        <button onclick="clearForm();$('.simpan').show();$('.update').hide();" type="button" class="waves-effect waves-light btn right" name="button" data-target="modalPelamar"><i class="material-icons">add</i></button>
-      </div> -->
+      <div class="col l6">
+        <!-- <button onclick="clearForm();$('.simpan').show();$('.update').hide();" type="button" class="waves-effect waves-light btn right" name="button" data-target="modalPelamar"><i class="material-icons">add</i></button> -->
+        <a href="ExportExcel/pelamarGeneral" class="waves-effect waves-light btn right">EXPORT EXCEL</a>
+      </div>
       <div class="col l12">
         <table id="dt-pelamar" class="mdl-data-table" width="100%" cellspacing="0">
           <thead>
@@ -209,7 +210,7 @@
     </div>
   <script type="text/javascript" src="<?php echo base_url(); ?>assets/jquery-2.1.1.min.js"></script>
   <script type="text/javascript">
-  
+
     $(document).ready(function(){
       loadData();
       // $('#dt-pengumuman').dataTable();
@@ -387,7 +388,7 @@
                     if (val.dok_11 == 'Lengkap') {dok_11 = '<i class="fa fa-check">'} else {dok_11 = ''}
                     if (val.dok_12 == 'Lengkap') {dok_12 = '<i class="fa fa-check">'} else {dok_12 = ''}
                     if (val.status_akhir == 'Lulus' ) {statusakhir = 'Lulus'} else {statusakhir = ''}
-                    
+
                     // <td>'+val.id_pelamar+'</td>\
                     newRow.html('\
                         <td>'+val.no_registrasi+'</td>\
