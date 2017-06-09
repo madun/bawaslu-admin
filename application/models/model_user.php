@@ -22,6 +22,7 @@ class Model_user extends CI_Model {
     $user = $this->input->post('user');
     $akses = $this->input->post('akses');
     $start = $this->input->post('start');
+    $password = $this->input->post('password');
     if ($start == '') {
       $start = date("Y-m-d H:i:s");
     }
@@ -30,6 +31,7 @@ class Model_user extends CI_Model {
                  'nama' => $user,
                  'id_user_type' => $akses,
                  'tgl_insert' => $start,
+                 'password' => md5($password),
                  'tgl_update' => $expired
 
                );
@@ -39,7 +41,7 @@ class Model_user extends CI_Model {
 
   public function getid_edit($id){
     $qry = "SELECT
-    users.id_user,user_type.user_type,user_type.id_user_type,users.nama,users.email,users.tgl_update,users.tgl_insert
+    users.id_user,user_type.user_type,user_type.id_user_type,users.nama,users.email,users.tgl_update,users.password,users.tgl_insert
     FROM users
     INNER JOIN user_type ON users.id_user_type = user_type.id_user_type
     WHERE users.id_user = $id
@@ -58,11 +60,13 @@ class Model_user extends CI_Model {
      $akses = $this->input->post('akses');
      $start = $this->input->post('start');
      $expired = $this->input->post('expired');
+     $password = $this->input->post('password');
 
      $data = array('email' => $email,
 									'nama' => $user,
 									'id_user_type' => $akses,
                   'tgl_insert' => $start,
+                  'password' => md5($password),
                   'tgl_update' => $expired
 
 	 );

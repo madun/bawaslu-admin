@@ -48,6 +48,10 @@
               <input name="expired" id="expired" type="text" class="validate" required>
               <label for="expired">Expired (yyyy-mm-dd) <span class="red-text">(*)</span></label>
             </div>
+            <div class="input-field col l6 m6 s6">
+              <input name="password" id="password" type="password" class="validate" required>
+              <label for="expired">Password <span class="red-text">(*)</span></label>
+            </div>
             <!-- <div class="input-field">
               <input type="date" class="datepicker" id="expired" placeholder="Expired">
             </div> -->
@@ -135,9 +139,10 @@
                   clearForm();
                   $.each(resultObj,function(key,val){
                     $("[name='id_user']").val(val.id_user);
-                    $("[name='username']").val(val.username).focus();
+                    $("[name='username']").val(val.nama).focus();
                     $("[name='akses']").val(val.id_user_type).focus();
                     $("[name='start']").val(val.tgl_insert).focus();
+                    $("[name='password']").val(val.password).focus();
                     $("[name='expired']").val(val.tgl_update).focus();
                     $("[name='email']").val(val.email).focus();
                 });
@@ -146,17 +151,21 @@
       });
 
       $(document).on("click",".deleteUser", function(){
-        var id_user = $(this).attr('id');
-        $.ajax({
-            type : 'POST',
-            data : "id_user="+id_user,
-            url : "<?php echo base_url(); ?>user/deleteData",
-            success : function(result){
-              Materialize.toast('Has Been Deleted!', 1000,'',function(){
-                  window.location.href="<?php echo base_url(); ?>user";
-              })
-            }
-        });
+        if (confirm("Data Akan Terhapus!") == true) {
+          var id_user = $(this).attr('id');
+          $.ajax({
+              type : 'POST',
+              data : "id_user="+id_user,
+              url : "<?php echo base_url(); ?>user/deleteData",
+              success : function(result){
+                Materialize.toast('Has Been Deleted!', 1000,'',function(){
+                    window.location.href="<?php echo base_url(); ?>user";
+                })
+              }
+          });
+        } else {
+
+        }
       });
 
   } );
@@ -185,7 +194,7 @@
                   newRow.html('\
                       <td>'+val.id_user+'</td>\
                       <td><a class="detail" href="<?php echo base_url(); ?>detail_pelamar/getData/'+val.id_user+'">'+val.email+'</a></td>\
-                      <td>'+val.username+'</td>\
+                      <td>'+val.nama+'</td>\
                       <td>'+val.user_type+'</td>\
                       <td>'+val.tgl_update+'</td>\
                       <td>\
@@ -211,6 +220,7 @@
     $("[name='start']").val("");
     $("[name='expired']").val("");
     $("[name='email']").val("");
+    $("[name='password']").val("");
   }
 
   function insertData(){
@@ -219,6 +229,7 @@
     var akses = $("[name='akses']").val();
     var start = $("[name='start']").val();
     var expired = $("[name='expired']").val();
+    var password = $("[name='password']").val();
     var email = $("[name='email']").val();
 
     $.ajax({
@@ -229,6 +240,7 @@
         akses : akses,
         start : start,
         expired : expired,
+        password : password,
         email : email
       },
       url : '<?php echo base_url(); ?>user/insertData',
@@ -249,6 +261,7 @@
     var akses = $("[name='akses']").val();
     var start = $("[name='start']").val();
     var expired = $("[name='expired']").val();
+    var password = $("[name='password']").val();
     var email = $("[name='email']").val();
 
     $.ajax({
@@ -258,6 +271,7 @@
         user : user,
         akses : akses,
         start : start,
+        password : password,
         expired : expired,
         email : email
       },
