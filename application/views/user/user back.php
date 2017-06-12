@@ -146,10 +146,10 @@
       });
       $(document).on("click",".deleteUser", function(){
         if (confirm("Data Akan Terhapus!") == true) {
-          var email = $(this).attr('id');
+          var id_user = $(this).attr('id');
           $.ajax({
               type : 'POST',
-              data : "email="+email,
+              data : "id_user="+id_user,
               url : "<?php echo base_url(); ?>user/deleteData",
               success : function(result){
                 Materialize.toast('Has Been Deleted!', 1000,'',function(){
@@ -177,7 +177,7 @@
                   if (val.id_user_type == 1) {
                     btn = '';
                   } else {
-                    btn = '<button class="deleteUser waves-effect waves-light btn red" id="'+val.email+'" type="submit" name="btnDelete"><i class="material-icons left">delete</i></button>';
+                    btn = '<button class="deleteUser waves-effect waves-light btn red" id="'+val.id_user+'" type="submit" name="btnDelete"><i class="material-icons left">delete</i></button>';
                   }
                   newRow.html('\
                       <td>'+val.id_user+'</td>\

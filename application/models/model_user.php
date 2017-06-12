@@ -26,15 +26,34 @@ class Model_user extends CI_Model {
     if ($start == '') {
       $start = date("Y-m-d H:i:s");
     }
-    $expired = $this->input->post('expired');
-    $data = array('email' => $email,
-                 'nama' => $user,
-                 'id_user_type' => $akses,
-                 'tgl_insert' => $start,
-                 'password' => md5($password),
-                 'tgl_update' => $expired
+    $sql = $this->db->query("SELECT max(id_user) as terakhir from users");
 
-               );
+    $query = $sql->row_array();
+    $lastID = $query['terakhir'];
+    $lastNoUrut = substr($lastID, 4, 9);
+    $nextNoUrut = $lastNoUrut + 1;
+    // NO REGISTRASI
+    $urutan = sprintf("%04s",$nextNoUrut);
+    $expired = date("Y-m-d H:i:s");
+
+    if ($akses == 1){
+      $data = array(
+                  'id_user' => $urutan,
+                  'email' => $email,
+                  'password' => md5($password),
+                  'nama' => $user,
+                  'id_user_type' => $akses,
+                  'tgl_insert' => $start,
+                  'tgl_update' => $expired
+                 );
+    }else{
+      $data = array('email' => $email,
+                   'nama' => $user,
+                   'id_user_type' => $akses,
+                   'tgl_insert' => $start,
+                   'tgl_update' => $expired
+                 );
+    }
     $result = $this->db->insert('users', $data);
     return $result;
   }
@@ -59,27 +78,41 @@ class Model_user extends CI_Model {
      $user = $this->input->post('user');
      $akses = $this->input->post('akses');
      $start = $this->input->post('start');
-     $expired = $this->input->post('expired');
+     $expired = date("Y-m-d H:i:s");
      $password = $this->input->post('password');
 
+     if ($akses == 1){
      $data = array('email' => $email,
 									'nama' => $user,
 									'id_user_type' => $akses,
-                  'tgl_insert' => $start,
                   'password' => md5($password),
                   'tgl_update' => $expired
-
-	 );
+	     );
+      }
+      else{
+        $data = array(
+                  'nama' => $user,
+                  'id_user_type' => $akses,
+                  'password' => $password,
+                  'tgl_update' => $expired
+            );
+      }
      $this->db->where('id_user', $id);
      $result = $this->db->update('users', $data);
      return $result;
   }
 
   public function deleteData(){
-    $id = $this->input->post('id_user');
-    $data = array('status' => 'tidak aktif');
-    $this->db->where('id_user', $id);
-    $result = $this->db->update('users', $data);
+    // $id = $this->input->post('id_user');
+    $email = $this->input->post('email');
+    // $data = array('status' => 'tidak aktif');
+    // $this->db->where('id_user', $id);
+    $this->db->where('email', $email);
+    // $result = $this->db->update('users', $data);
+    $result = $this->db->delete('users');
+
+    $this->db->where('email', $email);
+    $result = $this->db->delete('profil_pelamar');
     return $result;
   }
 

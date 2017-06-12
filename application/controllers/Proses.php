@@ -30,19 +30,16 @@ class Proses extends CI_Controller {
 
 	public function getIdPelamar(){
 	 $this->model_security->getsecurity();
-
 	 $id = $this->input->post('id_pelamar');
 	 $result = $this->model_proses->getIdPelamar($id);
 	 echo json_encode($result);
  }
 
-	// public function insertData(){
-	// 	// echo var_dump($_FILES);
-	// 	$this->model_security->getsecurity();
-	// 	// $result = $this->model_pelamar->insertData();
-	// 	echo json_encode($result);
-	// 	// return $result;
-  //  }
+	public function lulus(){
+		$this->model_security->getsecurity();
+		$result = $this->model_proses->lulusData();
+		echo json_encode($result);
+   }
 
 
 }

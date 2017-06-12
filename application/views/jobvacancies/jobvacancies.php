@@ -25,9 +25,9 @@
   <body>
     <!-- Modal Structure -->
     <div id="modalJob" class="modal">
+      <form enctype="multipart/form-data" id="inputData" method="post">
       <div class="modal-content">
         <h4>JOB VACANCIES</h4>
-        <form enctype="multipart/form-data" id="inputData" method="post">
           <div class="row">
             <input type="hidden" id="id_job_vacancy" name="id_job_vacancy" value="">
             <!-- <div class="input-field col l6 m6 s6">
@@ -65,7 +65,7 @@
       </div>
       <div class="modal-footer">
         <button class="modal-action modal-close waves-effect waves-red btn-flat">CLOSE</button>
-        <button type="submit" class="simpan modal-action waves-effect waves-green btn-flat">SAVE</button>
+        <button onclick="insertData()" class="simpan modal-action waves-effect waves-green btn-flat">SAVE</button><!-- type="submit" -->
         <button onclick="updateData()" class="update modal-action waves-effect waves-green btn-flat" style="display:none;">UPDATE</button>
       </div>
       </form>
@@ -243,31 +243,101 @@
            contentType:false,
            cache:false,
            async:false,
-           success: function(result){
-             window.location.href="<?php echo base_url(); ?>jobvacancies";
-         }
+         //   success: function(result){
+         //     window.location.href="<?php echo base_url(); ?>jobvacancies";
+         // } 
+         success : function(result){
+        $('.modal').modal('close');
+        Materialize.toast('Has Been Added!', 1000,'',function(){
+            window.location.href="<?php echo base_url(); ?>jobvacancies";
+        })
+        // clear form
+        clearForm();
+      }
        });
-    });
+  });
 
-    // function updateData(){
-    //   $('#' + 'requirement').html( tinymce.get('requirement').getContent() );
-    //   var formData = new FormData( $("#inputData")[0] );
-    //
-    //   e.preventDefault();
-    //      $.ajax({
-    //          url:'<?php echo base_url(); ?>jobvacancies/updateData',
-    //          type:"post",
-    //          data:formData,
-    //          processData:false,
-    //          contentType:false,
-    //          cache:false,
-    //          async:false,
-    //          success: function(result){
-    //           //  window.location.href="<?php echo base_url(); ?>jobvacancies";
-    //           console.log(result);
-    //        }
-    //      });
-    // }
+  // function insertData(){
+  //   var start = $("[name='start']").val();
+  //   var expired = $("[name='expired']").val();
+  //   var city = $("[name='city']").val();
+  //   var judul = $("[name='judul']").val();
+  //   var file = $("[name='file']").val();
+  //   var requirement = tinymce.get('requirement').getContent();
+
+  //   $.ajax({
+  //     type : 'POST',
+  //     data : {
+  //       start : start,
+  //       expired : expired,
+  //       city : city,
+  //       judul : judul,
+  //       file : file,
+  //       requirement : requirement
+  //     },
+  //     url : '<?php echo base_url(); ?>jobvacancies/insertData',
+  //     success : function(result){
+  //       $('.modal').modal('close');
+  //       Materialize.toast('Has Been Added!', 1000,'',function(){
+  //           window.location.href="<?php echo base_url(); ?>jobvacancies";
+  //       })
+  //       // clear form
+  //       clearForm();
+  //     }
+  //   });
+  // }
+
+  // function updateData(){
+  //   var start = $("[name='start']").val();
+  //   var expired = $("[name='expired']").val();
+  //   var city = $("[name='city']").val();
+  //   var judul = $("[name='judul']").val();
+  //   var file = $("[name='file']").val();
+  //   var requirement = tinymce.get('requirement').getContent();
+
+  //   $.ajax({
+  //     type : 'POST',
+  //     data : {
+  //       start : start,
+  //       expired : expired,
+  //       city : city,
+  //       judul : judul,
+  //       file : file,
+  //       requirement : requirement
+  //     },
+  //     url : '<?php echo base_url(); ?>jobvacancies/updateData',
+  //     success : function(result){
+  //       $('.modal').modal('close');
+  //       Materialize.toast('Has Been Edited!', 1000,'',function(){
+  //           window.location.href="<?php echo base_url(); ?>jobvacancies";
+  //       })
+  //       // clear form
+  //       clearForm();
+  //     }
+  //   });
+  // }
+    function updateData(){
+      $('#' + 'requirement').html( tinymce.get('requirement').getContent() );
+      var formData = new FormData( $("#inputData")[0] );
+    
+      e.preventDefault();
+         $.ajax({
+             url:'<?php echo base_url(); ?>jobvacancies/updateData',
+             type:"post",
+             data:formData,
+             processData:false,
+             contentType:false,
+             cache:false,
+             async:false,
+             success: function(result){
+               window.location.href="<?php echo base_url(); ?>jobvacancies";
+              console.log(result);
+
+              // clear form
+        clearForm();
+           }
+         });
+    }
   </script>
   </body>
 </html>

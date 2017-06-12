@@ -6,10 +6,10 @@ class model_dashboard extends CI_Model {
   public function getDataKotaKab(){
 
 		$sqlkab = "
-    SELECT C.ibukota as name, COUNT(C.kabid) as data FROM
+    SELECT C.kabupaten as name, COUNT(C.kabid) as data FROM
           profil_pelamar P LEFT OUTER JOIN kabupaten C
           ON P.id_kode_daerah = C.kabid
-          GROUP BY P.id_kode_daerah, C.ibukota
+          GROUP BY P.id_kode_daerah, C.kabupaten
               ";
 		$r_sqlkab = $this->db->query($sqlkab);
     $hasil = json_decode(json_encode($r_sqlkab->result()), True);

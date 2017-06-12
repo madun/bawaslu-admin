@@ -21,11 +21,21 @@ class Pelamar extends CI_Controller {
 	}
 
 	public function getData(){
-		
-		$this->model_security->getsecurity();
+
+		if (!isset($_POST['kabid'])) {
+
+			$this->model_security->getsecurity();
 		$result = $this->model_pelamar->getData();
 		 
  		echo json_encode($result);
+		}
+		else{
+			$kabid = $_POST['kabid'];
+		$this->model_security->getsecurity();
+		$result = $this->model_pelamar->getData($kabid);
+		 
+ 		echo json_encode($result);
+	 	}
 	}
 
 	public function getIdPelamar(){

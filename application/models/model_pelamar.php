@@ -4,6 +4,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class model_pelamar extends CI_Model {
 
   public function getData(){
+   //  $WHERE;
+   // if (isset($kabid)) {
+   //   $WHERE = " AND id_kode_daerah =".$kabid;
+   // }
+   // else{
+   // $WHERE = " ";
+   //  }
+    // else if (condition) {
+   //   # code...
+   // }
     $qry = "
             SELECT
             users.no_ktp,
@@ -26,16 +36,16 @@ class model_pelamar extends CI_Model {
             data_pendukung.dok_pendukung_10,
             data_pendukung.dok_pendukung_11,
             data_pendukung.dok_pendukung_12,
+            data_pendukung.ktp,
+            data_pendukung.ijazah,
+            data_pendukung.skck,
+            data_pendukung.kk,
             daftar_pelamar.id_pelamar,
             daftar_pelamar.id_job_vacancy,
             daftar_pelamar.tgl_update,
             daftar_pelamar.no_registrasi,
             daftar_pelamar.syarat_administrasi_1,
             daftar_pelamar.syarat_administrasi_2,
-            daftar_pelamar.ktp,
-            daftar_pelamar.ijazah,
-            daftar_pelamar.skck,
-            daftar_pelamar.kk,
             daftar_pelamar.dok_1,
             daftar_pelamar.dok_2,
             daftar_pelamar.dok_3,
@@ -49,6 +59,7 @@ class model_pelamar extends CI_Model {
             daftar_pelamar.dok_11,
             daftar_pelamar.dok_12,
             daftar_pelamar.status_akhir,
+            profil_pelamar.id_user,
             profil_pelamar.id_kode_daerah,
             profil_pelamar.email,
             profil_pelamar.no_ktp,
@@ -141,7 +152,7 @@ class model_pelamar extends CI_Model {
   }
 
   public function getIdPelamar($id){
-    $qry = "SELECT
+    $qry = " SELECT
             users.no_ktp,
             users.email,
             users.nama,
@@ -162,16 +173,16 @@ class model_pelamar extends CI_Model {
             data_pendukung.dok_pendukung_10,
             data_pendukung.dok_pendukung_11,
             data_pendukung.dok_pendukung_12,
+            data_pendukung.ktp,
+            data_pendukung.ijazah,
+            data_pendukung.skck,
+            data_pendukung.kk,
             daftar_pelamar.id_pelamar,
             daftar_pelamar.id_job_vacancy,
             daftar_pelamar.tgl_update,
             daftar_pelamar.no_registrasi,
             daftar_pelamar.syarat_administrasi_1,
             daftar_pelamar.syarat_administrasi_2,
-            daftar_pelamar.ktp,
-            daftar_pelamar.ijazah,
-            daftar_pelamar.skck,
-            daftar_pelamar.kk,
             daftar_pelamar.dok_1,
             daftar_pelamar.dok_2,
             daftar_pelamar.dok_3,
@@ -185,6 +196,7 @@ class model_pelamar extends CI_Model {
             daftar_pelamar.dok_11,
             daftar_pelamar.dok_12,
             daftar_pelamar.status_akhir,
+            profil_pelamar.id_user,
             profil_pelamar.id_kode_daerah,
             profil_pelamar.email,
             profil_pelamar.no_ktp,
