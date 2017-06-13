@@ -40,7 +40,11 @@
               </tr>
               <tr>
                 <td>Tempat, Tanggal lahir/Usia </td>
-                <td><b><span id="tempat_lahir"></span>, <span id="tgl_lahir"></span></b></td>
+                <td><b><span id="tempat_lahir"></span>, <span id="tgl_lahir"></span> / <span id="tahun"></span> Tahun <span id="bulan"></span> Bulan</b></td>
+              </tr>
+              <tr>
+                <td>Pendidikan Terakhir</td>
+                <td><b><span id="pendidikan"></span></b></td>
               </tr>
               <tr>
                 <td>Status Pernikahan</td>
@@ -124,7 +128,7 @@
                 <td>Doc. Pendukung 4</td>
                 <td><a href="#" id="dok_pendukung_4"><b><span id="dok_pend_4"></span></b></a></td>
               </tr>
-              <tr>
+              <!-- <tr>
                 <td>Doc. Pendukung 5</td>
                 <td><a href="#" id="dok_pendukung_5"><b><span id="dok_pend_5"></span></b></a></td>
               </tr>
@@ -155,22 +159,26 @@
               <tr>
                 <td>Doc. Pendukung 12</td>
                 <td><a href="#" id="dok_pendukung_12"><b><span id="dok_pend_12"></span></b></a></td>
-              </tr>
+              </tr> -->
 
             </table>
           </div>
       </div>
       <div class="modal-footer">
         <!-- <button class="modal-action modal-close waves-effect waves-red btn-flat">CLOSE</button> -->
-        <!-- <button type="submit" class="simpan modal-action waves-effect waves-green btn-flat">SAVE</button>
-        <button onclick="updateData()" class="update modal-action waves-effect waves-green btn-flat" style="display:none;">UPDATE</button> -->
+        <!-- <button type="submit" class="simpan modal-action waves-effect waves-green btn-flat">SAVE</button> -->
+        <button onclick="updateData()" class="update modal-action waves-effect waves-green btn-flat" style="display:none;">Export Data Pelamar</button>
       </div>
 
     </div>
     <div class="row">
       <form name="filter_kab" action="<?php echo base_url('ExportExcel/pelamarGeneral');?>" method="POST">
       <div class="col l12" style="margin-bottom: 10px;">
-        <div class="col l3" style="min-height: 10px; float: right;" >
+        <div class="col l2 m2 s3" style="min-height: 10px; float: right;">
+          <!-- <button onclick="clearForm();$('.simpan').show();$('.update').hide();" type="button" class="waves-effect waves-light btn right" name="button" data-target="modalPelamar"><i class="material-icons">add</i></button> -->
+          <button type="submit" class="waves-effect waves-light btn right" name="filter">Export To Excel</button>
+        </div>
+        <div class="col l2 m2 s3" style="min-height: 10px; float: right;" >
           <select id="filter" style="display: block; " name="kabid">
             <option value="" disabled selected>FILTER By Kab/Kota</option>
              <?php 
@@ -187,16 +195,13 @@
           <!-- <label></label> -->
         </div>
       </div>
+      </form>
 
 
       <div class="col l6">
       <h5>Laporan Pelamar</h5>
       </div>
-      <div class="col l6">
-        <!-- <button onclick="clearForm();$('.simpan').show();$('.update').hide();" type="button" class="waves-effect waves-light btn right" name="button" data-target="modalPelamar"><i class="material-icons">add</i></button> -->
-        <button type="submit" class="waves-effect waves-light btn right" name="filter">Export To Excel</button>
-      </div>
-      </form>
+      
       
       <div class="col l12">
         <table id="dt-pelamar" class="mdl-data-table" width="100%" cellspacing="0">
@@ -220,14 +225,14 @@
                     <th>2</th>
                     <th>3</th>
                     <th>4</th>
-                    <th>5</th>
+                    <!-- <th>5</th>
                     <th>6</th>
                     <th>7</th>
                     <th>8</th>
                     <th>9</th>
                     <th>10</th>
                     <th>11</th>
-                    <th>12</th>
+                    <th>12</th> -->
                     <th>Status Akhir</th>
                     <th>Action</th>
                 </tr>
@@ -259,7 +264,7 @@
           } // Callback for Modal close
         }
       );
-
+      
       // get id untuk edit
       $(document).on("click",".selectEdit", function(){
           var id_pelamar = $(this).attr('id');
@@ -287,21 +292,22 @@
                     var status_akhir;
                     var penghargaan;
                     var karyatulis;
+                    var pendidikan;
                     var dok_1;
                     var dok_2;
                     var dok_3;
                     var dok_4;
-                    var dok_5;
-                    var dok_6;
-                    var dok_7;
-                    var dok_8;
-                    var dok_9;
-                    var dok_10;
-                    var dok_11;
-                    var dok_12;
+                    // var dok_5;
+                    // var dok_6;
+                    // var dok_7;
+                    // var dok_8;
+                    // var dok_9;
+                    // var dok_10;
+                    // var dok_11;
+                    // var dok_12;
 
-                    if(val.syarat_administrasi_1 == 'Terpenuhi' || val.syarat_administrasi_1 == null){syarat1 = 'Tdk Terpenuhi'} else {syarat1 = 'Terpenuhi'}
-                    if(val.syarat_administrasi_2 == 'Terpenuhi' || val.syarat_administrasi_2 == null){syarat2 = 'Tdk Terpenuhi'} else {syarat2 = 'Terpenuhi'}
+                    if(val.syarat_administrasi_1 == 'Tidak Terpenuhi' || val.syarat_administrasi_1 == null){syarat1 = 'Tidak Terpenuhi'} else {syarat1 = 'Terpenuhi'}
+                    if(val.syarat_administrasi_2 == 'Tidak Terpenuhi' || val.syarat_administrasi_2 == null){syarat2 = 'Tidak Terpenuhi'} else {syarat2 = 'Terpenuhi'}
                     if (val.foto_profil == '' || val.foto_profil == null) {pas_foto = ''} else {pas_foto = 'LENGKAP' }
                     if (val.ktp == '' || val.ktp == null) {ktp = ''} else {ktp = 'LENGKAP' }
                     if (val.ijazah == '' || val.ijazah == null) {ijazah = ''} else {ijazah = 'LENGKAP' }
@@ -312,19 +318,20 @@
                     if (val.karyatulis_kepemiluan == '' || val.karyatulis_kepemiluan == null) 
                       {karyatulis = ''} else {karyatulis = 'LENGKAP'}
                     if (val.status_akhir == 'Lulus' || val.status_akhir == null) {status_akhir = 'Lulus'} else {status_akhir = 'Tidak Lulus' }
+                    if (val.jenjang_pendidikan == 'S2') {pendidikan = 'S2 Atau Lebih'} else {pendidikan = val.jenjang_pendidikan}
 
                     if (val.dok_pendukung_1 == '' || val.dok_pendukung_1 == null) {dok_1 = ''} else {dok_1 = 'LENGKAP'}
                     if (val.dok_pendukung_2 == '' || val.dok_pendukung_2 == null) {dok_2 = ''} else {dok_2 = 'LENGKAP'}
                     if (val.dok_pendukung_3 == '' || val.dok_pendukung_3 == null) {dok_3 = ''} else {dok_3 = 'LENGKAP'}
                     if (val.dok_pendukung_4 == '' || val.dok_pendukung_4 == null) {dok_4 = ''} else {dok_4 = 'LENGKAP'}
-                    if (val.dok_pendukung_5 == '' || val.dok_pendukung_5 == null) {dok_5 = ''} else {dok_5 = 'LENGKAP'}
-                    if (val.dok_pendukung_6 == '' || val.dok_pendukung_6 == null) {dok_6 = ''} else {dok_6 = 'LENGKAP'}
-                    if (val.dok_pendukung_7 == '' || val.dok_pendukung_7 == null) {dok_7 = ''} else {dok_7 = 'LENGKAP'}
-                    if (val.dok_pendukung_8 == '' || val.dok_pendukung_8 == null) {dok_8 = ''} else {dok_8 = 'LENGKAP'}
-                    if (val.dok_pendukung_9 == '' || val.dok_pendukung_9 == null) {dok_9 = ''} else {dok_9 = 'LENGKAP'}
-                    if (val.dok_pendukung_10 == '' || val.dok_pendukung_10 == null) {dok_10 = ''} else {dok_10 = 'LENGKAP'}
-                    if (val.dok_pendukung_11 == '' || val.dok_pendukung_11 == null) {dok_11 = ''} else {dok_11 = 'LENGKAP'}
-                    if (val.dok_pendukung_12 == '' || val.dok_pendukung_12 == null) {dok_12 = ''} else {dok_12 = 'LENGKAP'}
+                    // if (val.dok_pendukung_5 == '' || val.dok_pendukung_5 == null) {dok_5 = ''} else {dok_5 = 'LENGKAP'}
+                    // if (val.dok_pendukung_6 == '' || val.dok_pendukung_6 == null) {dok_6 = ''} else {dok_6 = 'LENGKAP'}
+                    // if (val.dok_pendukung_7 == '' || val.dok_pendukung_7 == null) {dok_7 = ''} else {dok_7 = 'LENGKAP'}
+                    // if (val.dok_pendukung_8 == '' || val.dok_pendukung_8 == null) {dok_8 = ''} else {dok_8 = 'LENGKAP'}
+                    // if (val.dok_pendukung_9 == '' || val.dok_pendukung_9 == null) {dok_9 = ''} else {dok_9 = 'LENGKAP'}
+                    // if (val.dok_pendukung_10 == '' || val.dok_pendukung_10 == null) {dok_10 = ''} else {dok_10 = 'LENGKAP'}
+                    // if (val.dok_pendukung_11 == '' || val.dok_pendukung_11 == null) {dok_11 = ''} else {dok_11 = 'LENGKAP'}
+                    // if (val.dok_pendukung_12 == '' || val.dok_pendukung_12 == null) {dok_12 = ''} else {dok_12 = 'LENGKAP'}
 
                     $("[name='id_pelamar']").val(val.id_pelamar);
                     $("b #nama").html(val.nama);
@@ -333,6 +340,9 @@
                     $("b #no_hp").html(val.no_hp);
                     $("b #tempat_lahir").html(val.tempat_lahir);
                     $("b #tgl_lahir").html(val.tgl_lahir);
+                    $("b #tahun").html(val.tahun);
+                    $("b #bulan").html(val.bulan);
+                    $("b #pendidikan").html(pendidikan);
                     $("b #status_pernikahan").html(val.status_pernikahan);
                     $("b #noregis").html(val.no_registrasi);
                     $("b #syarat1").html(syarat1);
@@ -346,14 +356,14 @@
                     $("b #dok_pend_2").html(dok_2);
                     $("b #dok_pend_3").html(dok_3);
                     $("b #dok_pend_4").html(dok_4);
-                    $("b #dok_pend_5").html(dok_5);
-                    $("b #dok_pend_6").html(dok_6);
-                    $("b #dok_pend_7").html(dok_7);
-                    $("b #dok_pend_8").html(dok_8);
-                    $("b #dok_pend_9").html(dok_9);
-                    $("b #dok_pend_10").html(dok_10);
-                    $("b #dok_pend_11").html(dok_11);
-                    $("b #dok_pend_12").html(dok_12);
+                    // $("b #dok_pend_5").html(dok_5);
+                    // $("b #dok_pend_6").html(dok_6);
+                    // $("b #dok_pend_7").html(dok_7);
+                    // $("b #dok_pend_8").html(dok_8);
+                    // $("b #dok_pend_9").html(dok_9);
+                    // $("b #dok_pend_10").html(dok_10);
+                    // $("b #dok_pend_11").html(dok_11);
+                    // $("b #dok_pend_12").html(dok_12);
                     $("b #penghargaan").html(penghargaan);
                     $("b #karyatulis").html(karyatulis);
                     document.getElementById("fotolink").href=val.foto_profil;
@@ -367,14 +377,14 @@
                     document.getElementById("dok_pendukung_2").href=val.dok_pendukung_2;
                     document.getElementById("dok_pendukung_3").href=val.dok_pendukung_3;
                     document.getElementById("dok_pendukung_4").href=val.dok_pendukung_4;
-                    document.getElementById("dok_pendukung_5").href=val.dok_pendukung_5;
-                    document.getElementById("dok_pendukung_6").href=val.dok_pendukung_6;
-                    document.getElementById("dok_pendukung_7").href=val.dok_pendukung_7;
-                    document.getElementById("dok_pendukung_8").href=val.dok_pendukung_8;
-                    document.getElementById("dok_pendukung_9").href=val.dok_pendukung_9;
-                    document.getElementById("dok_pendukung_10").href=val.dok_pendukung_10;
-                    document.getElementById("dok_pendukung_11").href=val.dok_pendukung_11;
-                    document.getElementById("dok_pendukung_12").href=val.dok_pendukung_12;
+                    // document.getElementById("dok_pendukung_5").href=val.dok_pendukung_5;
+                    // document.getElementById("dok_pendukung_6").href=val.dok_pendukung_6;
+                    // document.getElementById("dok_pendukung_7").href=val.dok_pendukung_7;
+                    // document.getElementById("dok_pendukung_8").href=val.dok_pendukung_8;
+                    // document.getElementById("dok_pendukung_9").href=val.dok_pendukung_9;
+                    // document.getElementById("dok_pendukung_10").href=val.dok_pendukung_10;
+                    // document.getElementById("dok_pendukung_11").href=val.dok_pendukung_11;
+                    // document.getElementById("dok_pendukung_12").href=val.dok_pendukung_12;
                     $("b #status_akhir").html(status_akhir);
                 });
               }
@@ -399,14 +409,14 @@
       $("b #dok_pendukung_2").html("");
       $("b #dok_pendukung_3").html("");
       $("b #dok_pendukung_4").html("");
-      $("b #dok_pendukung_5").html("");
-      $("b #dok_pendukung_6").html("");
-      $("b #dok_pendukung_7").html("");
-      $("b #dok_pendukung_8").html("");
-      $("b #dok_pendukung_9").html("");
-      $("b #dok_pendukung_10").html("");
-      $("b #dok_pendukung_11").html("");
-      $("b #dok_pendukung_12").html("");
+      // $("b #dok_pendukung_5").html("");
+      // $("b #dok_pendukung_6").html("");
+      // $("b #dok_pendukung_7").html("");
+      // $("b #dok_pendukung_8").html("");
+      // $("b #dok_pendukung_9").html("");
+      // $("b #dok_pendukung_10").html("");
+      // $("b #dok_pendukung_11").html("");
+      // $("b #dok_pendukung_12").html("");
       $("b #penghargaan").html("");
       $("b #karyatulis").html("");
       $("b #status_akhir").html("");
@@ -430,8 +440,8 @@
                     var syarat2;
                     var statusakhir;
                     var pas_foto;
-                    if(val.syarat_administrasi_1 == 'Terpenuhi'){syarat1 = 'Terpenuhi'} else {syarat1 = 'Tdk Terpenuhi'}
-                    if(val.syarat_administrasi_2 == 'Terpenuhi'){syarat2 = 'Terpenuhi'} else {syarat2 = 'Tdk Terpenuhi'}
+                    if(val.syarat_administrasi_1 == 'Terpenuhi'){syarat1 = 'Terpenuhi'} else {syarat1 = 'Tidak Terpenuhi'}
+                    if(val.syarat_administrasi_2 == 'Terpenuhi'){syarat2 = 'Terpenuhi'} else {syarat2 = 'Tidak Terpenuhi'}
                     if (val.foto_profil == '' || val.foto_profil == null) {pas_foto = ''} else {pas_foto = '<i class="fa fa-check"></i>'}
                     if (val.ktp == '' || val.ktp == null) {ktp = ''} else {ktp = '<i class="fa fa-check"></i>'}
                     if (val.ijazah == '' || val.ijazah == null) {ijazah = ''} else {ijazah = '<i class="fa fa-check"></i>'}
@@ -441,14 +451,16 @@
                     if (val.dok_pendukung_2 == '' || val.dok_pendukung_2 == null ) {dok_2 = ''} else {dok_2 = '<i class="fa fa-check"></i>'}
                     if (val.dok_pendukung_3 == '' || val.dok_pendukung_3 == null ) {dok_3 = ''} else {dok_3 = '<i class="fa fa-check"></i>'}
                     if (val.dok_pendukung_4 == '' || val.dok_pendukung_4 == null ) {dok_4 = ''} else {dok_4 = '<i class="fa fa-check"></i>'}
-                    if (val.dok_pendukung_5 == '' || val.dok_pendukung_5 == null ) {dok_5 = ''} else {dok_5 = '<i class="fa fa-check"></i>'}
-                    if (val.dok_pendukung_6 == '' || val.dok_pendukung_6 == null ) {dok_6 = ''} else {dok_6 = '<i class="fa fa-check"></i>'}
-                    if (val.dok_pendukung_7 == '' || val.dok_pendukung_7 == null ) {dok_7 = ''} else {dok_7 = '<i class="fa fa-check"></i>'}
-                    if (val.dok_pendukung_8 == '' || val.dok_pendukung_8 == null ) {dok_8 = ''} else {dok_8 = '<i class="fa fa-check"></i>'}
-                    if (val.dok_pendukung_9 == '' || val.dok_pendukung_9 == null ) {dok_9 = ''} else {dok_9 = '<i class="fa fa-check"></i>'}
-                    if (val.dok_pendukung_10 == '' || val.dok_pendukung_10 == null ) {dok_10 = ''} else {dok_10 = '<i class="fa fa-check"></i>'}
-                    if (val.dok_pendukung_11 == '' || val.dok_pendukung_11 == null ) {dok_11 = ''} else {dok_11 = '<i class="fa fa-check"></i>'}
-                    if (val.dok_pendukung_12 == '' || val.dok_pendukung_12 == null ) {dok_12 = ''} else {dok_12 = '<i class="fa fa-check"></i>'}
+                    // if (val.dok_pendukung_5 == '' || val.dok_pendukung_5 == null ) {dok_5 = ''} else {dok_5 = '<i class="fa fa-check"></i>'}
+                    // if (val.dok_pendukung_6 == '' || val.dok_pendukung_6 == null ) {dok_6 = ''} else {dok_6 = '<i class="fa fa-check"></i>'}
+                    // if (val.dok_pendukung_7 == '' || val.dok_pendukung_7 == null ) {dok_7 = ''} else {dok_7 = '<i class="fa fa-check"></i>'}
+                    // if (val.dok_pendukung_8 == '' || val.dok_pendukung_8 == null ) {dok_8 = ''} else {dok_8 = '<i class="fa fa-check"></i>'}
+                    // if (val.dok_pendukung_9 == '' || val.dok_pendukung_9 == null ) {dok_9 = ''} else {dok_9 = '<i class="fa fa-check"></i>'}
+                    // if (val.dok_pendukung_10 == '' || val.dok_pendukung_10 == null ) {dok_10 = ''} else {dok_10 = '<i class="fa fa-check"></i>'}
+                    // if (val.dok_pendukung_11 == '' || val.dok_pendukung_11 == null ) {dok_11 = ''} else {dok_11 = '<i class="fa fa-check"></i>'}
+                    // if (val.dok_pendukung_12 == '' || val.dok_pendukung_12 == null ) {dok_12 = ''} else {dok_12 = '<i class="fa fa-check"></i>'}
+
+                  //beda cara
                     // if (val.dok_1 == 'Lengkap') {dok_1 = '<i class="fa fa-check"></i>'} else {dok_1 = ''}
                     // if (val.dok_2 == 'Lengkap') {dok_2 = '<i class="fa fa-check"></i>'} else {dok_2 = ''}
                     // if (val.dok_3 == 'Lengkap') {dok_3 = '<i class="fa fa-check"></i>'} else {dok_3 = ''}
@@ -482,14 +494,6 @@
                         <td>'+dok_2+'</td>\
                         <td>'+dok_3+'</td>\
                         <td>'+dok_4+'</td>\
-                        <td>'+dok_5+'</td>\
-                        <td>'+dok_6+'</td>\
-                        <td>'+dok_7+'</td>\
-                        <td>'+dok_8+'</td>\
-                        <td>'+dok_9+'</td>\
-                        <td>'+dok_10+'</td>\
-                        <td>'+dok_11+'</td>\
-                        <td>'+dok_12+'</td>\
                         <td>'+statusakhir+'</td>\
                         <td>\
                             <button class="selectEdit waves-effect waves-light btn orange" id="'+val.id_pelamar+'" type="submit" name="btnEdit" data-target="modalPelamar"><i class="material-icons">subtitles</i></button>\

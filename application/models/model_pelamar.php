@@ -88,7 +88,9 @@ class model_pelamar extends CI_Model {
             profil_pelamar.tahun_keluar,
             profil_pelamar.foto_profil,
             kabupaten.kabid,
-            kabupaten.kabupaten
+            kabupaten.kabupaten,
+            CONCAT(DATE_FORMAT(FROM_DAYS(DATEDIFF(CURDATE(), tgl_lahir)), '%Y')+0) AS tahun,
+            CONCAT(DATE_FORMAT(FROM_DAYS(DATEDIFF(CURDATE(), tgl_lahir)), '%m')+0) AS bulan
             FROM
             data_pendukung
             INNER JOIN daftar_pelamar ON data_pendukung.id_user = daftar_pelamar.id_user
@@ -225,7 +227,9 @@ class model_pelamar extends CI_Model {
             profil_pelamar.tahun_keluar,
             profil_pelamar.foto_profil,
             kabupaten.kabid,
-            kabupaten.kabupaten
+            kabupaten.kabupaten,
+            CONCAT(DATE_FORMAT(FROM_DAYS(DATEDIFF(CURDATE(), tgl_lahir)), '%Y')+0) AS tahun,
+            CONCAT(DATE_FORMAT(FROM_DAYS(DATEDIFF(CURDATE(), tgl_lahir)), '%m')+0) AS bulan
             FROM
             data_pendukung
             INNER JOIN daftar_pelamar ON data_pendukung.id_user = daftar_pelamar.id_user

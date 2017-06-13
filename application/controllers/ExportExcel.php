@@ -117,9 +117,17 @@ class ExportExcel extends CI_Controller {
   "); // fetch Data from table
   $data['allData'] = $query->result_array(); // this will return all data into array
     if (isset($_POST['kabid'])) {
-        $data['judul'] = $data['allData'][0]['kabupaten']; 
-    }else{$data['judul'] = "";}
-  $this->load->view('test',$data);
+        if ($query->result_array() == TRUE) {
+          $judul = $data['allData'][0]['kabupaten'];
+        }
+        else{$judul = '';}
+        $data['judul'] = $judul;
+        $this->load->view('excelform/laporan_kab-kota',$data);
+    }
+    else{
+      $data['judul'] = "Keseluruhan";
+      $this->load->view('excelform/laporan_lengkap',$data);
+    }
 
   // $dataToExports = [];
   // foreach ($allData as $data) {

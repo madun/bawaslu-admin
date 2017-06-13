@@ -39,8 +39,12 @@
                 <td><b><span id="no_hp"></span></b></td>
               </tr>
               <tr>
-                <td>Tempat, Tanggal lahir/Usia </td>
-                <td><b><span id="tempat_lahir"></span>, <span id="tgl_lahir"></span></b></td>
+                <td>Tempat, Tanggal lahir / Usia </td>
+                <td><b><span id="tempat_lahir"></span>, <span id="tgl_lahir"></span> / <span id="tahun"></span> Tahun <span id="bulan"></span> Bulan</b></td>
+              </tr>
+              <tr>
+                <td>Pendidikan Terakhir</td>
+                <td><b><span id="pendidikan"></span></b></td>
               </tr>
               <tr>
                 <td>Status Pernikahan</td>
@@ -124,7 +128,7 @@
                 <td>Doc. Pendukung 4</td>
                 <td><a href="#" id="dok_pendukung_4"><b><span id="dok_pend_4"></span></b></a></td>
               </tr>
-              <tr>
+              <!-- <tr>
                 <td>Doc. Pendukung 5</td>
                 <td><a href="#" id="dok_pendukung_5"><b><span id="dok_pend_5"></span></b></a></td>
               </tr>
@@ -155,7 +159,7 @@
               <tr>
                 <td>Doc. Pendukung 12</td>
                 <td><a href="#" id="dok_pendukung_12"><b><span id="dok_pend_12"></span></b></a></td>
-              </tr>
+              </tr> -->
             </table>
             <!-- <table class="responsive-table striped" align="center">
               <tr>
@@ -171,7 +175,7 @@
       <div class="modal-footer">
         <button class="modal-action modal-close waves-effect waves-red btn-flat">CLOSE</button>
         <button type="submit" class="simpan modal-action waves-effect waves-green btn-flat">SAVE</button>
-        <button onclick="updateData()" class="update modal-action waves-effect waves-green btn-flat" style="display:none;">UPDATE</button>
+        <!-- <button onclick="updateData()" class="update modal-action waves-effect waves-green btn-flat" style="display:none;">UPDATE</button> -->
       </div>
 
     </div>
@@ -187,14 +191,15 @@
           <thead>
                 <tr>
                     <th>No.</th>
-                    <th>No Registrasi</th>
+                    <th>ID User</th>
                     <th>Nama Pelamar</th>
+                    <th>Usia</th>
                     <th>Kota/Kab</th>
-                    <th>No. HP</th>
+                    <!-- <th>No. HP</th> -->
                     <th>Syarat 1</th>
                     <th>Syarat 2</th>
-                    <th>Data Pribadi</th>
-                    <th>Data Pendukung</th>
+                    <th>D. Pribadi</th>
+                    <th>D. Pendukung</th>
                     <th>Status Akhir</th>
                     <th>Action</th>
                 </tr>
@@ -271,21 +276,22 @@
                     var status_akhir;
                     var penghargaan;
                     var karyatulis;
+                    var pendidikan;
                     var dok_1;
                     var dok_2;
                     var dok_3;
                     var dok_4;
-                    var dok_5;
-                    var dok_6;
-                    var dok_7;
-                    var dok_8;
-                    var dok_9;
-                    var dok_10;
-                    var dok_11;
-                    var dok_12;
+                    // var dok_5;
+                    // var dok_6;
+                    // var dok_7;
+                    // var dok_8;
+                    // var dok_9;
+                    // var dok_10;
+                    // var dok_11;
+                    // var dok_12;
 
-                    if(val.syarat_administrasi_1 == 'Terpenuhi' || val.syarat_administrasi_1 == null){syarat1 = 'Tdk Terpenuhi'} else {syarat1 = 'Terpenuhi'}
-                    if(val.syarat_administrasi_2 == 'Terpenuhi' || val.syarat_administrasi_2 == null){syarat2 = 'Tdk Terpenuhi'} else {syarat2 = 'Terpenuhi'}
+                    if(val.syarat_administrasi_1 == 'Tidak Terpenuhi' || val.syarat_administrasi_1 == null){syarat1 = 'Tidak Terpenuhi'} else {syarat1 = 'Terpenuhi'}
+                    if(val.syarat_administrasi_2 == 'Tidak Terpenuhi' || val.syarat_administrasi_2 == null){syarat2 = 'Tidak Terpenuhi'} else {syarat2 = 'Terpenuhi'}
                     if (val.foto_profil == '' || val.foto_profil == null) {pas_foto = ''} else {pas_foto = 'LENGKAP' }
                     if (val.ktp == '' || val.ktp == null) {ktp = ''} else {ktp = 'LENGKAP' }
                     if (val.ijazah == '' || val.ijazah == null) {ijazah = ''} else {ijazah = 'LENGKAP' }
@@ -296,19 +302,20 @@
                     if (val.karyatulis_kepemiluan == '' || val.karyatulis_kepemiluan == null) 
                       {karyatulis = ''} else {karyatulis = 'LENGKAP'}
                     if (val.status_akhir == '' || val.status_akhir == null) {status_akhir = 'Tidak Lulus'} else {status_akhir = 'Lulus' }
+                    if (val.jenjang_pendidikan == 'S2') {pendidikan = 'S2 Atau Lebih'} else {pendidikan = val.jenjang_pendidikan}
 
                     if (val.dok_pendukung_1 == '' || val.dok_pendukung_1 == null) {dok_1 = ''} else {dok_1 = 'LENGKAP'}
                     if (val.dok_pendukung_2 == '' || val.dok_pendukung_2 == null) {dok_2 = ''} else {dok_2 = 'LENGKAP'}
                     if (val.dok_pendukung_3 == '' || val.dok_pendukung_3 == null) {dok_3 = ''} else {dok_3 = 'LENGKAP'}
                     if (val.dok_pendukung_4 == '' || val.dok_pendukung_4 == null) {dok_4 = ''} else {dok_4 = 'LENGKAP'}
-                    if (val.dok_pendukung_5 == '' || val.dok_pendukung_5 == null) {dok_5 = ''} else {dok_5 = 'LENGKAP'}
-                    if (val.dok_pendukung_6 == '' || val.dok_pendukung_6 == null) {dok_6 = ''} else {dok_6 = 'LENGKAP'}
-                    if (val.dok_pendukung_7 == '' || val.dok_pendukung_7 == null) {dok_7 = ''} else {dok_7 = 'LENGKAP'}
-                    if (val.dok_pendukung_8 == '' || val.dok_pendukung_8 == null) {dok_8 = ''} else {dok_8 = 'LENGKAP'}
-                    if (val.dok_pendukung_9 == '' || val.dok_pendukung_9 == null) {dok_9 = ''} else {dok_9 = 'LENGKAP'}
-                    if (val.dok_pendukung_10 == '' || val.dok_pendukung_10 == null) {dok_10 = ''} else {dok_10 = 'LENGKAP'}
-                    if (val.dok_pendukung_11 == '' || val.dok_pendukung_11 == null) {dok_11 = ''} else {dok_11 = 'LENGKAP'}
-                    if (val.dok_pendukung_12 == '' || val.dok_pendukung_12 == null) {dok_12 = ''} else {dok_12 = 'LENGKAP'}
+                    // if (val.dok_pendukung_5 == '' || val.dok_pendukung_5 == null) {dok_5 = ''} else {dok_5 = 'LENGKAP'}
+                    // if (val.dok_pendukung_6 == '' || val.dok_pendukung_6 == null) {dok_6 = ''} else {dok_6 = 'LENGKAP'}
+                    // if (val.dok_pendukung_7 == '' || val.dok_pendukung_7 == null) {dok_7 = ''} else {dok_7 = 'LENGKAP'}
+                    // if (val.dok_pendukung_8 == '' || val.dok_pendukung_8 == null) {dok_8 = ''} else {dok_8 = 'LENGKAP'}
+                    // if (val.dok_pendukung_9 == '' || val.dok_pendukung_9 == null) {dok_9 = ''} else {dok_9 = 'LENGKAP'}
+                    // if (val.dok_pendukung_10 == '' || val.dok_pendukung_10 == null) {dok_10 = ''} else {dok_10 = 'LENGKAP'}
+                    // if (val.dok_pendukung_11 == '' || val.dok_pendukung_11 == null) {dok_11 = ''} else {dok_11 = 'LENGKAP'}
+                    // if (val.dok_pendukung_12 == '' || val.dok_pendukung_12 == null) {dok_12 = ''} else {dok_12 = 'LENGKAP'}
 
                     $("[name='id_pelamar']").val(val.id_pelamar);
                     $("b #nama").html(val.nama);
@@ -317,6 +324,9 @@
                     $("b #no_hp").html(val.no_hp);
                     $("b #tempat_lahir").html(val.tempat_lahir);
                     $("b #tgl_lahir").html(val.tgl_lahir);
+                    $("b #tahun").html(val.tahun);
+                    $("b #bulan").html(val.bulan);
+                    $("b #pendidikan").html(pendidikan);
                     $("b #status_pernikahan").html(val.status_pernikahan);
                     $("b #noregis").html(val.no_registrasi);
                     $("b #syarat1").html(syarat1);
@@ -330,14 +340,14 @@
                     $("b #dok_pend_2").html(dok_2);
                     $("b #dok_pend_3").html(dok_3);
                     $("b #dok_pend_4").html(dok_4);
-                    $("b #dok_pend_5").html(dok_5);
-                    $("b #dok_pend_6").html(dok_6);
-                    $("b #dok_pend_7").html(dok_7);
-                    $("b #dok_pend_8").html(dok_8);
-                    $("b #dok_pend_9").html(dok_9);
-                    $("b #dok_pend_10").html(dok_10);
-                    $("b #dok_pend_11").html(dok_11);
-                    $("b #dok_pend_12").html(dok_12);
+                    // $("b #dok_pend_5").html(dok_5);
+                    // $("b #dok_pend_6").html(dok_6);
+                    // $("b #dok_pend_7").html(dok_7);
+                    // $("b #dok_pend_8").html(dok_8);
+                    // $("b #dok_pend_9").html(dok_9);
+                    // $("b #dok_pend_10").html(dok_10);
+                    // $("b #dok_pend_11").html(dok_11);
+                    // $("b #dok_pend_12").html(dok_12);
                     $("b #penghargaan").html(penghargaan);
                     $("b #karyatulis").html(karyatulis);
                     document.getElementById("fotolink").href=val.foto_profil;
@@ -351,14 +361,14 @@
                     document.getElementById("dok_pendukung_2").href=val.dok_pendukung_2;
                     document.getElementById("dok_pendukung_3").href=val.dok_pendukung_3;
                     document.getElementById("dok_pendukung_4").href=val.dok_pendukung_4;
-                    document.getElementById("dok_pendukung_5").href=val.dok_pendukung_5;
-                    document.getElementById("dok_pendukung_6").href=val.dok_pendukung_6;
-                    document.getElementById("dok_pendukung_7").href=val.dok_pendukung_7;
-                    document.getElementById("dok_pendukung_8").href=val.dok_pendukung_8;
-                    document.getElementById("dok_pendukung_9").href=val.dok_pendukung_9;
-                    document.getElementById("dok_pendukung_10").href=val.dok_pendukung_10;
-                    document.getElementById("dok_pendukung_11").href=val.dok_pendukung_11;
-                    document.getElementById("dok_pendukung_12").href=val.dok_pendukung_12;
+                    // document.getElementById("dok_pendukung_5").href=val.dok_pendukung_5;
+                    // document.getElementById("dok_pendukung_6").href=val.dok_pendukung_6;
+                    // document.getElementById("dok_pendukung_7").href=val.dok_pendukung_7;
+                    // document.getElementById("dok_pendukung_8").href=val.dok_pendukung_8;
+                    // document.getElementById("dok_pendukung_9").href=val.dok_pendukung_9;
+                    // document.getElementById("dok_pendukung_10").href=val.dok_pendukung_10;
+                    // document.getElementById("dok_pendukung_11").href=val.dok_pendukung_11;
+                    // document.getElementById("dok_pendukung_12").href=val.dok_pendukung_12;
                     $("b #status_akhir").html(status_akhir);
                 });
               }
@@ -383,14 +393,14 @@
       $("b #dok_pendukung_2").html("");
       $("b #dok_pendukung_3").html("");
       $("b #dok_pendukung_4").html("");
-      $("b #dok_pendukung_5").html("");
-      $("b #dok_pendukung_6").html("");
-      $("b #dok_pendukung_7").html("");
-      $("b #dok_pendukung_8").html("");
-      $("b #dok_pendukung_9").html("");
-      $("b #dok_pendukung_10").html("");
-      $("b #dok_pendukung_11").html("");
-      $("b #dok_pendukung_12").html("");
+      // $("b #dok_pendukung_5").html("");
+      // $("b #dok_pendukung_6").html("");
+      // $("b #dok_pendukung_7").html("");
+      // $("b #dok_pendukung_8").html("");
+      // $("b #dok_pendukung_9").html("");
+      // $("b #dok_pendukung_10").html("");
+      // $("b #dok_pendukung_11").html("");
+      // $("b #dok_pendukung_12").html("");
       $("b #penghargaan").html("");
       $("b #karyatulis").html("");
       $("b #status_akhir").html("");
@@ -415,10 +425,13 @@
                     var dukung;
                     var statusakhir;
                     var pribadi;
+                    var usia;
+                    var bulan;
                     
                     i = i+1;
-                    if(val.syarat_administrasi_1 == 'Terpenuhi'){syarat1 = 'Terpenuhi'} else {syarat1 = 'Tdk Terpenuhi'}
-                    if(val.syarat_administrasi_2 == 'Terpenuhi'){syarat2 = 'Terpenuhi'} else {syarat2 = 'Tdk Terpenuhi'}
+                    if(val.syarat_administrasi_1 == 'Terpenuhi'){syarat1 = 'Complete'} else {syarat1 = 'Fail'}
+                    if(val.syarat_administrasi_2 == 'Terpenuhi'){syarat2 = 'Complete'} else {syarat2 = 'Fail'}
+                    if(val.tahun != null){usia = val.tahun+' Th '+val.bulan+' Bln'} else {syarat1 = 'Fail'}
                     if (val.foto_profil != null &&
                         val.ktp != null &&
                         val.ijazah != null &&
@@ -430,16 +443,16 @@
                     if (val.dok_pendukung_1 == '' || val.dok_pendukung_1 == null &&
                         val.dok_pendukung_2 == '' || val.dok_pendukung_2 == null &&
                         val.dok_pendukung_3 == '' || val.dok_pendukung_3 == null &&
-                        val.dok_pendukung_4 == '' || val.dok_pendukung_4 == null &&
-                        val.dok_pendukung_5 == '' || val.dok_pendukung_5 == null &&
-                        val.dok_pendukung_7 == '' || val.dok_pendukung_7 == null &&
-                        val.dok_pendukung_8 == '' || val.dok_pendukung_8 == null &&
-                        val.dok_pendukung_9 == '' || val.dok_pendukung_9 == null &&
-                        val.dok_pendukung_10 == '' || val.dok_pendukung_10 == null &&
-                        val.dok_pendukung_11 == '' || val.dok_pendukung_11 == null &&
-                        val.dok_pendukung_12 == '' || val.dok_pendukung_12 == null) 
+                        val.dok_pendukung_4 == '' || val.dok_pendukung_4 == null) 
+                      // &&val.dok_pendukung_5 == '' || val.dok_pendukung_5 == null &&
+                      //   val.dok_pendukung_7 == '' || val.dok_pendukung_7 == null &&
+                      //   val.dok_pendukung_8 == '' || val.dok_pendukung_8 == null &&
+                      //   val.dok_pendukung_9 == '' || val.dok_pendukung_9 == null &&
+                      //   val.dok_pendukung_10 == '' || val.dok_pendukung_10 == null &&
+                      //   val.dok_pendukung_11 == '' || val.dok_pendukung_11 == null &&
+                      //   val.dok_pendukung_12 == '' || val.dok_pendukung_12 == null
                       // {dukung = 'Tidak Lengkap'} else {dukung = 'Lengkap'}
-                        {dukung = ''} else {dukung = '<center><i class="fa fa-check"></i></center>'}
+                        {dukung = ''} else {dukung = '<i class="fa fa-check"></i>'}
                         // <center><i class="fa fa-times"></i></center>
                     // if (val.dok_pendukung_2 == '' || val.dok_pendukung_2 == null ) {dok_2 = ''} else {dok_2 = '<i class="fa fa-check">'}
                     // if (val.dok_pendukung_3 == '' || val.dok_pendukung_3 == null ) {dok_3 = ''} else {dok_3 = '<i class="fa fa-check">'}
@@ -457,10 +470,10 @@
                     // <td>'+val.id_pelamar+'</td>\
                     newRow.html('\
                         <td>'+i+'</td>\
-                        <td>'+val.no_registrasi+'</td>\
+                        <td>'+val.id_user+'</td>\
                         <td>'+val.nama+'</td>\
+                        <td>'+usia+'</td>\
                         <td>'+val.kabupaten+'</td>\
-                        <td>'+val.no_hp+'</td>\
                         <td>'+syarat1+'</td>\
                         <td>'+syarat2+'</td>\
                         <td>'+pribadi+'</td>\
