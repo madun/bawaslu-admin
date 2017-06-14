@@ -28,6 +28,7 @@
     <div class="col l12">
     	<div class="col l9">
     		<h4><b>Data Laporan Pelamar Bawaslu Jabar <?php echo $judul." ".$tgl;?></b></h4>
+        <h6>Nama Admin : <b><?php echo $_SESSION['user']['nama'] ;?></b></h6>  
     	</div>
     	<div class="col l3">
     	<form method="POST" action="<?php echo base_url('ExportExcel/pelamarGeneral');?>">

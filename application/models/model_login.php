@@ -13,7 +13,7 @@ class Model_login extends CI_Model {
     if ($query->num_rows() > 0) {
       foreach ($query->result() as $row) {
           $data = array('id_user' => $row->id_user,
-                        'username' => $row->username,
+                        'nama' => $row->nama,
                         'no_ktp' => $row->no_ktp,
                         'email' => $row->email,
                         'status' => $row->status
@@ -32,7 +32,7 @@ class Model_login extends CI_Model {
   private function session_data($data){
       $sess_data = array(
                     'id_user' => $data['id_user'],
-                    'username' => $data['username'],
+                    'nama' => $data['nama'],
                     'no_ktp' => $data['no_ktp'],
                     'email' => $data['email'],
                     'status' => $data['status']
