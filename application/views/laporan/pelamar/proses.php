@@ -241,7 +241,7 @@
             data : "id_pelamar="+id_pelamar,
             url : "<?php echo base_url(); ?>proses/lulus",
             success : function(result){
-              Materialize.toast('Sudah Lulus!', 1000,'',function(){
+              Materialize.toast('Pelamar di Luluskan!', 1000,'',function(){
                   window.location.href="<?php echo base_url(); ?>proses";
               })
             }

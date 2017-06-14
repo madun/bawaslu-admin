@@ -24,23 +24,28 @@
 
   </head>
   <body>
-  	<div class="l9">
-  		<h4><b>Data Laporan Pelamar Bawaslu Jabar <?php echo $judul." ".$tgl;?></b></h4>
-  	</div>
-  	<div class="l3">
-  	<form method="POST" action="<?php echo base_url('ExportExcel/pelamarGeneral');?>">
-  	  <button type="submit" class="waves-effect waves-light btn right" name="cetak"
-  		<?php 
-  		if(isset($_POST['cetak'])){
-			echo "style='display:none;'";
-			$filename = "Data Laporan Pelamar ".$judul." ".$tgl.".xls";
-			    header("Content-Type: application/vnd.ms-excel");
-			    header("Content-Disposition: attachment; filename=\"$filename\"");
-		}?>>Export To Excel
-	  </button>
-  	</form>
-  	</div>
-  	<table id="dt-pelamar" class="mdl-data-table" border="1" width="100%" cellspacing="0">
+  <div class="row">
+    <div class="col l12">
+    	<div class="col l9">
+    		<h4><b>Data Laporan Pelamar Bawaslu Jabar <?php echo $judul." ".$tgl;?></b></h4>
+    	</div>
+    	<div class="col l3">
+    	<form method="POST" action="<?php echo base_url('ExportExcel/pelamarGeneral');?>">
+    	  <button type="submit" class="waves-effect waves-light btn right" name="cetak"
+    		<?php 
+    		if(isset($_POST['cetak'])){
+  			echo "style='display:none;'";
+  			$filename = "Data Laporan Pelamar ".$judul." ".$tgl.".xls";
+  			    header("Content-Type: application/vnd.ms-excel");
+  			    header("Content-Disposition: attachment; filename=\"$filename\"");
+  		}?>>Export To Excel
+  	  </button>
+    	</form>
+    	</div>
+    </div>
+
+    <div class="col l12">
+  	<table id="dt-pelamar" class="mdl-data-table responsive-table striped" border="1" width="100%" cellspacing="0">
       <thead>
         <tr>
         	<th>No.</th>
@@ -105,9 +110,8 @@
       		</tr>
       	<?php } ?>
       </tbody>
-
-  		
   	</table>
-
+    </div>
+  </div>
   </body>
   </html>

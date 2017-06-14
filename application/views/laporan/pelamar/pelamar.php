@@ -164,11 +164,14 @@
             </table>
           </div>
       </div>
+      <form name="filter_kab" action="<?php echo base_url('ExportExcel/exportDataPribadi');?>" method="POST">
       <div class="modal-footer">
+        <input type="hidden" name="no_reg" value="">
         <!-- <button class="modal-action modal-close waves-effect waves-red btn-flat">CLOSE</button> -->
         <!-- <button type="submit" class="simpan modal-action waves-effect waves-green btn-flat">SAVE</button> -->
-        <button onclick="updateData()" class="update modal-action waves-effect waves-green btn-flat" style="display:none;">Export Data Pelamar</button>
+        <button onclick="updateData()" class="update modal-action waves-effect waves-green btn-flat" >Export Data Pelamar</button>
       </div>
+      </form>
 
     </div>
     <div class="row">
@@ -264,7 +267,7 @@
           } // Callback for Modal close
         }
       );
-      
+
       // get id untuk edit
       $(document).on("click",".selectEdit", function(){
           var id_pelamar = $(this).attr('id');
@@ -334,6 +337,7 @@
                     // if (val.dok_pendukung_12 == '' || val.dok_pendukung_12 == null) {dok_12 = ''} else {dok_12 = 'LENGKAP'}
 
                     $("[name='id_pelamar']").val(val.id_pelamar);
+                    $("[name='no_reg']").val(val.no_registrasi);
                     $("b #nama").html(val.nama);
                     $("b #no_ktp").html(val.no_ktp);
                     $("b #email").html(val.email);
@@ -396,6 +400,7 @@
 
     function clearForm(){
       $("[name='id_pelamar']").val("");
+      $("[name='no_reg']").val("");
       $("b #nama").html("");
       $("b #noregis").html("");
       $("b #syarat1").html("");
@@ -529,7 +534,28 @@
               //  window.location.href="<?php echo base_url(); ?>jobvacancies";
            }
          });
-      });
+      }
+    );
+
+    function updateData(){
+    var no_reg = $("[name='no_reg']").val();
+
+    $.ajax({
+      type : 'POST',
+      data : {
+        no_reg : no_reg,
+      },
+      url : '<?php echo base_url(); ?>ExportExcel/exportDataPribadi',
+      success : function(result){
+        $('.modal').modal('close');
+        Materialize.toast('Has Been Exported!', 1000,'',function(){
+            window.location.href="<?php echo base_url(); ?>pengumuman";
+        })
+        // clear form
+        clearForm();
+      }
+    });
+  }
   </script>
   </body>
 </html>
