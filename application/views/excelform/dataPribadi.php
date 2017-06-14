@@ -2,9 +2,9 @@
 	$tgl = date('d-m-Y');
 	
 	$i = 1;
-  // $filename = $judul." ".$tgl.".xls";
-  //           header("Content-Type: application/vnd.ms-excel");
-  //           header("Content-Disposition: attachment; filename=\"$filename\"");
+  $filename = $judul." ".$tgl.".xls";
+            header("Content-Type: application/vnd.ms-excel");
+            header("Content-Disposition: attachment; filename=\"$filename\"");
     
 ?>
 <!DOCTYPE html>
