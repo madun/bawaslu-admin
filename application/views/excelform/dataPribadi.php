@@ -35,6 +35,7 @@
     <div class="col l12" style="margin-bottom: 20px;">
     	<div class="col l9">
     		<h4 style="font-size: 20pt"><b>Laporan <?php echo $judul." Pelamar ".$tgl;?></b></h4>
+        <h6 style="font-size: 17pt">Nama Admin : <b><?php echo $_SESSION['user']['nama'] ;?></b></h6>
     	</div>
     	
     </div>
