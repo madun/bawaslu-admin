@@ -5,7 +5,7 @@ class Model_user extends CI_Model {
 
   public function getData(){
     $qry = "SELECT
-    users.id_user,user_type.user_type,user_type.id_user_type,users.nama,users.email,users.tgl_update
+    users.id_user,user_type.user_type,user_type.id_user_type,users.nama,users.no_ktp,users.email,users.tgl_update
     FROM users
     INNER JOIN user_type ON users.id_user_type = user_type.id_user_type
     WHERE users.status = 'aktif'

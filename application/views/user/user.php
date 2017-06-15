@@ -76,6 +76,7 @@
                     <th>ID USER</th>
                     <th>E Mail</th>
                     <th>Nama</th>
+                    <th>No. KTP</th>
                     <th>Akses</th>
                     <th>Tanggal Update</th>
                     <th>Aksi</th>
@@ -86,6 +87,7 @@
                   <th>ID USER</th>
                   <th>E Mail</th>
                   <th>Nama</th>
+                  <th>No. KTP</th>
                   <th>Akses</th>
                   <th>Tanggal Update</th>
                   <th>Aksi</th>
@@ -183,6 +185,7 @@
                       <td>'+val.id_user+'</td>\
                       <td><a class="detail" href="<?php echo base_url(); ?>detail_pelamar/getData/'+val.id_user+'">'+val.email+'</a></td>\
                       <td>'+val.nama+'</td>\
+                      <td>'+val.no_ktp+'</td>\
                       <td>'+val.user_type+'</td>\
                       <td>'+val.tgl_update+'</td>\
                       <td>\
