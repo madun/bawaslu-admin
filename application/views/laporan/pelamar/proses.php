@@ -234,14 +234,15 @@
       
        $(document).on("click",".lulus", function(){
         var id_pelamar = $(this).attr('id');
-        var r = confirm("Apakah Anda Yakin Untuk Meluluskan Peserta tersebut ?");
+        var name = $(this).attr('name');
+        var r = confirm("Apakah Anda Yakin Untuk Mengubah Status Kelulusan Peserta dengan Nama "+id_pelamar+"  ?");
         if (r == true) {
         $.ajax({
             type : 'POST',
             data : "id_pelamar="+id_pelamar,
             url : "<?php echo base_url(); ?>proses/lulus",
             success : function(result){
-              Materialize.toast('Pelamar di Luluskan!', 1000,'',function(){
+              Materialize.toast('Status Kelulusan telah di Ganti!', 1000,'',function(){
                   window.location.href="<?php echo base_url(); ?>proses";
               })
             }
@@ -481,7 +482,7 @@
                         <td>'+statusakhir+'</td>\
                         <td>\
                             <button class="selectEdit waves-effect waves-light btn orange" id="'+val.id_pelamar+'" type="submit" name="btnEdit" data-target="modalProses"><i class="material-icons">subtitles</i></button>\
-                            <button class="lulus waves-effect waves-light btn red" id="'+val.id_pelamar+'" type="submit" name="btnlulus"><i class="material-icons left">mode_edit</i></button>\
+                            <button class="lulus waves-effect waves-light btn red" id="'+val.id_pelamar+'" type="submit" name="'+val.nama+'"><i class="material-icons left">mode_edit</i></button>\
                         </td>\
                     ');
 

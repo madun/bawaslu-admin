@@ -320,7 +320,7 @@
                       {penghargaan = ''} else {penghargaan = 'LENGKAP'}
                     if (val.karyatulis_kepemiluan == '' || val.karyatulis_kepemiluan == null) 
                       {karyatulis = ''} else {karyatulis = 'LENGKAP'}
-                    if (val.status_akhir == 'Lulus' || val.status_akhir == null) {status_akhir = 'Lulus'} else {status_akhir = 'Tidak Lulus' }
+                    if (val.status_akhir == 'Lulus') {status_akhir = 'Lulus'} else {status_akhir = 'Tidak Lulus' }
                     if (val.jenjang_pendidikan == 'S2') {pendidikan = 'S2 Atau Lebih'} else {pendidikan = val.jenjang_pendidikan}
 
                     if (val.dok_pendukung_1 == '' || val.dok_pendukung_1 == null) {dok_1 = ''} else {dok_1 = 'LENGKAP'}

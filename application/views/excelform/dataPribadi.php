@@ -2,9 +2,9 @@
 	$tgl = date('d-m-Y');
 	
 	$i = 1;
-  $filename = $judul." ".$tgl.".xls";
-            header("Content-Type: application/vnd.ms-excel");
-            header("Content-Disposition: attachment; filename=\"$filename\"");
+  // $filename = $judul." ".$tgl.".xls";
+  //           header("Content-Type: application/vnd.ms-excel");
+  //           header("Content-Disposition: attachment; filename=\"$filename\"");
     
 ?>
 <!DOCTYPE html>
@@ -207,7 +207,7 @@
         <tr>
           <td>Doc. Pendukung 3</td>
           <td>:</td>
-          <td colspan="3"><?php if ($allData['dok_pendukung_5'] != null) {echo "Lengkap";} else {echo "Tidak Lengkap";}?></td>
+          <td colspan="3"><?php if ($allData['dok_pendukung_3'] != null) {echo "Lengkap";} else {echo "Tidak Lengkap";}?></td>
         </tr>
         <tr>
           <td>Doc. Pendukung 4</td>

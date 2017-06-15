@@ -37,7 +37,8 @@ class Proses extends CI_Controller {
 
 	public function lulus(){
 		$this->model_security->getsecurity();
-		$result = $this->model_proses->lulusData();
+		$id = $this->input->post('id');
+		$result = $this->model_proses->lulusData($id);
 		echo json_encode($result);
    }
 
