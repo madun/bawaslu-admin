@@ -28,13 +28,13 @@
     <div class="col l12">
       <div class="col l9">
   		<p style="font-size: 22pt;"><b>Data Pelamar Bawaslu Jabar <?php echo $judul." ".$tgl;?></b></p>
+      <p style="float: right;"><form method="POST" action="">
+      <input type="hidden" name="kabid" value="<?php echo $kabid; ?>">
+      <button type="submit" class="waves-effect waves-light btn right" name="cetak"><i class="fa fa-file-excel-o"></i>
+    </button></p>
       <p style="font-size: 16pt;">Nama Admin : <b><?php echo $_SESSION['user']['nama'] ;?></b></p>
   	</div>
   	<div class="col l3">
-  	<form method="POST" action="">
-      <input type="hidden" name="kabid" value="<?php echo $kabid; ?>">
-  	  <button type="submit" class="waves-effect waves-light btn right" name="cetak">Export To Excel
-    </button>
   		<?php 
   		if(isset($_POST['cetak'])){
 			$filename = "Data Pelamar ".$judul." ".$tgl.".xls";
@@ -112,7 +112,9 @@
 	  			<td><?php if ($data['dok_pendukung_10'] == '' || $data['dok_pendukung_10'] == null){echo "";}else{echo "<b>T</b>";}?></td>
 	  			<td><?php if ($data['dok_pendukung_11'] == '' || $data['dok_pendukung_11'] == null){echo "";}else{echo "<b>T</b>";}?></td>
 	  			<td><?php if ($data['dok_pendukung_12'] == '' || $data['dok_pendukung_12'] == null){echo "";}else{echo "<b>T</b>";}?></td> -->
-	  			<td><?php echo $data['status_akhir'];?></td>
+	  			<td><?php if ($data['status_akhir']== 'Lulus')
+              {echo "Lulus";}
+              else{ echo "Tidak Lulus";};?></td>
       		</tr>
       	<?php } 
           }?>
