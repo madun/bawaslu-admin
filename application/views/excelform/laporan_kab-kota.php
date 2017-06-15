@@ -24,22 +24,27 @@
 
   </head>
   <body>
-  	<div class="l9">
-  		<h4><b>Data Laporan Pelamar Bawaslu Jabar <?php echo $judul." ".$tgl;?></b></h4>
+  	<div class="row">
+    <div class="col l12">
+      <div class="col l9">
+  		<p style="font-size: 22pt;"><b>Data Pelamar Bawaslu Jabar <?php echo $judul." ".$tgl;?></b></p>
+      <p style="font-size: 16pt;">Nama Admin : <b><?php echo $_SESSION['user']['nama'] ;?></b></p>
   	</div>
-  	<div class="l3">
-  	<form method="POST" action="<?php echo base_url('ExportExcel/pelamarGeneral');?>">
-  	  <button type="submit" class="waves-effect waves-light btn right" name="cetak"
+  	<div class="col l3">
+  	<form method="POST" action="">
+      <input type="hidden" name="kabid" value="<?php echo $kabid; ?>">
+  	  <button type="submit" class="waves-effect waves-light btn right" name="cetak">Export To Excel
+    </button>
   		<?php 
   		if(isset($_POST['cetak'])){
-			echo "style='display:none;'";
-			$filename = "Data Laporan Pelamar ".$judul." ".$tgl.".xls";
+			$filename = "Data Pelamar ".$judul." ".$tgl.".xls";
 			    header("Content-Type: application/vnd.ms-excel");
 			    header("Content-Disposition: attachment; filename=\"$filename\"");
-		}?>>Export To Excel
-	  </button>
+		}?>
   	</form>
   	</div>
+    </div>
+    <div class="col l12">
   	<table id="dt-pelamar" class="mdl-data-table" border="1" width="100%" cellspacing="0">
       <thead>
         <tr>
@@ -71,6 +76,14 @@
         </tr>
       </thead>
       <tbody>
+        <?php if ($allData === 'No Data Found')
+          {
+            echo "<tr>
+                    <td colspan='17'><center>No Data Found</center></td>
+                  </tr>";
+          }
+          else{
+         ?>
       	<?php foreach ($allData as $data) {?>
       		<tr>
       			<td><?php echo $i++ ?></td>
@@ -101,7 +114,8 @@
 	  			<td><?php if ($data['dok_pendukung_12'] == '' || $data['dok_pendukung_12'] == null){echo "";}else{echo "<b>T</b>";}?></td> -->
 	  			<td><?php echo $data['status_akhir'];?></td>
       		</tr>
-      	<?php } ?>
+      	<?php } 
+          }?>
       </tbody>
 
   		

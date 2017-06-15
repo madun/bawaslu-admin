@@ -27,8 +27,8 @@
   <div class="row">
     <div class="col l12">
     	<div class="col l9">
-    		<h4><b>Data Laporan Pelamar Bawaslu Jabar <?php echo $judul." ".$tgl;?></b></h4>
-        <h6>Nama Admin : <b><?php echo $_SESSION['user']['nama'] ;?></b></h6>  
+    		<p style="font-size: 22pt;"><b>Laporan Data Pelamar Bawaslu Jabar <?php echo $judul." ".$tgl;?></b></p>
+        <p style="font-size: 16pt;">Nama Admin : <b><?php echo $_SESSION['user']['nama'] ;?></b></p>  
     	</div>
     	<div class="col l3">
     	<form method="POST" action="<?php echo base_url('ExportExcel/pelamarGeneral');?>">
@@ -36,7 +36,7 @@
     		<?php 
     		if(isset($_POST['cetak'])){
   			echo "style='display:none;'";
-  			$filename = "Data Laporan Pelamar ".$judul." ".$tgl.".xls";
+  			$filename = "Laporan Data Pelamar ".$judul." ".$tgl.".xls";
   			    header("Content-Type: application/vnd.ms-excel");
   			    header("Content-Disposition: attachment; filename=\"$filename\"");
   		}?>>Export To Excel
