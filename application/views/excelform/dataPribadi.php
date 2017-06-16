@@ -149,12 +149,16 @@
         <tr>
           <td>Syarat Adm 1 (Umur)</td>
           <td>:</td>
-          <td colspan="3"><?php echo $allData['syarat_administrasi_1'];?></td>
+          <td colspan="3">
+            <?php if($allData['tahun'] >= 30 ){echo "Terpenuhi";} else {echo "Tidak Terpenuhi";}?>
+          </td>
         </tr>
         <tr>
           <td>Syarat Adm 2 (Pendidikan)</td>
           <td>:</td>
-          <td colspan="3"><?php echo $allData['syarat_administrasi_2'];?></td>
+          <td colspan="3">
+            <?php if($allData['jenjang_pendidikan'] == 'S1' || $allData['jenjang_pendidikan'] == 'S2' || $allData['jenjang_pendidikan'] == 'S3' ){echo "Terpenuhi";} else {echo "Tidak Terpenuhi";}?>  
+          </td>
         </tr>
         <tr>
           <td>Pas Foto</td>
@@ -215,7 +219,11 @@
           <td colspan="3"><?php if ($allData['dok_pendukung_4'] != null) {echo "Lengkap";} else {echo "Tidak Lengkap";}?></td>
         </tr>
         <tr>
-          <td colspan="5" style="font-size: 15pt"><center><b>Status Akhir : <?php if ($allData['status_akhir']== 'Lulus'){echo "Lulus";}else{ echo "Tidak Lulus";};?></b></center></td>
+          <td colspan="5" style="font-size: 15pt">
+              <center><b>Status Akhir : <?php if ($allData['status_akhir']== 'Lulus'){echo "Lulus";}
+              elseif($allData['status_akhir'] == null){ echo "";}
+              else{ echo "Tidak Lulus";}?></b></center>
+          </td>
         </tr>
       </table>
       </div>

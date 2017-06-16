@@ -30,7 +30,7 @@ class Proses extends CI_Controller {
 
 	public function getIdPelamar(){
 	 $this->model_security->getsecurity();
-	 $id = $this->input->post('id_pelamar');
+	 $id = $this->input->post('id_user');
 	 $result = $this->model_proses->getIdPelamar($id);
 	 echo json_encode($result);
  }
@@ -38,7 +38,7 @@ class Proses extends CI_Controller {
 	public function lulus(){
 		$this->model_security->getsecurity();
 		$id = $this->input->post('id');
-		$result = $this->model_proses->lulusData($id);
+		$result = $this->model_proses->lulusData();
 		echo json_encode($result);
    }
 

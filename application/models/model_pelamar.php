@@ -30,13 +30,14 @@ class model_pelamar extends CI_Model {
             b.ijazah,
             b.skck,
             b.kk,
-            c.id_pelamar,
-            c.id_job_vacancy,
-            c.tgl_update,
-            c.no_registrasi,
-            c.syarat_administrasi_1,
-            c.syarat_administrasi_2,
-            c.status_akhir,
+            -- c.id_pelamar,
+            -- c.id_job_vacancy,
+            -- c.tgl_update,
+            -- c.no_registrasi,
+            -- c.syarat_administrasi_1,
+            -- c.syarat_administrasi_2,
+            -- c.status_akhir,
+            d.no_registrasi,
             d.id_user,
             d.id_kode_daerah,
             d.email,
@@ -63,16 +64,17 @@ class model_pelamar extends CI_Model {
             d.tahun_masuk,
             d.tahun_keluar,
             d.foto_profil,
+            d.status_akhir,
             e.kabid,
             e.kabupaten,
             CONCAT(DATE_FORMAT(FROM_DAYS(DATEDIFF(CURDATE(), tgl_lahir)), '%Y')+0) AS tahun,
             CONCAT(DATE_FORMAT(FROM_DAYS(DATEDIFF(CURDATE(), tgl_lahir)), '%m')+0) AS bulan
-            FROM users a, data_pendukung b, daftar_pelamar c, profil_pelamar d, kabupaten e
-            WHERE a.status = 'aktif' 
+            FROM users a, data_pendukung b, profil_pelamar d, kabupaten e
+            WHERE a.status = 'aktif'
             AND a.id_user = b.id_user
-            AND b.id_user = c.id_user
-            AND c.id_user = d.id_user 
-            AND  d.kabid = e.kabid
+            AND b.id_user = d.id_user
+            -- AND c.id_user = d.id_user 
+            AND  d.kabid = e.kabid order by id_user
     ";
 
     $result = $this->db->query($qry);
@@ -145,13 +147,14 @@ class model_pelamar extends CI_Model {
             b.ijazah,
             b.skck,
             b.kk,
-            c.id_pelamar,
-            c.id_job_vacancy,
-            c.tgl_update,
-            c.no_registrasi,
-            c.syarat_administrasi_1,
-            c.syarat_administrasi_2,
-            c.status_akhir,
+            -- c.id_pelamar,
+            -- c.id_job_vacancy,
+            -- c.tgl_update,
+            -- c.no_registrasi,
+            -- c.syarat_administrasi_1,
+            -- c.syarat_administrasi_2,
+            -- c.status_akhir,
+            d.no_registrasi,
             d.id_user,
             d.id_kode_daerah,
             d.email,
@@ -178,17 +181,18 @@ class model_pelamar extends CI_Model {
             d.tahun_masuk,
             d.tahun_keluar,
             d.foto_profil,
+            d.status_akhir,
             e.kabid,
             e.kabupaten,
             CONCAT(DATE_FORMAT(FROM_DAYS(DATEDIFF(CURDATE(), tgl_lahir)), '%Y')+0) AS tahun,
             CONCAT(DATE_FORMAT(FROM_DAYS(DATEDIFF(CURDATE(), tgl_lahir)), '%m')+0) AS bulan
-            FROM users a, data_pendukung b, daftar_pelamar c, profil_pelamar d, kabupaten e
-            WHERE a.status = 'aktif' 
+            FROM users a, data_pendukung b, profil_pelamar d, kabupaten e
+            WHERE a.status = 'aktif'
             AND a.id_user = b.id_user
-            AND b.id_user = c.id_user
-            AND c.id_user = d.id_user 
-            AND  d.kabid = e.kabid
-            AND c.id_pelamar = $id
+            AND b.id_user = d.id_user
+            -- AND c.id_user = d.id_user 
+            AND d.kabid = e.kabid 
+            AND d.id_user = $id order by id_user
     ";
 
     $result = $this->db->query($qry);

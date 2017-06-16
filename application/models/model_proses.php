@@ -30,13 +30,14 @@ class model_proses extends CI_Model {
             b.ijazah,
             b.skck,
             b.kk,
-            c.id_pelamar,
-            c.id_job_vacancy,
-            c.tgl_update,
-            c.no_registrasi,
-            c.syarat_administrasi_1,
-            c.syarat_administrasi_2,
-            c.status_akhir,
+            -- c.id_pelamar,
+            -- c.id_job_vacancy,
+            -- c.tgl_update,
+            -- c.no_registrasi,
+            -- c.syarat_administrasi_1,
+            -- c.syarat_administrasi_2,
+            -- c.status_akhir,
+            d.no_registrasi,
             d.id_user,
             d.id_kode_daerah,
             d.email,
@@ -63,23 +64,25 @@ class model_proses extends CI_Model {
             d.tahun_masuk,
             d.tahun_keluar,
             d.foto_profil,
+            d.status_akhir,
             e.kabid,
             e.kabupaten,
             CONCAT(DATE_FORMAT(FROM_DAYS(DATEDIFF(CURDATE(), tgl_lahir)), '%Y')+0) AS tahun,
             CONCAT(DATE_FORMAT(FROM_DAYS(DATEDIFF(CURDATE(), tgl_lahir)), '%m')+0) AS bulan
-            FROM users a, data_pendukung b, daftar_pelamar c, profil_pelamar d, kabupaten e
-            WHERE a.status = 'aktif' 
+            FROM users a, data_pendukung b, profil_pelamar d, kabupaten e
+            WHERE a.status = 'aktif'
             AND a.id_user = b.id_user
-            AND b.id_user = c.id_user
-            AND c.id_user = d.id_user 
-            AND  d.kabid = e.kabid
+            AND b.id_user = d.id_user
+            -- AND c.id_user = d.id_user 
+            AND  d.kabid = e.kabid order by id_user
     ";
 
     $result = $this->db->query($qry);
     return $result->result();
   }
 
-  public function do_upload(){
+  public function do_upload()
+{
     $files = $_FILES;
     $cpt = count($_FILES);
 
@@ -115,7 +118,7 @@ class model_proses extends CI_Model {
     'status_vacancy' => 'aktif'
     );
     $result = $this->db->insert('daftar_pelamar', $data1);
-  }
+}
 
   private function set_upload_options(){
       //upload an image options
@@ -145,13 +148,14 @@ class model_proses extends CI_Model {
             b.ijazah,
             b.skck,
             b.kk,
-            c.id_pelamar,
-            c.id_job_vacancy,
-            c.tgl_update,
-            c.no_registrasi,
-            c.syarat_administrasi_1,
-            c.syarat_administrasi_2,
-            c.status_akhir,
+            -- c.id_pelamar,
+            -- c.id_job_vacancy,
+            -- c.tgl_update,
+            -- c.no_registrasi,
+            -- c.syarat_administrasi_1,
+            -- c.syarat_administrasi_2,
+            -- c.status_akhir,
+            d.no_registrasi,
             d.id_user,
             d.id_kode_daerah,
             d.email,
@@ -178,17 +182,18 @@ class model_proses extends CI_Model {
             d.tahun_masuk,
             d.tahun_keluar,
             d.foto_profil,
+            d.status_akhir,
             e.kabid,
             e.kabupaten,
             CONCAT(DATE_FORMAT(FROM_DAYS(DATEDIFF(CURDATE(), tgl_lahir)), '%Y')+0) AS tahun,
             CONCAT(DATE_FORMAT(FROM_DAYS(DATEDIFF(CURDATE(), tgl_lahir)), '%m')+0) AS bulan
-            FROM users a, data_pendukung b, daftar_pelamar c, profil_pelamar d, kabupaten e
-            WHERE a.status = 'aktif' 
+            FROM users a, data_pendukung b, profil_pelamar d, kabupaten e
+            WHERE a.status = 'aktif'
             AND a.id_user = b.id_user
-            AND b.id_user = c.id_user
-            AND c.id_user = d.id_user 
-            AND  d.kabid = e.kabid
-            AND c.id_pelamar = $id
+            AND b.id_user = d.id_user
+            -- AND c.id_user = d.id_user 
+            AND d.kabid = e.kabid 
+            AND d.id_user = $id 
     ";
 
     $result = $this->db->query($qry);
@@ -198,20 +203,88 @@ class model_proses extends CI_Model {
 
   public function lulusData(){
     date_default_timezone_set("Asia/Jakarta");
-    $id = $this->input->post('id_pelamar');
+    $id = $this->input->post('id_user');
     $data = array('status_akhir' => 'Lulus');
 
-    $this->db->where('id_pelamar', $id);
-    $cek = $this->db->get('daftar_pelamar');
+    $this->db->where('id_user', $id);
+    $cek = $this->db->get('profil_pelamar');
     $cek1 = $cek->row_array();
-    if ($cek1['status_akhir'] == 'Lulus') {
-        $this->db->where('id_pelamar', $id);
-        $result = $this->db->update('daftar_pelamar', array('status_akhir' => 'Tidak Lulus'));
+    // SEND EMAIL KELULUSAN
+    if ($cek1['status_akhir'] == NULL) {
+        // Ambil data users untuk mengisi data email
+        $id_user = $cek1['id_user'];
+        $this->db->where('id_user', $id_user);
+        $users = $this->db->get('users');
+        $user = $users->row_array();
+        // DATA UNTUK MENGISI DESKRIPSI EMAIL
+        $email = $user['email'];
+        $nama = $user['nama'];
+        $no_ktp = $user['no_ktp'];
+
+        $this->db->where('id_user', $id);
+        $result = $this->db->update('profil_pelamar', array('status_akhir' => 'Lulus'));
+        return $result;
+        
+        // require 'mailer/PHPMailerAutoload.php';
+        //     // require 'class.phpmailer.php';
+        //     $mail = new PHPMailer;
+
+        //     //$mail->SMTPDebug = 3;                                 // Enable verbose debug output
+        //     $mail->isSMTP();                                        // Set mailer to use SMTP
+        //     $mail->Host = "mail.bawaslu-jabarprov.go.id";                           // Specify main and backup SMTP servers
+        //     $mail->SMTPSecure = 'ssl';                              // Enable TLS encryption, `ssl` also accepted
+        //     $mail->Port = 465;                                      // TCP port to connect to
+        //     $mail->SMTPAuth = true;                                 // Enable SMTP authentication
+        //     $mail->Username = 'timsel@bawaslu-jabarprov.go.id';             // SMTP username
+        //     $mail->Password = 'timseljbr25bawaslu';                 // SMTP password
+        //     $mail->Encoding = '7bit';
+
+        //     $mail->setFrom('timsel@bawaslu-jabarprov.go.id', 'BAWASLU RECRUITMENT');
+        //     $mail->addAddress($email);                          // Add a recipient
+
+        //     $mail->isHTML(true);                                    // Set email format to HTML
+
+        //     $mail->WordWrap = 50;
+        //     $mail->Subject = 'Notifikasi Kelulusan Rekrutmen BAWASLU JABAR';
+        //     $mail->Body    = 
+        //     'Selamat Anda telah lulus tahapan Administrasi Program E-Recruitment BAWASLU Jawa Barat Tahun 2017.<br><br>
+        //     Data Anda dengan rincian sebagai berikut:
+        //     <table>
+        //     <tbody>
+        //         <tr>
+        //           <td>Nama Anda </td>
+        //           <td>:</td>
+        //           <td><b>'.$nama.'</b></td>
+        //         </tr>
+        //         <tr>
+        //           <td>No. KTP</td>
+        //           <td>:</td>
+        //           <td><b>'.$no_ktp.'</b></td>
+        //         </tr>
+        //         <tr>
+        //           <td>E-mail Anda </td>
+        //           <td>:</td>
+        //           <td><b>'.$email.'</b></td>
+        //         </tr>
+        //     </tbody>
+        //     </table>
+        //     <br>
+        //     telah dinyatakan lulus oleh Tim Seleksi kami, dan Anda dapat memasuki tahapan seleksi selanjutnya.<br><br>
+        //     Silakan Lanjutkan untuk mencetak Kartu ID Anda pada menu <a href="http://e-rekrutmen.bawaslu-jabarprov.go.id/profil">Profil Bawaslu</a>.<br><br> Atas segala perhatiannya kami ucapkan terima kasih banyak.';
+
+        // $mail->send();
+
+                        
+        }
+    
+    if ($cek1['status_akhir'] === 'Lulus') {
+        $this->db->where('id_user', $id);
+        $result = $this->db->update('profil_pelamar', array('status_akhir' => 'Tidak Lulus'));
         return $result;
     }
     else{
-        $this->db->where('id_pelamar', $id);
-        $result = $this->db->update('daftar_pelamar', $data);
+        $this->db->where('id_user', $id);
+        $result = $this->db->update('profil_pelamar', $data);
         return $result;
     }
   }

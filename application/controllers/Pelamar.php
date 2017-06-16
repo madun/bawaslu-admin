@@ -33,7 +33,7 @@ class Pelamar extends CI_Controller {
 	public function getIdPelamar(){
 	 $this->model_security->getsecurity();
 
-	 $id = $this->input->post('id_pelamar');
+	 $id = $this->input->post('id_user');
 	 $result = $this->model_pelamar->getIdPelamar($id);
 	 echo json_encode($result);
  }

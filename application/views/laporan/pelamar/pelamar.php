@@ -20,7 +20,7 @@
           <center><h6>DATA PRIBADI</h6></center>
           <br>
           <div class="row">
-            <!-- <input type="text" id="id_pelamar" name="id_pelamar" value=""> -->
+            <!-- <input type="text" id="id_user" name="id_user" value=""> -->
             <table class="responsive-table striped">
               <tr>
                 <td>Nama</td>
@@ -43,6 +43,10 @@
                 <td><b><span id="tempat_lahir"></span>, <span id="tgl_lahir"></span> / <span id="tahun"></span> Tahun <span id="bulan"></span> Bulan</b></td>
               </tr>
               <tr>
+                <td>Jenis Kelamin</td>
+                <td><b><span id="jenkel"></span></b></td>
+              </tr>
+              <tr>
                 <td>Pendidikan Terakhir</td>
                 <td><b><span id="pendidikan"></span></b></td>
               </tr>
@@ -55,7 +59,7 @@
           <center><h6>DATA PELAMAR</h6></center>
           <br>
           <div class="row">
-            <!-- <input type="text" id="id_pelamar" name="id_pelamar" value=""> -->
+            <!-- <input type="text" id="id_user" name="id_user" value=""> -->
             <table class="responsive-table striped">
               <tr>
                 <td>Nama </td>
@@ -102,7 +106,7 @@
           <center><h6>DATA PENDUKUNG</h6></center>
           <br>
           <div class="row">
-            <!-- <input type="text" id="id_pelamar" name="id_pelamar" value=""> -->
+            <!-- <input type="text" id="id_user" name="id_user" value=""> -->
             <table class="responsive-table striped">
               <tr>
                 <td>Penghargaan Kepemiluan</td>
@@ -175,8 +179,13 @@
 
     </div>
     <div class="row">
-      <form name="filter_kab" action="<?php echo base_url('ExportExcel/pelamarGeneral');?>" method="POST">
       <div class="col l12" style="margin-bottom: 10px;">
+      <div class="col l2 m2 s3" style="min-height: 10px;">
+        <a href="<?php echo base_url('ExportExcel/persentase');?>">
+        <button type="submit" class="waves-effect waves-light btn right" name="filter">Export</button>
+        </a>
+      </div>
+      <form name="filter_kab" action="<?php echo base_url('ExportExcel/pelamarGeneral');?>" method="POST">
         <div class="col l2 m2 s3" style="min-height: 10px; float: right;">
           <!-- <button onclick="clearForm();$('.simpan').show();$('.update').hide();" type="button" class="waves-effect waves-light btn right" name="button" data-target="modalPelamar"><i class="material-icons">add</i></button> -->
           <button type="submit" class="waves-effect waves-light btn right" name="filter">Export To Excel</button>
@@ -197,8 +206,8 @@
           </select>
           <!-- <label></label> -->
         </div>
-      </div>
       </form>
+      </div>
 
 
       <div class="col l6">
@@ -216,6 +225,7 @@
                     <th>No Registrasi</th>
                     <th>Nama Pelamar</th>
                     <th>Kota/Kab</th>
+                    <th>Gender</th>
                     <th>No. HP</th>
                     <th>Syarat 1</th>
                     <th>Syarat 2</th>
@@ -270,11 +280,11 @@
 
       // get id untuk edit
       $(document).on("click",".selectEdit", function(){
-          var id_pelamar = $(this).attr('id');
+          var id_user = $(this).attr('id');
           // STATUS MODAL
           $.ajax({
               type : 'POST',
-              data : "id_pelamar="+id_pelamar,
+              data : "id_user="+id_user,
               url : "<?php echo base_url(); ?>pelamar/getIdPelamar",
               success : function(result){
                   $(".simpan").hide();
@@ -292,6 +302,7 @@
                     var ijazah;
                     var skck;
                     var kk;
+                    var jenkel;
                     var status_akhir;
                     var penghargaan;
                     var karyatulis;
@@ -309,8 +320,8 @@
                     // var dok_11;
                     // var dok_12;
 
-                    if(val.syarat_administrasi_1 == 'Tidak Terpenuhi' || val.syarat_administrasi_1 == null){syarat1 = 'Tidak Terpenuhi'} else {syarat1 = 'Terpenuhi'}
-                    if(val.syarat_administrasi_2 == 'Tidak Terpenuhi' || val.syarat_administrasi_2 == null){syarat2 = 'Tidak Terpenuhi'} else {syarat2 = 'Terpenuhi'}
+                    if(val.tahun >= 30 ){syarat1 = 'Terpenuhi'} else {syarat1 = 'Tidak Terpenuhi'}
+                    if(val.jenjang_pendidikan == 'S1' || val.jenjang_pendidikan == 'S2' || val.jenjang_pendidikan == 'S3' ){syarat2 = 'Terpenuhi'} else {syarat2 = 'Tidak Terpenuhi'}
                     if (val.foto_profil == '' || val.foto_profil == null) {pas_foto = ''} else {pas_foto = 'LENGKAP' }
                     if (val.ktp == '' || val.ktp == null) {ktp = ''} else {ktp = 'LENGKAP' }
                     if (val.ijazah == '' || val.ijazah == null) {ijazah = ''} else {ijazah = 'LENGKAP' }
@@ -336,12 +347,13 @@
                     // if (val.dok_pendukung_11 == '' || val.dok_pendukung_11 == null) {dok_11 = ''} else {dok_11 = 'LENGKAP'}
                     // if (val.dok_pendukung_12 == '' || val.dok_pendukung_12 == null) {dok_12 = ''} else {dok_12 = 'LENGKAP'}
 
-                    $("[name='id_pelamar']").val(val.id_pelamar);
+                    $("[name='id_user']").val(val.id_user);
                     $("[name='no_reg']").val(val.no_registrasi);
                     $("b #nama").html(val.nama);
                     $("b #no_ktp").html(val.no_ktp);
                     $("b #email").html(val.email);
                     $("b #no_hp").html(val.no_hp);
+                    $("b #jenkel").html(val.jenis_kelamin);
                     $("b #tempat_lahir").html(val.tempat_lahir);
                     $("b #tgl_lahir").html(val.tgl_lahir);
                     $("b #tahun").html(val.tahun);
@@ -399,10 +411,12 @@
     });
 
     function clearForm(){
-      $("[name='id_pelamar']").val("");
+      $("[name='id_user']").val("");
       $("[name='no_reg']").val("");
       $("b #nama").html("");
       $("b #noregis").html("");
+      $("b #email").html("");
+      $("b #jenkel").html("");
       $("b #syarat1").html("");
       $("b #syarat2").html("");
       $("b #syaratdoc").html("");
@@ -444,9 +458,10 @@
                     var syarat1;
                     var syarat2;
                     var statusakhir;
+                    var jenkel;
                     var pas_foto;
-                    if(val.syarat_administrasi_1 == 'Terpenuhi'){syarat1 = 'Terpenuhi'} else {syarat1 = 'Tidak Terpenuhi'}
-                    if(val.syarat_administrasi_2 == 'Terpenuhi'){syarat2 = 'Terpenuhi'} else {syarat2 = 'Tidak Terpenuhi'}
+                    if(val.tahun >= 30 ){syarat1 = 'Complete'} else {syarat1 = 'Fail'}
+                    if(val.jenjang_pendidikan == 'S1' || val.jenjang_pendidikan == 'S2' || val.jenjang_pendidikan == 'S3' ){syarat2 = 'Complete'} else {syarat2 = 'Fail'}
                     if (val.foto_profil == '' || val.foto_profil == null) {pas_foto = ''} else {pas_foto = '<i class="fa fa-check"></i>'}
                     if (val.ktp == '' || val.ktp == null) {ktp = ''} else {ktp = '<i class="fa fa-check"></i>'}
                     if (val.ijazah == '' || val.ijazah == null) {ijazah = ''} else {ijazah = '<i class="fa fa-check"></i>'}
@@ -480,13 +495,14 @@
                     // if (val.dok_12 == 'Lengkap') {dok_12 = '<i class="fa fa-check"></i>'} else {dok_12 = ''}
                     if (val.status_akhir == 'Lulus' ) {statusakhir = 'Lulus'} else {statusakhir = ''}
 
-                    // <td>'+val.id_pelamar+'</td>\
+                    // <td>'+val.id_user+'</td>\
                     newRow.html('\
                         <td>'+val.id_user+'</td>\
                         <td>'+val.id_job_vacancy+'</td>\
                         <td>'+val.no_registrasi+'</td>\
                         <td>'+val.nama+'</td>\
                         <td>'+val.kabupaten+'</td>\
+                        <td>'+val.jenis_kelamin+'</td>\
                         <td>'+val.no_hp+'</td>\
                         <td>'+syarat1+'</td>\
                         <td>'+syarat2+'</td>\
@@ -501,7 +517,7 @@
                         <td>'+dok_4+'</td>\
                         <td>'+statusakhir+'</td>\
                         <td>\
-                            <button class="selectEdit waves-effect waves-light btn orange" id="'+val.id_pelamar+'" type="submit" name="btnEdit" data-target="modalPelamar"><i class="material-icons">subtitles</i></button>\
+                            <button class="selectEdit waves-effect waves-light btn orange" id="'+val.id_user+'" type="submit" name="btnEdit" data-target="modalPelamar"><i class="material-icons">subtitles</i></button>\
                         </td>\
                     ');
 

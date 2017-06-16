@@ -20,7 +20,7 @@
           <center><h6>DATA PRIBADI</h6></center>
           <br>
           <div class="row">
-            <!-- <input type="text" id="id_pelamar" name="id_pelamar" value=""> -->
+            <!-- <input type="text" id="id_user" name="id_user" value=""> -->
             <table class="responsive-table striped">
               <tr>
                 <td>Nama</td>
@@ -55,7 +55,7 @@
           <center><h6>DATA PELAMAR</h6></center>
           <br>
           <div class="row">
-            <!-- <input type="text" id="id_pelamar" name="id_pelamar" value=""> -->
+            <!-- <input type="text" id="id_user" name="id_user" value=""> -->
             <table class="responsive-table striped">
               <tr>
                 <td>Nama </td>
@@ -102,7 +102,7 @@
           <center><h6>DATA PENDUKUNG</h6></center>
           <br>
           <div class="row">
-            <!-- <input type="text" id="id_pelamar" name="id_pelamar" value=""> -->
+            <!-- <input type="text" id="id_user" name="id_user" value=""> -->
             <table class="responsive-table striped">
               <tr>
                 <td>Penghargaan Kepemiluan</td>
@@ -233,13 +233,13 @@
       );
       
        $(document).on("click",".lulus", function(){
-        var id_pelamar = $(this).attr('id');
+        var id_user = $(this).attr('id');
         var name = $(this).attr('name');
-        var r = confirm("Apakah Anda Yakin Untuk Mengubah Status Kelulusan Peserta dengan Nama "+id_pelamar+"  ?");
+        var r = confirm("Apakah Anda Yakin Untuk Mengubah Status Kelulusan Peserta dengan Nama "+name+"  ?");
         if (r == true) {
         $.ajax({
             type : 'POST',
-            data : "id_pelamar="+id_pelamar,
+            data : "id_user="+id_user,
             url : "<?php echo base_url(); ?>proses/lulus",
             success : function(result){
               Materialize.toast('Status Kelulusan telah di Ganti!', 1000,'',function(){
@@ -252,11 +252,11 @@
       
       // get id untuk edit
       $(document).on("click",".selectEdit", function(){
-          var id_pelamar = $(this).attr('id');
+          var id_user = $(this).attr('id');
           // STATUS MODAL
           $.ajax({
               type : 'POST',
-              data : "id_pelamar="+id_pelamar,
+              data : "id_user="+id_user,
               url : "<?php echo base_url(); ?>proses/getIdPelamar",
               success : function(result){
                   $(".simpan").hide();
@@ -290,9 +290,8 @@
                     // var dok_10;
                     // var dok_11;
                     // var dok_12;
-
-                    if(val.syarat_administrasi_1 == 'Tidak Terpenuhi' || val.syarat_administrasi_1 == null){syarat1 = 'Tidak Terpenuhi'} else {syarat1 = 'Terpenuhi'}
-                    if(val.syarat_administrasi_2 == 'Tidak Terpenuhi' || val.syarat_administrasi_2 == null){syarat2 = 'Tidak Terpenuhi'} else {syarat2 = 'Terpenuhi'}
+                    if(val.tahun >= 30 ){syarat1 = 'Terpenuhi'} else {syarat1 = 'Tidak Terpenuhi'}
+                    if(val.jenjang_pendidikan == 'S1' || val.jenjang_pendidikan == 'S2' || val.jenjang_pendidikan == 'S3' ){syarat2 = 'Terpenuhi'} else {syarat2 = 'Tidak Terpenuhi'}
                     if (val.foto_profil == '' || val.foto_profil == null) {pas_foto = ''} else {pas_foto = 'LENGKAP' }
                     if (val.ktp == '' || val.ktp == null) {ktp = ''} else {ktp = 'LENGKAP' }
                     if (val.ijazah == '' || val.ijazah == null) {ijazah = ''} else {ijazah = 'LENGKAP' }
@@ -318,7 +317,7 @@
                     // if (val.dok_pendukung_11 == '' || val.dok_pendukung_11 == null) {dok_11 = ''} else {dok_11 = 'LENGKAP'}
                     // if (val.dok_pendukung_12 == '' || val.dok_pendukung_12 == null) {dok_12 = ''} else {dok_12 = 'LENGKAP'}
 
-                    $("[name='id_pelamar']").val(val.id_pelamar);
+                    // $("[name='id_user']").val(val.id_user);
                     $("b #nama").html(val.nama);
                     $("b #no_ktp").html(val.no_ktp);
                     $("b #email").html(val.email);
@@ -380,7 +379,7 @@
     });
 
     function clearForm(){
-      $("[name='id_pelamar']").val("");
+      $("[name='id_user']").val("");
       $("b #nama").html("");
       $("b #noregis").html("");
       $("b #syarat1").html("");
@@ -430,8 +429,8 @@
                     var bulan;
                     
                     i = i+1;
-                    if(val.syarat_administrasi_1 == 'Terpenuhi'){syarat1 = 'Complete'} else {syarat1 = 'Fail'}
-                    if(val.syarat_administrasi_2 == 'Terpenuhi'){syarat2 = 'Complete'} else {syarat2 = 'Fail'}
+                    if(val.tahun >= 30 ){syarat1 = 'Complete'} else {syarat1 = 'Fail'}
+                    if(val.jenjang_pendidikan == 'S1' || val.jenjang_pendidikan == 'S2' ){syarat2 = 'Complete'} else {syarat2 = 'Fail'}
                     if(val.tahun != null){usia = val.tahun+' Th '+val.bulan+' Bln'} else {syarat1 = 'Fail'}
                     if (val.foto_profil != null &&
                         val.ktp != null &&
@@ -443,8 +442,10 @@
                     // <center><i class="fa fa-times"></i></center>
                     if (val.dok_pendukung_1 == '' || val.dok_pendukung_1 == null &&
                         val.dok_pendukung_2 == '' || val.dok_pendukung_2 == null &&
-                        val.dok_pendukung_3 == '' || val.dok_pendukung_3 == null &&
-                        val.dok_pendukung_4 == '' || val.dok_pendukung_4 == null) 
+                        val.dok_pendukung_3 == '' || val.dok_pendukung_3 == null 
+                        // &&
+                        // val.dok_pendukung_4 == '' || val.dok_pendukung_4 == null 
+                        )
                       // &&val.dok_pendukung_5 == '' || val.dok_pendukung_5 == null &&
                       //   val.dok_pendukung_7 == '' || val.dok_pendukung_7 == null &&
                       //   val.dok_pendukung_8 == '' || val.dok_pendukung_8 == null &&
@@ -468,7 +469,7 @@
                     // if (val.dok_pendukung_12 == '' || val.dok_pendukung_12 == null ) {dok_12 = ''} else {dok_12 = '<i class="fa fa-check">'}
                     if (val.status_akhir == 'Lulus' ) {statusakhir = 'Lulus'} else {statusakhir = ''}
 
-                    // <td>'+val.id_pelamar+'</td>\
+                    // <td>'+val.id_user+'</td>\
                     newRow.html('\
                         <td>'+i+'</td>\
                         <td>'+val.id_user+'</td>\
@@ -481,8 +482,8 @@
                         <td>'+dukung+'</td>\
                         <td>'+statusakhir+'</td>\
                         <td>\
-                            <button class="selectEdit waves-effect waves-light btn orange" id="'+val.id_pelamar+'" type="submit" name="btnEdit" data-target="modalProses"><i class="material-icons">subtitles</i></button>\
-                            <button class="lulus waves-effect waves-light btn red" id="'+val.id_pelamar+'" type="submit" name="'+val.nama+'"><i class="material-icons left">mode_edit</i></button>\
+                            <button class="selectEdit waves-effect waves-light btn orange" id="'+val.id_user+'" type="submit" name="btnEdit" data-target="modalProses"><i class="material-icons">subtitles</i></button>\
+                            <button class="lulus waves-effect waves-light btn red" id="'+val.id_user+'" type="submit" name="'+val.nama+'"><i class="material-icons left">mode_edit</i></button>\
                         </td>\
                     ');
 

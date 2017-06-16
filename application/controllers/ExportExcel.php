@@ -6,13 +6,11 @@ class ExportExcel extends CI_Controller {
   public function __construct(){
     parent::__construct();
     $this->load->model('model_export');
-  
-    // parent::__construct();
+
     // $this->load->database();
-    //$this->load->model('Model_asettetap');
   }
 
-  // public function exportExcelData($records)
+// public function exportExcelData($records)
   // {
   //     $heading = false;
   //         if (!empty($records))
@@ -24,7 +22,7 @@ class ExportExcel extends CI_Controller {
   //                 }
   //                 echo implode("\t", ($row)) . "\n";
   //             }
-  // }
+// }
 
   public function pelamarGeneral()
   {
@@ -60,6 +58,14 @@ class ExportExcel extends CI_Controller {
     $data['allData'] = $this->model_export->dataPribadi(); // this will return all data into array
     $data['judul'] = 'Data Pribadi';
     $this->load->view('excelform/dataPribadi',$data);
+  }
+
+   public function persentase()
+  {
+    $this->model_security->getsecurity();
+    $data['points'] = $this->model_export->persentase(); // this will return all data into array
+    $data['judul'] = 'Data Persentase';
+    $this->load->view('excelform/persentase',$data);
   }    
 }
 // Nothin

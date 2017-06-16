@@ -52,6 +52,7 @@
             <th>ID User</th>
             <th>No Registrasi</th>
             <th>Nama Pelamar</th>
+            <th>Gender</th>
             <th>No. HP</th>
             <th>Syarat 1</th>
             <th>Syarat 2</th>
@@ -90,9 +91,13 @@
 	  			<td><?php echo $data['id_user'];?></td>
 	  			<td><?php echo $data['no_registrasi'];?></td>
 	  			<td><?php echo $data['nama'];?></td>
+          <td><?php echo $data['jenis_kelamin'];?></td>
 	  			<td><?php echo "(+62) ".substr($data['no_hp'], 1, 15);?></td>
-	  			<td><?php echo $data['syarat_administrasi_1'];?></td>
-	  			<td><?php echo $data['syarat_administrasi_2'];?></td>
+          <td><?php if($data['tahun'] >= 30 )
+                {echo "Terpenuhi";} else {echo "Tidak Terpenuhi";}?></td>
+          <td><?php if($data['jenjang_pendidikan'] == 'S1' || $data['jenjang_pendidikan'] == 'S2' || $data['jenjang_pendidikan'] == 'S3' ){echo "Terpenuhi";} else {echo "Tidak Terpenuhi";}?></td>
+	  			<!-- <td><?php echo $data['syarat_administrasi_1'];?></td>
+	  			<td><?php echo $data['syarat_administrasi_2'];?></td> -->
 	  			<td><?php if ($data['foto_profil'] == '' || $data['foto_profil'] == null){echo "";}else{echo "<b>T</b>";}?></td>
 	  			<td><?php if ($data['ktp'] == '' || $data['ktp'] == null){echo "";}else{echo "<b>T</b>";}?></td>
 	  			<td><?php if ($data['ijazah'] == '' || $data['ijazah'] == null){echo "";}else{echo "<b>T</b>";}?></td>
@@ -112,16 +117,57 @@
 	  			<td><?php if ($data['dok_pendukung_10'] == '' || $data['dok_pendukung_10'] == null){echo "";}else{echo "<b>T</b>";}?></td>
 	  			<td><?php if ($data['dok_pendukung_11'] == '' || $data['dok_pendukung_11'] == null){echo "";}else{echo "<b>T</b>";}?></td>
 	  			<td><?php if ($data['dok_pendukung_12'] == '' || $data['dok_pendukung_12'] == null){echo "";}else{echo "<b>T</b>";}?></td> -->
-	  			<td><?php if ($data['status_akhir']== 'Lulus')
-              {echo "Lulus";}
-              else{ echo "Tidak Lulus";};?></td>
+	  			<td><?php if ($data['status_akhir']== 'Lulus'){echo "Lulus";}
+              elseif($data['status_akhir'] == null){ echo "";}
+              else{ echo "Tidak Lulus";}?></td>
       		</tr>
       	<?php } 
           }?>
       </tbody>
-
-  		
   	</table>
+    <br/>
+    <table>
+      <tr>
+        <td>Keterangan</td>
+        <td colspan="4">:</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td>Syarat 1</td>
+        <td>:</td>
+        <td colspan="2">Umur Minimum Pelamar 30 Tahun</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td>Syarat 2</td>
+        <td>:</td>
+        <td colspan="2">Pendidikan Minimum Pelamar S1 Sederajat</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td>Dok. 1</td>
+        <td>:</td>
+        <td colspan="2">Surat Pendaftaran Pelamar Sebagai Calon Anggota Panwas</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td>Dok. 2</td>
+        <td>:</td>
+        <td colspan="2">Daftar Riwayat Hidup Pelamar</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td>Dok. 3</td>
+        <td>:</td>
+        <td colspan="2">Surat Pernyataan Pelamar</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td>Dok. 4</td>
+        <td>:</td>
+        <td colspan="2">Surat Keterangan Dari Pengurus Partai Politik, Bagi Pelamar yang Pernah Menjadi Anggota Parpol</td>
+      </tr>
+    </table>  
 
   </body>
   </html>
