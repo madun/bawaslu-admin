@@ -6,10 +6,16 @@ class model_dashboard extends CI_Model {
   public function getDataKotaKab(){
 
 		$sqlkab = "
-    SELECT C.kabupaten as name, COUNT(C.kabid) as data FROM
-          profil_pelamar P LEFT OUTER JOIN kabupaten C
-          ON P.id_kode_daerah = C.kabid
-          GROUP BY P.id_kode_daerah, C.kabupaten
+    SELECT C.kabupaten as name,
+    COUNT(C.kabupaten) as data,
+    count(case when P.jenis_kelamin='Laki-laki'
+             then 1 end ) as laki_laki,
+     count(case when P.jenis_kelamin='Perempuan'
+             then 1 end ) as perempuan
+    FROM
+    profil_pelamar P LEFT JOIN kabupaten C
+    ON P.id_kode_daerah = C.kabid
+    GROUP BY C.kabupaten
               ";
 		$r_sqlkab = $this->db->query($sqlkab);
     $hasil = json_decode(json_encode($r_sqlkab->result()), True);

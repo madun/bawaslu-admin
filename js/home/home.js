@@ -87,7 +87,7 @@ $.getJSON('dashboard/getDataKotaKab', function(json) {
 
     tooltip: {
         headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b> Person<br/>'
+        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b> Person<br/><b>{point.laki_laki} : Laki - Laki</b><br><b>{point.perempuan} : Perempuan</b>'
     },
 
     series: [{
